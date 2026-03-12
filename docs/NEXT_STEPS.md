@@ -1,32 +1,31 @@
 # Next Steps
 
-_Last updated: 2026-03-11_
+_Last updated: 2026-03-12_
 
-This file contains the prioritised action queue for the `rc-rover` project. When tasks are completed or priorities change, update this file accordingly.
+This file contains the prioritized action queue for `rc-rover`.
 
 ## Now
 
-- Accept or revise the Stage 0/1 platform recommendation in `docs/PLATFORM_SELECTION.md`.
-- Freeze the first-pass Stage 0/1 BOM in `hardware/bom-stage-0-1.csv`.
-- Decide the exact ESP32 development board and motor-driver path.
-- Start a sourcing pass for the chassis, controller, power parts, and wiring items.
+- Create a Stage 1 wiring diagram artifact with exact pin assignments derived from `docs/INTERFACE_MAP.md`.
+- Create firmware scaffold for ESP32 BLE teleop + differential motor output + deadman timeout.
+- Build and run Stage 1 bench bring-up checklist (USB, motor spin, battery ADC).
+- Start purchasing from `hardware/bom-stage-0-1.csv` and track substitutions explicitly.
 
 ## Next
 
-- Create a wiring plan for Stage 1 power, controller, and motors.
-- Define the manual-control interface in more detail (Bluetooth app, web UI, or fallback radio path).
-- Create a firmware scaffold for basic motor control and battery-voltage reporting.
-- Create a simple assembly checklist for Stage 0/1.
+- Execute full mechanical assembly on the selected chassis.
+- Run `docs/STAGE_1_ACCEPTANCE_TEST.md` and record pass/fail evidence.
+- Tune low-speed drivability parameters (PWM floor, turn scaling, timeout).
+- Add a simple operator checklist for pre-drive safety checks.
 
 ## Later
 
-- Add a front distance sensor for obstacle warning or auto-stop.
-- Add wheel encoders for speed and odometry.
-- Add an IMU for motion awareness.
-- Add structured telemetry logging.
-- Revisit industrial design and concept rendering after the base moves reliably.
+- Add front distance sensing (Stage 3 path).
+- Add wheel encoders and IMU for motion awareness (Stage 4 path).
+- Add telemetry logging and higher-level control loops.
+- Revisit Wi-Fi teleop mode as an optional control path after BLE baseline is stable.
 
 ## Blocked
 
-- Final naming and branding.
-- Any autonomy-stack work before Stage 1 passes.
+- Final naming/branding.
+- Autonomy stack and heavy perception before Stage 1 completion.

@@ -1,52 +1,37 @@
 # Architecture
 
-_Last updated: 2026‑03‑11_
+_Last updated: 2026-03-12_
 
-This document describes the current architecture of the `rc-rover` project and outlines future candidate architectures as the platform evolves.
+This document describes the current and planned architecture for `rc-rover`.
 
-## Current architecture
+## Current architecture (frozen for Stage 1)
 
-There is no hardware or software architecture yet.  The repository has been bootstrapped with a documentation system, but the rover platform has not been designed.
+Stage 1 architecture is now defined and intentionally minimal:
 
-## Future candidate architectures
+- Differential-drive Romi-class rover base
+- ESP32-DevKitC-32E microcontroller board
+- Romi-native motor driver/power distribution board
+- AA NiMH battery path with inline fuse and main switch
+- BLE manual teleoperation with deadman timeout and stop behavior
+- Basic battery voltage measurement via ADC
 
-The long‑term architecture is expected to evolve through the following stages:
+Detailed references:
+- `docs/HARDWARE_ARCHITECTURE.md`
+- `docs/INTERFACE_MAP.md`
+- `docs/STAGE_1_BUILD_PLAN.md`
 
-1. **Stage 0 – Rolling chassis**  
-   - Two drive wheels with motors and encoders.  
-   - Passive casters or skid steering.  
-   - Battery pack and power distribution board.  
-   - Minimal onboard electronics (microcontroller to drive motors).
+## Stage progression (unchanged direction)
 
-2. **Stage 1 – Manual remote control**  
-   - Traditional RC transmitter/receiver or Bluetooth remote for throttle and steering.  
-   - Microcontroller with motor driver and safety interlocks.  
-   - Simple power monitoring.
+1. **Stage 0 – Rolling chassis**
+2. **Stage 1 – Manual remote control (active focus)**
+3. **Stage 2 – Basic telemetry**
+4. **Stage 3 – First obstacle sensor**
+5. **Stage 4 – Motion sensing**
+6. **Stage 5 – Closed-loop control**
+7. **Stage 6 – Advanced autonomy (future)**
 
-3. **Stage 2 – Basic telemetry**  
-   - Voltage and current sensors to monitor battery health and motor load.  
-   - Telemetry sent back to the controller or logged onboard.  
-   - Provide visual indicators (LEDs) for battery status.
+## Architecture principles for current phase
 
-4. **Stage 3 – First obstacle sensor**  
-   - Install a front distance sensor (ultrasonic or time‑of‑flight).  
-   - Implement a warning or auto‑stop feature when an obstacle is detected within a threshold.  
-   - Deliverable: the rover warns or stops before hitting objects.
-
-5. **Stage 4 – Motion sensing**  
-   - Add wheel encoders to measure speed and distance.  
-   - Install an IMU to measure acceleration and angular velocity.  
-   - Compute estimated speed, heading and inclination.
-
-6. **Stage 5 – Closed‑loop control**  
-   - Use encoder and IMU feedback to implement closed‑loop speed control.  
-   - Implement heading hold and straight‑line correction.  
-   - Deliverable: smoother and more precise manual driving experience.
-
-7. **Stage 6 – Advanced autonomy (future)**  
-   - Integrate higher‑bandwidth sensors such as lidar or cameras.  
-   - Implement mapping and localisation.  
-   - Explore autonomous behaviours such as waypoint following and obstacle avoidance.  
-   - Deliverable: a semi‑autonomous or fully autonomous rover.
-
-Each stage builds upon the previous one, allowing modular growth.  Any changes to the architecture should be captured here and summarised in `PROJECT_STATE.md` and `HANDOFF.md`.
+- Minimize integration complexity before adding features.
+- Keep interfaces explicit and documented for reproducibility.
+- Reserve expansion points (encoders, I2C sensor path, telemetry channels) without implementing them prematurely.

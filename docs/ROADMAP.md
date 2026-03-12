@@ -1,54 +1,43 @@
 # Roadmap
 
-_Last updated: 2026‑03‑11_
+_Last updated: 2026-03-12_
 
-This roadmap outlines the phased growth of the `rc-rover` platform.  Each stage builds upon the previous one and introduces new capabilities.
+This roadmap outlines phased growth of `rc-rover`.
 
 ## Stage 0: Rolling chassis
 
-- Select or build a durable chassis with two drive wheels and casters or skid steering.
-- Install motors, wheels and a battery pack.
-- Add a simple motor driver and microcontroller to control the motors.
-- Provide a safe power distribution setup with fuse and switch.
-- **Deliverable:** a chassis that can move under manual voltage control (e.g. tethered or via a simple remote).
+- Select/build differential-drive chassis.
+- Install motors, wheels, battery path, and safe power switching.
+- Deliverable: chassis can be powered and prepared for controlled motion bring-up.
 
-## Stage 1: Manual remote control
+## Stage 1: Manual remote control (current active build)
 
-- Integrate a remote control system (traditional RC transmitter/receiver or Bluetooth).
-- Implement throttle and steering control via the microcontroller.
-- Add basic safety features (emergency stop).
-- **Deliverable:** a rover that can be driven remotely on a flat surface.
+- Integrate ESP32-based control with dual motor driver.
+- Implement BLE teleop, throttle/turn mapping, and safety stop behavior.
+- Add battery-voltage reporting baseline.
+- Deliverable: rover can be remotely driven on flat surface and pass Stage 1 acceptance tests.
 
 ## Stage 2: Basic telemetry
 
-- Add voltage and current sensors to monitor battery health and motor load.
-- Transmit or log telemetry data.
-- Provide visual indicators (LEDs) for battery status.
+- Add current sensing and richer battery health telemetry.
+- Improve runtime status indicators and logging.
 
 ## Stage 3: First obstacle sensor
 
-- Install a front distance sensor (ultrasonic or time‑of‑flight).
-- Implement a warning or auto‑stop feature when an obstacle is detected within a threshold.
-- **Deliverable:** the rover warns or stops before hitting objects.
+- Add front distance sensing (ToF or ultrasonic).
+- Implement warning and/or auto-stop threshold behavior.
 
 ## Stage 4: Motion sensing
 
-- Add wheel encoders to measure speed and distance.
-- Install an IMU to measure acceleration and angular velocity.
-- Compute estimated speed, heading and inclination.
-- **Deliverable:** the rover reports its motion state and can log or display it.
+- Add wheel encoders and IMU.
+- Estimate speed, heading, and motion state.
 
-## Stage 5: Closed‑loop control
+## Stage 5: Closed-loop control
 
-- Use encoder and IMU feedback to implement closed‑loop speed control.
-- Implement heading hold and straight‑line correction.
-- **Deliverable:** smoother and more precise manual driving experience.
+- Add closed-loop speed control and heading stabilization.
+- Improve drivability consistency.
 
 ## Stage 6: Advanced autonomy (future)
 
-- Integrate higher‑bandwidth sensors such as lidar or cameras.
-- Implement mapping and localisation.
-- Explore autonomous behaviours such as waypoint following and obstacle avoidance.
-- **Deliverable:** a semi‑autonomous or fully autonomous rover.
-
-The roadmap should be revisited and updated as the project progresses.  Completed stages should be marked and future stages can be adjusted based on lessons learned.
+- Evaluate camera/lidar and mapping/localization approaches.
+- Implement semi-autonomous behaviors after lower stages are stable.

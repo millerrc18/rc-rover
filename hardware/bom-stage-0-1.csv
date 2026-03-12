@@ -1,18 +1,21 @@
-category,item,example_part,qty,status,est_unit_cost_usd,est_extended_cost_usd,notes
-chassis,Robotics-first differential-drive base,Pololu Romi Chassis Kit,1,recommended,39.95,39.95,Reference chassis class for Stage 0 and 1
-controller,Microcontroller dev board,ESP32-DevKitC class board,1,recommended,12.00,12.00,Exact vendor can vary; choose a mainstream ESP32 dev board
-motor_driver,Dual DC motor driver,Pololu Motor Driver and Power Distribution Board for Romi Chassis,1,recommended,34.95,34.95,Convenient Romi-native path
-encoders,Wheel encoder add-on,Pololu Romi Encoder Pair Kit,1,defer_to_stage_3,9.95,9.95,Can be ordered now or deferred until motion sensing stage
-power,Battery cells,AA NiMH rechargeable cells pack of 6,1,recommended,20.00,20.00,Simple starting path using Romi battery holder
-power,Smart charger,AA NiMH charger,1,recommended,20.00,20.00,Exact model flexible
-power,Inline fuse holder and fuses,Mini inline fuse setup,1,recommended,8.00,8.00,Keep power path protected from day one
-power,Main power switch,Panel or inline switch,1,recommended,6.00,6.00,Use a clearly labeled shutoff
-control,Manual teleop path,Bluetooth/Wi-Fi control via ESP32,1,recommended,0.00,0.00,No separate radio required for first pass
-sensor,Battery voltage monitor,Voltage divider or ready-made module,1,recommended,3.00,3.00,Needed for Stage 1 pass criteria
-sensor,Front distance sensor,VL53L1X breakout,1,next_stage,18.00,18.00,First recommended obstacle sensor after manual control
-wiring,Jumper and hookup wire kit,Assorted stranded wire and Dupont/Qwiic leads,1,recommended,15.00,15.00,Need enough slack for future sensors
-assembly,Fasteners and standoffs,M2/M3 mixed kit,1,recommended,12.00,12.00,Needed for controller and accessory mounting
-assembly,Breadboard or proto area,Half-size breadboard or perfboard,1,recommended,6.00,6.00,Useful for early power and telemetry work
-telemetry,USB cable and serial access,USB data cable,1,recommended,5.00,5.00,Needed for flashing and debug output
-safety,Emergency stop approach,Hard stop command and power cutoff method,1,recommended,5.00,5.00,Implementation can be simple in Stage 1
-,total,,,subtotal,214.85,214.85,Estimated Stage 0/1 subtotal before tax and shipping
+category,item,recommended_part,manufacturer_or_source,qty,status,est_unit_cost_usd,est_extended_cost_usd,justification,notes
+chassis,Differential-drive chassis base,Romi Chassis Kit - Blue,Pololu #3500,1,recommended,39.95,39.95,Robotics-first modular base aligned to Stage 0/1,Reference class for project baseline
+motors,DC gearmotors for Romi,Mini Plastic Gearmotor 120:1 Pair for Romi,Pololu #1520,1,recommended,24.95,24.95,Known-compatible torque/speed starter choice,May swap ratio later based on handling
+wheels_tires,Romi wheel set,70x8mm Wheels Pair for Romi,Pololu #1438,1,recommended,7.95,7.95,Guaranteed chassis fit,Use matching pair
+casters,Ball caster pair,Romi Ball Caster Kit,Pololu #3544,1,recommended,5.95,5.95,Stable passive support for differential drive,Low complexity vs suspension
+controller,ESP32 development board,ESP32-DevKitC-32E,Espressif (official dev board),1,recommended,13.00,13.00,Standardized board for firmware bring-up and documentation,Equivalent distributor-verified board acceptable if pinout matches
+motor_driver,Romi-native motor driver + power board,Motor Driver and Power Distribution Board for Romi Chassis,Pololu #3543,1,recommended,34.95,34.95,Lowest integration risk for Stage 1,Primary motor-driver path decision
+power,Battery cells (AA NiMH),Eneloop AA NiMH 2000mAh pack (x6 cells),Panasonic / equivalent quality brand,1,recommended,22.00,22.00,Reliable rechargeable chemistry for safe beginner workflow,Capacity/brand can vary if LSD NiMH quality is similar
+power,Smart charger for NiMH,Panasonic BQ-CC17 or equivalent NiMH smart charger,Panasonic / equivalent,1,recommended,24.00,24.00,Protects battery life and reduces charging risk,Must support AA NiMH termination
+power,Inline fuse holder + blade fuses,ATO/ATC inline holder + 5A/7.5A fuses,Littelfuse/Bussmann/equivalent,1,recommended,8.00,8.00,Baseline electrical protection in main power path,Start with conservative fuse then tune
+power,Main power switch,Panel-mount SPST rocker switch >=5A @ 12V,Generic reputable vendor,1,recommended,6.00,6.00,Hard power cutoff for safety and servicing,Mount accessible to operator
+sensor,Battery voltage monitor path,2-resistor divider + filter cap (or ready ADC module),Generic electronics supplier,1,recommended,3.00,3.00,Needed for Stage 1 battery reporting acceptance criterion,Calibrate in firmware
+control,Manual control method,BLE teleop from phone/controller app,ESP32 built-in BLE,1,recommended,0.00,0.00,Simplest no-extra-radio path for Stage 1,Wi-Fi teleop deferred as alternate
+wiring,Wire and connectors kit,22AWG stranded silicone wire + JST/Dupont assortment,Adafruit/SparkFun/Amazon basics,1,recommended,16.00,16.00,Sufficient wiring quality for power + logic harnessing,Prefer locking connectors for power
+assembly,Fasteners and standoffs,M2/M3 nylon + steel standoff/fastener kit,Generic hardware supplier,1,recommended,12.00,12.00,Mount boards securely and serviceably,Keep spare assortment
+assembly,Proto area for small circuits,Half-size perfboard or mini protoboard,Adafruit/SparkFun/equivalent,1,recommended,6.00,6.00,Supports simple divider/conditioning circuits,Optional if using dedicated modules
+telemetry,USB data cable,USB-A to Micro-USB or USB-C (board dependent),Anker/UGREEN/equivalent,1,recommended,6.00,6.00,Required for flashing + serial debug,Confirm connector type on purchased board
+safety,Emergency stop implementation,Software deadman + physical switch cutoff,Project implementation,1,recommended,0.00,0.00,Meets Stage 1 safety baseline without extra electronics,Document timeout value in firmware
+future,Wheel encoder kit (optional early buy),Romi Encoder Pair Kit,Pololu #3542,1,defer_to_stage_3_4,9.95,9.95,Supports future odometry/closed-loop work,Not required for Stage 1 pass
+future,Front distance sensor (future),VL53L1X ToF sensor breakout,Pololu #3415 or equivalent,1,next_stage,18.00,18.00,Planned Stage 3 obstacle sensing path,Defer integration until Stage 1 stable
+,total,,,,subtotal,258.70,258.70,,Estimated Stage 0/1 subtotal before tax and shipping
