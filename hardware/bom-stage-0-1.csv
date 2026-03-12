@@ -1,0 +1,18 @@
+category,item,example_part,qty,status,est_unit_cost_usd,est_extended_cost_usd,notes
+chassis,Robotics-first differential-drive base,Pololu Romi Chassis Kit,1,recommended,39.95,39.95,Reference chassis class for Stage 0 and 1
+controller,Microcontroller dev board,ESP32-DevKitC class board,1,recommended,12.00,12.00,Exact vendor can vary; choose a mainstream ESP32 dev board
+motor_driver,Dual DC motor driver,Pololu Motor Driver and Power Distribution Board for Romi Chassis,1,recommended,34.95,34.95,Convenient Romi-native path
+encoders,Wheel encoder add-on,Pololu Romi Encoder Pair Kit,1,defer_to_stage_3,9.95,9.95,Can be ordered now or deferred until motion sensing stage
+power,Battery cells,AA NiMH rechargeable cells pack of 6,1,recommended,20.00,20.00,Simple starting path using Romi battery holder
+power,Smart charger,AA NiMH charger,1,recommended,20.00,20.00,Exact model flexible
+power,Inline fuse holder and fuses,Mini inline fuse setup,1,recommended,8.00,8.00,Keep power path protected from day one
+power,Main power switch,Panel or inline switch,1,recommended,6.00,6.00,Use a clearly labeled shutoff
+control,Manual teleop path,Bluetooth/Wi-Fi control via ESP32,1,recommended,0.00,0.00,No separate radio required for first pass
+sensor,Battery voltage monitor,Voltage divider or ready-made module,1,recommended,3.00,3.00,Needed for Stage 1 pass criteria
+sensor,Front distance sensor,VL53L1X breakout,1,next_stage,18.00,18.00,First recommended obstacle sensor after manual control
+wiring,Jumper and hookup wire kit,Assorted stranded wire and Dupont/Qwiic leads,1,recommended,15.00,15.00,Need enough slack for future sensors
+assembly,Fasteners and standoffs,M2/M3 mixed kit,1,recommended,12.00,12.00,Needed for controller and accessory mounting
+assembly,Breadboard or proto area,Half-size breadboard or perfboard,1,recommended,6.00,6.00,Useful for early power and telemetry work
+telemetry,USB cable and serial access,USB data cable,1,recommended,5.00,5.00,Needed for flashing and debug output
+safety,Emergency stop approach,Hard stop command and power cutoff method,1,recommended,5.00,5.00,Implementation can be simple in Stage 1
+,total,,,subtotal,214.85,214.85,Estimated Stage 0/1 subtotal before tax and shipping

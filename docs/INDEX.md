@@ -17,6 +17,9 @@ This document serves as a table of contents for the `docs/` directory.  Use it t
 - **PROJECT_CHARTER.md**: Mission, principles, learning goals and scope boundaries.
 - **ROADMAP.md**: Phased development plan.
 - **CONTRIBUTING.md**: Guidelines for contributions and workflow.
+- **PLATFORM_SELECTION.md**: Stage 0/1 comparison of base-platform options and forced recommendation.
+- **STAGE_1_ACCEPTANCE_TEST.md**: Defines the pass/fail criteria for the first working rover milestone.
+- **../hardware/bom-stage-0-1.csv**: First-pass bill of materials for the initial build.
 
 ## Templates
 

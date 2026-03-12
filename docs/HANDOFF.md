@@ -1,46 +1,47 @@
 # Handoff Summary
 
-_Last updated: 2026‑03‑11_
+_Last updated: 2026-03-11_
 
-This document provides a quick snapshot of the current state of the project.  It is intended for a brand new agent or session to regain context quickly.  After completing any work, update this summary accordingly.
+This document provides a quick snapshot of the current state of the project. It is intended for a brand new agent or session to regain context quickly.
 
 ## Current phase
 
-Repository bootstrap
+Stage 0/1 hardware direction freeze
 
 ## Current objective
 
-Finalise the initial documentation and memory system so that future work can begin with a clear structure.
+Lock the first base-platform choices tightly enough to begin sourcing parts and preparing Stage 1 assembly and firmware work.
 
 ## Known constraints
 
 - Naming is temporary (`rc-rover`) and may change later.
-- No hardware or software has been built yet; focus is on scaffolding.
-- Avoid over‑engineering; keep documentation concise and practical.
-- The project aims to be long‑term and modular, so the documentation system must be scalable.
+- The project should avoid runaway scope; no autonomy, cameras, or advanced sensors in Stage 1.
+- The base must stay modular enough to support encoders, telemetry, and future sensors.
+- The repo is the durable project memory and must stay current.
 
 ## Open questions
 
-- Which control architecture (traditional RC transmitter vs. microcontroller + Bluetooth/Wi‑Fi) should be used for the first rover?
-- Which chassis platform (off‑the‑shelf vs. custom) will best support modular growth?
-- What sensors should be prioritised in the first expansion after manual control?
+- Which exact ESP32 board should be the standard dev board for the project?
+- Should the first motor-driver path be Romi-native or a more generic driver path?
+- Should the first manual-control interface be Bluetooth serial/app control or Wi-Fi web teleop?
 
-## Next three high‑priority actions
+## Next three high-priority actions
 
-1. **Review and refine documentation structure**  
-   Ensure that all required files are present and that the workflow defined in `AGENTS.md` is clear and actionable.
+1. **Accept or refine the platform recommendation**  
+   Review `docs/PLATFORM_SELECTION.md` and confirm the robotics-first differential-drive direction.
 
-2. **Research control architectures**  
-   Investigate options for manual remote control (traditional RC transmitter, Bluetooth, Wi‑Fi, hybrid) and document the pros and cons.
+2. **Freeze the first BOM revision**  
+   Review `hardware/bom-stage-0-1.csv` and replace any weak placeholders with exact part numbers where needed.
 
-3. **Select a chassis platform**  
-   Identify candidate chassis (e.g. RC trucks, robot kits, custom frames) that meet the requirements for modular growth and create an initial bill of materials.
+3. **Prepare the first wiring and firmware scaffold**  
+   Create a Stage 1 wiring plan and a minimal firmware structure for motor control plus battery-voltage reporting.
 
 ## Key files to read
 
-- `README.md`: Project overview and repo structure.
-- `AGENTS.md`: Agent workflow and documentation rules.
-- `docs/PROJECT_STATE.md`: Canonical current state.
-- `docs/NEXT_STEPS.md`: Prioritised action queue.
-- `docs/ARCHITECTURE.md`: Current and future architecture.
-- `docs/PROJECT_CHARTER.md`: Mission and scope.
+- `README.md`
+- `AGENTS.md`
+- `docs/PROJECT_STATE.md`
+- `docs/PLATFORM_SELECTION.md`
+- `docs/STAGE_1_ACCEPTANCE_TEST.md`
+- `hardware/bom-stage-0-1.csv`
+- `docs/NEXT_STEPS.md`

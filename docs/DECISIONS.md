@@ -25,3 +25,18 @@ This file records important decisions made in the project.  Each entry should in
 **Decision:** Use the temporary name `rc-rover` until a permanent name is chosen.  
 **Rationale:** The project needs a working identifier, but the final branding will be determined later.  
 **Implications:** Avoid tying external dependencies (e.g. printed labels, domain names) to the temporary name.
+---
+
+**Date:** 2026-03-11  
+**Status:** Accepted  
+**Decision:** Use a robotics-first differential-drive rover as the Stage 0/1 base-platform direction.  
+**Rationale:** Differential drive gives the project the cleanest path into sensing, encoders, telemetry, and later autonomy while keeping the mechanical system simple at the beginning.  
+**Consequences:** Early work should optimize for flat deck space, simple motor control, clear wiring, and repeatable documentation rather than car-like steering or custom-frame aesthetics.
+
+---
+
+**Date:** 2026-03-11  
+**Status:** Accepted  
+**Decision:** Use an ESP32-class development board as the primary early-stage controller.  
+**Rationale:** ESP32 provides a practical bridge between basic embedded control and wireless experimentation without requiring a Linux-class compute stack in the first build.  
+**Consequences:** The first firmware work should target simple motor control, serial debug, and battery-voltage reporting, with wireless teleop as a likely next step.

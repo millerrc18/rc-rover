@@ -12,7 +12,7 @@ At this phase the focus is on creating a durable project structure, not on hardw
 
 ## Current objective
 
-Set up a documentation and memory system that allows future sessions to recover context solely from the repository.
+Freeze the Stage 0/1 platform direction, draft the initial hardware decision package, and define the first hardware acceptance test.
 
 ## Summary of progress
 
@@ -24,22 +24,23 @@ Set up a documentation and memory system that allows future sessions to recover 
 ## Completed tasks
 
 - Created repository `rc-rover` (temporary name).
-- Added high‑level project description and organisation.
+- Added high-level project description and organisation.
 - Added documentation structure under `docs/`.
 - Added configuration file for Codex/agent.
 - Initialised the memory system with default content.
+- Added the Stage 0/1 decision package: platform selection, initial BOM, and Stage 1 acceptance test.
 
 ## Open tasks
 
-See `docs/NEXT_STEPS.md` for prioritised action items.
+See `docs/NEXT_STEPS.md` for prioritised action items. The highest-priority branch of work is now the Stage 0/1 base-platform decision and parts freeze.
 
 ## Hardware state
 
-None yet.
+No hardware purchased or assembled yet. Reference architecture now points to a robotics-first differential-drive base with an ESP32-class controller.
 
 ## Software state
 
-No firmware or software written.  This phase is only documentation.
+No firmware written yet. The project now has enough architectural direction to begin Stage 0/1 hardware research and part ordering.
 
 ## Assumptions
 
