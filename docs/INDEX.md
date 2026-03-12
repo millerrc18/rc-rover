@@ -1,37 +1,42 @@
 # Documentation Index
 
-This document serves as a table of contents for the `docs/` directory.  Use it to locate information and understand where to add new content.
+This file maps the contents of `docs/`.
 
 ## Core documents
 
-- **START_HERE.md**: Entry point for new contributors or sessions.  Explains how to use the documentation system.
-- **PROJECT_STATE.md**: Canonical description of the current state of the project.
-- **NEXT_STEPS.md**: Prioritised queue of tasks.
-- **DECISIONS.md**: Log of decisions with dates, status, rationale and consequences.
-- **ARCHITECTURE.md**: Description of current and future system architecture.
-- **BUILD_LOG.md**: Chronological log of work done.
-- **LEARNINGS.md**: Record of lessons and heuristics.
-- **BACKLOG.md**: Ideas and tasks not yet prioritised.
-- **GLOSSARY.md**: Definitions of project terms.
-- **HANDOFF.md**: Quick summary for resuming sessions.
-- **PROJECT_CHARTER.md**: Mission, principles, learning goals and scope boundaries.
-- **ROADMAP.md**: Phased development plan.
-- **CONTRIBUTING.md**: Guidelines for contributions and workflow.
-- **PLATFORM_SELECTION.md**: Stage 0/1 comparison of base-platform options and forced recommendation.
-- **STAGE_1_ACCEPTANCE_TEST.md**: Defines the pass/fail criteria for the first working rover milestone.
-- **../hardware/bom-stage-0-1.csv**: First-pass bill of materials for the initial build.
+- **START_HERE.md**: Entry point for new contributors/sessions.
+- **PROJECT_STATE.md**: Canonical current project state.
+- **NEXT_STEPS.md**: Prioritized action queue.
+- **DECISIONS.md**: Decision log with rationale and consequences.
+- **ARCHITECTURE.md**: Current and future architecture summary.
+- **BUILD_LOG.md**: Chronological work log.
+- **LEARNINGS.md**: Lessons and heuristics.
+- **BACKLOG.md**: Unprioritized ideas/tasks.
+- **GLOSSARY.md**: Project terminology.
+- **HANDOFF.md**: Session hand-off snapshot.
+- **PROJECT_CHARTER.md**: Mission, principles and scope.
+- **ROADMAP.md**: Staged growth plan.
+- **CONTRIBUTING.md**: Contribution workflow.
+
+## Stage 0/1 hardware freeze artifacts
+
+- **PLATFORM_SELECTION.md**: Stage 0/1 platform decision rationale.
+- **HARDWARE_ARCHITECTURE.md**: Frozen Stage 1 hardware architecture and recommendation rationale.
+- **INTERFACE_MAP.md**: Stage 1 interface-level mapping (power, control, safety, deferred interfaces).
+- **STAGE_1_BUILD_PLAN.md**: Build and bring-up plan for Stage 1.
+- **STAGE_1_ACCEPTANCE_TEST.md**: Stage 1 pass/fail criteria.
+- **../hardware/bom-stage-0-1.csv**: First-pass sourced BOM.
 
 ## Templates
 
-The `templates/` subdirectory contains reusable templates for recording different types of information:
+`docs/templates/` includes reusable templates:
+- `session_note.md`
+- `architecture_decision_record.md`
+- `experiment_record.md`
+- `milestone_review.md`
+- `task_brief.md`
 
-- **session_note.md**: Template for a session note or work log entry.
-- **architecture_decision_record.md**: Template for recording architecture decisions.
-- **experiment_record.md**: Template for documenting experiments.
-- **milestone_review.md**: Template for reviewing progress at a milestone.
-- **task_brief.md**: Template for briefing a future task.
+## Quality logs
 
-## Adding new documents
-
-- New documentation files should reside in `docs/` (or a subdirectory) and be referenced from this index if they are part of the public documentation.
-- When adding a new template, place it in `docs/templates/` and update this index.
+- `docs/quality/issue_log.md`
+- `docs/quality/improvement_log.md`

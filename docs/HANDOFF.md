@@ -1,47 +1,55 @@
 # Handoff Summary
 
-_Last updated: 2026-03-11_
+_Last updated: 2026-03-12_
 
-This document provides a quick snapshot of the current state of the project. It is intended for a brand new agent or session to regain context quickly.
+Quick snapshot for the next session.
 
 ## Current phase
 
-Stage 0/1 hardware direction freeze
+Stage 0/1 hardware freeze (in execution)
 
 ## Current objective
 
-Lock the first base-platform choices tightly enough to begin sourcing parts and preparing Stage 1 assembly and firmware work.
+Use the frozen hardware package to begin sourcing, wiring detail, and Stage 1 firmware/mechanical bring-up.
 
-## Known constraints
+## What just changed
 
-- Naming is temporary (`rc-rover`) and may change later.
-- The project should avoid runaway scope; no autonomy, cameras, or advanced sensors in Stage 1.
-- The base must stay modular enough to support encoders, telemetry, and future sensors.
-- The repo is the durable project memory and must stay current.
+- Added Stage 1 hardware freeze docs:
+  - `docs/HARDWARE_ARCHITECTURE.md`
+  - `docs/INTERFACE_MAP.md`
+  - `docs/STAGE_1_BUILD_PLAN.md`
+- Strengthened `hardware/bom-stage-0-1.csv` into a sourced first-pass BOM.
+- Recorded explicit decisions:
+  - ESP32 board: Espressif ESP32-DevKitC-32E
+  - Motor-driver path: Pololu Romi Motor Driver and Power Distribution Board
+  - Manual-control baseline: BLE teleop
+- Realigned `docs/PROJECT_STATE.md` with active Stage 0/1 freeze work (not bootstrap).
+
+## Constraints to preserve
+
+- Keep Stage 1 simple and buildable.
+- Differential-drive robotics-first direction is fixed.
+- ESP32-class control and manual-control-first remain fixed.
+- No autonomy/camera/lidar scope in Stage 1.
 
 ## Open questions
 
-- Which exact ESP32 board should be the standard dev board for the project?
-- Should the first motor-driver path be Romi-native or a more generic driver path?
-- Should the first manual-control interface be Bluetooth serial/app control or Wi-Fi web teleop?
+- Which BLE control app/profile should be standardized for first firmware tests?
+- What timeout and ramp limits feel safest while still drivable?
+- Which acceptable alternates should be pre-approved for stock shortages?
 
 ## Next three high-priority actions
 
-1. **Accept or refine the platform recommendation**  
-   Review `docs/PLATFORM_SELECTION.md` and confirm the robotics-first differential-drive direction.
+1. Produce exact wiring/pin map and include continuity/polarity checklist.
+2. Implement firmware scaffold for BLE teleop + motor control + deadman + battery ADC.
+3. Begin part ordering and log substitutions/availability notes.
 
-2. **Freeze the first BOM revision**  
-   Review `hardware/bom-stage-0-1.csv` and replace any weak placeholders with exact part numbers where needed.
+## Key files to read first next session
 
-3. **Prepare the first wiring and firmware scaffold**  
-   Create a Stage 1 wiring plan and a minimal firmware structure for motor control plus battery-voltage reporting.
-
-## Key files to read
-
-- `README.md`
-- `AGENTS.md`
 - `docs/PROJECT_STATE.md`
-- `docs/PLATFORM_SELECTION.md`
-- `docs/STAGE_1_ACCEPTANCE_TEST.md`
+- `docs/HARDWARE_ARCHITECTURE.md`
+- `docs/INTERFACE_MAP.md`
+- `docs/STAGE_1_BUILD_PLAN.md`
 - `hardware/bom-stage-0-1.csv`
+- `docs/STAGE_1_ACCEPTANCE_TEST.md`
 - `docs/NEXT_STEPS.md`
