@@ -73,3 +73,12 @@ This file records important decisions made in the project.  Each entry should in
 **Rationale:** Previous docs allowed board-dependent and power-source ambiguity that could block bench bring-up reproducibility.  
 **Consequences:** Wiring docs, BOM, and bring-up workflow now use a single explicit power path and connector standard for Stage 1.
 
+
+
+---
+
+**Date:** 2026-03-13  
+**Status:** Accepted  
+**Decision:** Implement Stage 1 firmware as a minimal single-loop PlatformIO/Arduino baseline with a plain-text BLE write protocol (`T,R,H,E,C`) for fastest bench bring-up.  
+**Rationale:** Stage 1 success depends on fast, debuggable hardware validation rather than protocol sophistication; a compact ASCII control packet is easy to send from generic phone BLE tools and inspect over serial.  
+**Consequences:** Control protocol is intentionally simple and may be superseded later by a binary or schema-validated profile after Stage 1 acceptance is complete.

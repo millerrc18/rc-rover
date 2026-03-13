@@ -1,28 +1,24 @@
 # Handoff Summary
 
-_Last updated: 2026-03-12_
+_Last updated: 2026-03-13_
 
 Quick snapshot for the next session.
 
 ## Current phase
 
-Stage 1 wiring + firmware bring-up execution (ready)
+Stage 1 firmware baseline complete; bench validation execution in progress
 
 ## Current objective
 
-Use the frozen Stage 1 wiring/pin/firmware package to perform real bench bring-up and acceptance testing.
+Use the committed Stage 1 firmware baseline and bring-up docs to run and log real bench sessions.
 
 ## What just changed
 
-- Added Stage 1 bring-up package docs:
-  - `docs/STAGE_1_WIRING_DIAGRAM.md`
-  - `docs/STAGE_1_PIN_MAP.md`
-  - `docs/FIRMWARE_SCAFFOLD.md`
-- Updated `docs/HARDWARE_ARCHITECTURE.md` with explicit power-flow diagram and exact ESP32 power-mode explanation.
-- Updated `docs/INTERFACE_MAP.md` with frozen pin-level interface entries.
-- Updated `hardware/bom-stage-0-1.csv` to remove board-dependent ambiguity:
-  - frozen untethered logic-power harness path
-  - frozen USB cable type (USB-A to Micro-USB data cable)
+- Added executable firmware baseline project: `firmware/stage1-esp32-baseline/` with safe startup, BLE command intake, differential mix, deadman timeout, e-stop latch, and battery ADC reporting.
+- Added BLE command profile reference: `docs/BLE_CONTROL_PROFILE.md`.
+- Added reusable bring-up run template: `docs/BENCH_BRINGUP_LOG.md`.
+- Added initial tuning reference sheet: `docs/STAGE_1_TUNING.md`.
+- Updated canonical state/action docs and quality logs for Stage 1 bench execution.
 
 ## Constraints to preserve
 
@@ -33,15 +29,15 @@ Use the frozen Stage 1 wiring/pin/firmware package to perform real bench bring-u
 
 ## Open questions
 
-- Which BLE control app/profile should be standardized for first firmware tests?
-- What deadman timeout and ramp limits feel safest while still drivable?
-- Do we need a low-voltage duty-cap policy in Stage 1 or warning-only behavior first?
+- What measured deadman timeout feels safest while still drivable on real hardware?
+- Do we need non-zero PWM floor after first wheel-off-ground tests?
+- Should low-voltage handling remain warning-only or add duty-cap in Stage 1.1?
 
 ## Next three high-priority actions
 
-1. Wire hardware exactly per `docs/STAGE_1_WIRING_DIAGRAM.md` and run pre-power checklist.
-2. Implement initial firmware per `docs/FIRMWARE_SCAFFOLD.md` using `docs/STAGE_1_PIN_MAP.md`.
-3. Run `docs/STAGE_1_ACCEPTANCE_TEST.md` and record evidence/outcomes.
+1. Flash and smoke-test `firmware/stage1-esp32-baseline/` using USB bench power with wheels elevated.
+2. Run and log full checks in `docs/BENCH_BRINGUP_LOG.md` and `docs/STAGE_1_TUNING.md`.
+3. Execute `docs/STAGE_1_ACCEPTANCE_TEST.md` and capture evidence/outcomes.
 
 ## Key files to read first next session
 
@@ -51,5 +47,7 @@ Use the frozen Stage 1 wiring/pin/firmware package to perform real bench bring-u
 - `docs/FIRMWARE_SCAFFOLD.md`
 - `docs/HARDWARE_ARCHITECTURE.md`
 - `docs/INTERFACE_MAP.md`
-- `hardware/bom-stage-0-1.csv`
+- `docs/BLE_CONTROL_PROFILE.md`
+- `docs/BENCH_BRINGUP_LOG.md`
+- `docs/STAGE_1_TUNING.md`
 - `docs/STAGE_1_ACCEPTANCE_TEST.md`

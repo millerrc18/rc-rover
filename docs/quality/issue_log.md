@@ -11,3 +11,11 @@
 - **Impact:** Could cause wrong cable purchase, wiring errors, and delayed bench bring-up.
 - **Resolution:** Added explicit power-mode definitions, exact wiring doc, and frozen BOM entries for logic-power harness and USB-A to Micro-USB cable.
 - **Evidence:** Cross-document updates in `HARDWARE_ARCHITECTURE`, `INTERFACE_MAP`, new Stage 1 wiring/pin docs, and BOM revision.
+
+
+## 2026-03-13
+
+- **Issue:** Repository had Stage 1 firmware scaffold only and no executable firmware baseline for immediate bench bring-up.
+- **Impact:** Bench validation and acceptance testing could not be performed from repo contents alone.
+- **Resolution:** Added executable firmware project and aligned BLE/tuning/bring-up docs to implementation details.
+- **Evidence:** `firmware/stage1-esp32-baseline/`, `docs/BLE_CONTROL_PROFILE.md`, `docs/BENCH_BRINGUP_LOG.md`, `docs/STAGE_1_TUNING.md`.

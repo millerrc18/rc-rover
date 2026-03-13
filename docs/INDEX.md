@@ -28,6 +28,9 @@ This file maps the contents of `docs/`.
 - **FIRMWARE_SCAFFOLD.md**: Implementation-ready Stage 1 firmware behavior blueprint.
 - **STAGE_1_BUILD_PLAN.md**: Build and bring-up plan for Stage 1.
 - **STAGE_1_ACCEPTANCE_TEST.md**: Stage 1 pass/fail criteria.
+- **BLE_CONTROL_PROFILE.md**: Stage 1 BLE service/packet format used by firmware baseline.
+- **BENCH_BRINGUP_LOG.md**: Reusable log template for real bench bring-up sessions.
+- **STAGE_1_TUNING.md**: Stage 1 drivability and safety tuning worksheet.
 - **../hardware/bom-stage-0-1.csv**: First-pass sourced BOM.
 
 ## Templates
