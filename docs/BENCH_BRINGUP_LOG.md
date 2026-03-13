@@ -2,7 +2,9 @@
 
 _Last updated: 2026-03-13_
 
-Use this as a repeatable run log for each real hardware bring-up session.
+This document is a **future-use template** for each real hardware bring-up session.
+
+Current repository reality: no bench bring-up sessions have been performed yet.
 
 ## Run template
 

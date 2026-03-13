@@ -32,6 +32,7 @@ This file maps the contents of `docs/`.
 - **BENCH_BRINGUP_LOG.md**: Reusable log template for real bench bring-up sessions.
 - **STAGE_1_TUNING.md**: Stage 1 drivability and safety tuning worksheet.
 - **../hardware/bom-stage-0-1.csv**: First-pass sourced BOM.
+- **PROCUREMENT_STATUS.md**: Stage 0/1 order/receiving/inspection tracker.
 
 ## Templates
 

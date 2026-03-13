@@ -6,29 +6,28 @@ This file is the canonical description of current project status.
 
 ## Current phase
 
-**Stage 1 firmware baseline implemented (ready for real bench bring-up logging)**
+**Stage 1 execution readiness (pre-procurement, pre-assembly, pre-bring-up)**
 
 ## Current objective
 
-Run real bench bring-up sessions using the committed Stage 1 ESP32 firmware baseline and new test artifacts.
+Begin real-world Stage 1 execution in the correct order: procure parts, inspect parts, assemble safely, then flash and run first bench bring-up.
 
 ## Summary of progress
 
 - Platform direction is locked to a robotics-first differential-drive base.
 - Stage 1 hardware and interface freeze artifacts exist and are cross-linked.
-- Stage 1 execution package now includes exact wiring/pin docs, firmware scaffold, and a committed executable baseline project:
+- Stage 1 execution package includes exact wiring/pin docs, firmware scaffold, and a committed executable baseline project:
   - `docs/STAGE_1_WIRING_DIAGRAM.md`
   - `docs/STAGE_1_PIN_MAP.md`
   - `docs/FIRMWARE_SCAFFOLD.md`
   - `firmware/stage1-esp32-baseline/`
-- Added bring-up support documents for real bench testing:
+- Bring-up support documents are prepared for future physical testing:
   - `docs/BLE_CONTROL_PROFILE.md`
   - `docs/BENCH_BRINGUP_LOG.md`
   - `docs/STAGE_1_TUNING.md`
-- Logic-power ambiguity is resolved:
+- Logic-power ambiguity is resolved in documentation:
   - Bench bring-up ESP32 power: USB-A to Micro-USB cable.
   - Untethered ESP32 power: motor board regulated 5V to ESP32 5V pin.
-- BOM now freezes exact USB connector type for DevKitC-32E and adds explicit logic-power harness item.
 
 ## Completed tasks
 
@@ -42,15 +41,20 @@ Run real bench bring-up sessions using the committed Stage 1 ESP32 firmware base
 
 ## Open tasks
 
-See `docs/NEXT_STEPS.md` for queue order. Immediate work is real hardware bring-up execution, tuning capture, and Stage 1 acceptance evidence.
+See `docs/NEXT_STEPS.md` for queue order. Immediate work is procurement, incoming inspection, and first physical assembly before any bench flashing/validation.
 
 ## Hardware state
 
-No full rover assembled yet, but wiring and power-path docs are now explicit enough for a real bench bring-up session.
+- No Stage 1 parts have been ordered yet.
+- No parts have been received or inspected yet.
+- No assembly has started.
+- No wiring has been performed on physical hardware.
+- No firmware has been flashed to physical hardware.
+- No bench bring-up session has occurred.
 
 ## Software state
 
-Production firmware baseline now exists in `firmware/stage1-esp32-baseline/` and is aligned to frozen Stage 1 pins and interfaces.
+Production firmware baseline exists in `firmware/stage1-esp32-baseline/` and is aligned to frozen Stage 1 pins and interfaces. It has **not yet been validated on physical hardware**.
 
 ## Confirmed decisions now in effect
 

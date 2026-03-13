@@ -37,3 +37,11 @@ This log records every meaningful modification or work session on the project.  
 - Added `docs/BENCH_BRINGUP_LOG.md` as reusable run log template for USB/battery/safety checks.
 - Added `docs/STAGE_1_TUNING.md` with initial tuning constants and bench test capture table.
 - Updated canonical state docs (`PROJECT_STATE`, `NEXT_STEPS`, `HANDOFF`, `INDEX`) and quality logs to reflect implementation readiness.
+
+## 2026-03-13
+
+- Realigned canonical project status docs to match physical reality: no procurement, no assembly/wiring, no hardware flashing, and no bench bring-up completed yet.
+- Updated `PROJECT_STATE`, `NEXT_STEPS`, and `HANDOFF` to move immediate execution back to pre-procurement and pre-assembly readiness.
+- Converted `BENCH_BRINGUP_LOG` framing to explicit future-use template language.
+- Added `docs/PROCUREMENT_STATUS.md` to track ordered/received/inspected status for Stage 0/1 parts.
+- Updated `docs/INDEX.md` and quality logs to reflect the documentation correction and new tracker.
