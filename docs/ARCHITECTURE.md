@@ -1,6 +1,6 @@
 # Architecture
 
-_Last updated: 2026-03-12_
+_Last updated: 2026-03-13_
 
 This document describes the current and planned architecture for `rc-rover`.
 
@@ -17,6 +17,7 @@ Stage 1 architecture is now defined and intentionally minimal:
   - untethered 5V from motor board regulator into ESP32 5V pin
 - BLE manual teleoperation with deadman timeout and stop behavior
 - Basic battery voltage measurement via ADC
+- Executable Stage 1 firmware baseline now lives at `firmware/stage1-esp32-baseline/`.
 
 Detailed references:
 - `docs/HARDWARE_ARCHITECTURE.md`

@@ -27,3 +27,13 @@ This log records every meaningful modification or work session on the project.  
 - Resolved logic-power ambiguity by freezing untethered ESP32 path as `MPDB regulated 5V -> ESP32 5V pin`, and bench path as USB-powered bring-up.
 - Updated BOM to freeze USB cable type for ESP32-DevKitC-32E as USB-A to Micro-USB data cable.
 - Synchronized architecture, interface map, state, next steps, handoff, and index docs with the new bring-up package.
+
+
+## 2026-03-13
+
+- Added first executable Stage 1 ESP32 firmware baseline under `firmware/stage1-esp32-baseline/` (PlatformIO + Arduino).
+- Implemented baseline runtime behavior: safe startup motor stop, BLE teleop packet intake, differential drive mixing, deadman timeout, e-stop latch/clear, and battery ADC serial reporting.
+- Added `docs/BLE_CONTROL_PROFILE.md` to freeze first-pass BLE control message format and UUID map.
+- Added `docs/BENCH_BRINGUP_LOG.md` as reusable run log template for USB/battery/safety checks.
+- Added `docs/STAGE_1_TUNING.md` with initial tuning constants and bench test capture table.
+- Updated canonical state docs (`PROJECT_STATE`, `NEXT_STEPS`, `HANDOFF`, `INDEX`) and quality logs to reflect implementation readiness.
