@@ -9,3 +9,4 @@ This file captures lessons learned, mistakes made and heuristics discovered duri
 
 - Aligning `PROJECT_STATE.md` with `HANDOFF.md` and `NEXT_STEPS.md` prevents conflicting phase signals that can misdirect future sessions.
 - A freeze package is more actionable when architecture, interface map, and build plan are split into separate docs rather than merged into one long narrative.
+- Freezing both bench-power mode and untethered-power mode in the same wiring package prevents hidden integration ambiguity that BOM-only updates often miss.

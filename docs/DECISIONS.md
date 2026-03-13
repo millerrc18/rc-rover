@@ -64,3 +64,12 @@ This file records important decisions made in the project.  Each entry should in
 **Decision:** Use **Bluetooth (BLE) teleop** as the initial manual-control method for Stage 1.  
 **Rationale:** BLE uses ESP32 built-in radios without extra hardware and avoids early Wi-Fi network/config complexity while still enabling phone-based control.  
 **Consequences:** Initial firmware scaffold should implement BLE command/heartbeat handling; Wi-Fi teleop remains a later optional enhancement.
+
+---
+
+**Date:** 2026-03-12  
+**Status:** Accepted  
+**Decision:** Freeze Stage 1 ESP32 logic-power path as `Motor Driver/Power Board regulated 5V output -> ESP32-DevKitC-32E 5V pin` for untethered operation, and freeze bench bring-up cable as `USB-A to Micro-USB data cable`.  
+**Rationale:** Previous docs allowed board-dependent and power-source ambiguity that could block bench bring-up reproducibility.  
+**Consequences:** Wiring docs, BOM, and bring-up workflow now use a single explicit power path and connector standard for Stage 1.
+

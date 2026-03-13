@@ -12,12 +12,18 @@ Stage 1 architecture is now defined and intentionally minimal:
 - ESP32-DevKitC-32E microcontroller board
 - Romi-native motor driver/power distribution board
 - AA NiMH battery path with inline fuse and main switch
+- Explicit dual power mode for ESP32:
+  - bench USB power via USB-A to Micro-USB
+  - untethered 5V from motor board regulator into ESP32 5V pin
 - BLE manual teleoperation with deadman timeout and stop behavior
 - Basic battery voltage measurement via ADC
 
 Detailed references:
 - `docs/HARDWARE_ARCHITECTURE.md`
 - `docs/INTERFACE_MAP.md`
+- `docs/STAGE_1_WIRING_DIAGRAM.md`
+- `docs/STAGE_1_PIN_MAP.md`
+- `docs/FIRMWARE_SCAFFOLD.md`
 - `docs/STAGE_1_BUILD_PLAN.md`
 
 ## Stage progression (unchanged direction)
