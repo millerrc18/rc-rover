@@ -6,17 +6,17 @@ This file contains the prioritized action queue for `rc-rover`.
 
 ## Now
 
-- Create a Stage 1 wiring diagram artifact with exact pin assignments derived from `docs/INTERFACE_MAP.md`.
-- Create firmware scaffold for ESP32 BLE teleop + differential motor output + deadman timeout.
-- Build and run Stage 1 bench bring-up checklist (USB, motor spin, battery ADC).
-- Start purchasing from `hardware/bom-stage-0-1.csv` and track substitutions explicitly.
+- Physically wire the rover exactly per `docs/STAGE_1_WIRING_DIAGRAM.md` and record any deviations.
+- Implement first firmware pass from `docs/FIRMWARE_SCAFFOLD.md` using `docs/STAGE_1_PIN_MAP.md` pin assignments.
+- Run bench bring-up sequence (USB flash, motor spin checks, battery ADC validation).
+- Execute `docs/STAGE_1_ACCEPTANCE_TEST.md` and capture pass/fail evidence in docs.
 
 ## Next
 
-- Execute full mechanical assembly on the selected chassis.
-- Run `docs/STAGE_1_ACCEPTANCE_TEST.md` and record pass/fail evidence.
-- Tune low-speed drivability parameters (PWM floor, turn scaling, timeout).
-- Add a simple operator checklist for pre-drive safety checks.
+- Tune drivability parameters (PWM floor, turn scaling, deadman timeout) from safe defaults.
+- Standardize a single BLE app/profile and command packet example for repeatable testing.
+- Start purchasing from `hardware/bom-stage-0-1.csv` and log substitutions explicitly.
+- Add a one-page operator checklist for pre-drive and shutdown safety.
 
 ## Later
 

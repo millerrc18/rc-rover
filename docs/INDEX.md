@@ -23,6 +23,9 @@ This file maps the contents of `docs/`.
 - **PLATFORM_SELECTION.md**: Stage 0/1 platform decision rationale.
 - **HARDWARE_ARCHITECTURE.md**: Frozen Stage 1 hardware architecture and recommendation rationale.
 - **INTERFACE_MAP.md**: Stage 1 interface-level mapping (power, control, safety, deferred interfaces).
+- **STAGE_1_WIRING_DIAGRAM.md**: Exact Stage 1 wiring, power/signal diagrams, and pre-power checks.
+- **STAGE_1_PIN_MAP.md**: Frozen Stage 1 ESP32 pin assignments with conflict rationale.
+- **FIRMWARE_SCAFFOLD.md**: Implementation-ready Stage 1 firmware behavior blueprint.
 - **STAGE_1_BUILD_PLAN.md**: Build and bring-up plan for Stage 1.
 - **STAGE_1_ACCEPTANCE_TEST.md**: Stage 1 pass/fail criteria.
 - **../hardware/bom-stage-0-1.csv**: First-pass sourced BOM.

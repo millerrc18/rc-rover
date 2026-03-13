@@ -20,3 +20,10 @@ This log records every meaningful modification or work session on the project.  
 - Explicitly froze three key Stage 1 decisions: exact ESP32 board, motor-driver path, and initial manual-control method.
 - Updated canonical memory docs (`PROJECT_STATE`, `NEXT_STEPS`, `HANDOFF`, `ARCHITECTURE`, `ROADMAP`, `INDEX`) for consistency with active Stage 0/1 hardware-freeze work.
 - Added quality tracking logs under `docs/quality/` for issue/improvement evidence capture.
+- Added Stage 1 execution-ready bring-up artifacts:
+  - `docs/STAGE_1_WIRING_DIAGRAM.md`
+  - `docs/STAGE_1_PIN_MAP.md`
+  - `docs/FIRMWARE_SCAFFOLD.md`
+- Resolved logic-power ambiguity by freezing untethered ESP32 path as `MPDB regulated 5V -> ESP32 5V pin`, and bench path as USB-powered bring-up.
+- Updated BOM to freeze USB cable type for ESP32-DevKitC-32E as USB-A to Micro-USB data cable.
+- Synchronized architecture, interface map, state, next steps, handoff, and index docs with the new bring-up package.

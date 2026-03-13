@@ -9,3 +9,7 @@
 - **Improvement:** Upgraded Stage 0/1 BOM from generic placeholders to stronger first-pass sourced recommendations.
 - **Why it mattered:** Enables immediate procurement with clearer alternates rationale.
 - **Evidence:** `hardware/bom-stage-0-1.csv` now includes recommended parts, sources, and justifications.
+
+- **Improvement:** Added Stage 1 implementation package (`STAGE_1_WIRING_DIAGRAM`, `STAGE_1_PIN_MAP`, `FIRMWARE_SCAFFOLD`).
+- **Why it mattered:** Converts high-level freeze docs into bench-executable instructions and firmware-ready interfaces.
+- **Evidence:** New docs include exact pin freeze, safety checklists, and firmware state behavior definitions.

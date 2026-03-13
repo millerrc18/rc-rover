@@ -9,7 +9,7 @@ This document freezes the Stage 1 hardware architecture for `rc-rover` so parts 
 Included:
 - Differential-drive rover base
 - ESP32 control board
-- Dual motor-driver path
+- Romi motor-driver + power distribution board
 - Battery, fuse, switch, and basic power distribution
 - Manual teleoperation and emergency stop behavior
 - Basic battery voltage sensing
@@ -22,7 +22,7 @@ Explicitly excluded from Stage 1:
 
 ## Frozen Stage 1 recommendations
 
-1. **ESP32 board:** `Espressif ESP32-DevKitC-32E` (official DevKitC form factor)
+1. **ESP32 board:** `Espressif ESP32-DevKitC-32E` (official DevKitC form factor, Micro-USB)
 2. **Motor driver path:** `Pololu Romi Motor Driver and Power Distribution Board` as primary integration path
 3. **Initial manual control method:** **Bluetooth (BLE UART / BLE gamepad style)**
 
@@ -30,9 +30,9 @@ Explicitly excluded from Stage 1:
 
 - DevKitC-32E is widely documented, easy to source, and stable for bring-up with USB serial flashing.
 - Romi-native motor-driver/power board reduces wiring complexity and mechanical integration risk in Stage 1.
-- Bluetooth teleop keeps networking setup simple indoors, reduces latency surprises from Wi-Fi AP/client setup, and supports phone-based control without extra radio hardware.
+- BLE teleop keeps networking setup simple indoors and avoids early Wi-Fi configuration complexity.
 
-## System block diagram
+## System block diagram (functional)
 
 ```mermaid
 flowchart LR
@@ -51,13 +51,41 @@ flowchart LR
     ESTOP --> SW
 ```
 
-## Power architecture
+## Power-flow diagram (explicit)
 
-- Main power path: battery -> fuse -> switch -> motor-driver/power board.
-- Logic power: derived for ESP32 using stable regulated path (board USB during bench bring-up; onboard regulated feed for untethered operation).
-- Shared ground between controller and motor driver is mandatory.
+```mermaid
+flowchart TD
+    BATT[6x AA NiMH battery pack] --> FUSE[Inline fuse 5A-7.5A]
+    FUSE --> SW[Main switch]
+    SW --> VIN[MPDB VIN]
 
-**Assumption:** For first build, AA NiMH pack current capability is sufficient for low-speed indoor testing and tuning.
+    VIN --> MOTOR_PWR[Motor driver stage -> left/right motors]
+    VIN --> REG5[MPDB regulated 5V output]
+    REG5 --> ESP5V[ESP32 5V pin]
+
+    BATT_NEG[Battery negative] --> GND_BUS[Common GND bus]
+    GND_BUS --> MPDB_GND[MPDB GND]
+    GND_BUS --> ESP_GND[ESP32 GND]
+
+    USB[USB-A -> Micro-USB cable] --> ESP_USB[ESP32 USB connector]
+```
+
+## ESP32 power mode definition (resolved)
+
+### Bench USB bring-up
+
+- ESP32 is powered by the laptop through **USB-A to Micro-USB** cable into the DevKitC-32E USB connector.
+- Main battery path may be off during firmware flashing and BLE command validation.
+- If motors are tested, the battery path can be enabled independently using the main switch.
+
+### Untethered battery operation
+
+- Battery path is `battery -> fuse -> main switch -> MPDB VIN`.
+- ESP32 logic power is provided from **MPDB regulated 5V output -> ESP32 5V pin**.
+- ESP32 GND must remain tied to MPDB/battery GND.
+- USB is optional in this mode (debug only).
+
+This removes previous logic-power ambiguity: untethered ESP32 power is explicitly sourced from the motor/power board regulated 5V rail.
 
 ## Control architecture
 
@@ -81,6 +109,6 @@ flowchart LR
 
 ## Assumptions
 
-- **Assumption:** The team can source either official or distributor-verified DevKitC-32E equivalent with matching pinout.
+- **Assumption:** MPDB regulated 5V output current capacity is sufficient for DevKitC-32E + Stage 1 logic load.
 - **Assumption:** Stage 1 test environment is mostly flat indoor floors.
 - **Assumption:** No high-current payloads are attached in Stage 1.
