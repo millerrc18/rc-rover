@@ -6,19 +6,23 @@ Quick snapshot for the next session.
 
 ## Current phase
 
-Stage 1 firmware baseline complete; bench validation execution in progress
+Stage 1 execution readiness; pre-procurement and pre-assembly
 
 ## Current objective
 
-Use the committed Stage 1 firmware baseline and bring-up docs to run and log real bench sessions.
+Start physical execution from zero hardware progress: order parts, receive/inspect, assemble, then flash and run first bench bring-up.
 
 ## What just changed
 
-- Added executable firmware baseline project: `firmware/stage1-esp32-baseline/` with safe startup, BLE command intake, differential mix, deadman timeout, e-stop latch, and battery ADC reporting.
-- Added BLE command profile reference: `docs/BLE_CONTROL_PROFILE.md`.
-- Added reusable bring-up run template: `docs/BENCH_BRINGUP_LOG.md`.
-- Added initial tuning reference sheet: `docs/STAGE_1_TUNING.md`.
-- Updated canonical state/action docs and quality logs for Stage 1 bench execution.
+- Realigned repository status docs to reflect actual physical reality:
+  - no parts ordered,
+  - no assembly/wiring,
+  - no hardware flashing,
+  - no bench bring-up performed yet.
+- Reordered immediate task queue to start with procurement and receiving inspection.
+- Added procurement tracker: `docs/PROCUREMENT_STATUS.md`.
+- Clarified that firmware baseline exists but is not yet validated on physical hardware.
+- Updated bench bring-up log framing to future-use template language.
 
 ## Constraints to preserve
 
@@ -35,19 +39,19 @@ Use the committed Stage 1 firmware baseline and bring-up docs to run and log rea
 
 ## Next three high-priority actions
 
-1. Flash and smoke-test `firmware/stage1-esp32-baseline/` using USB bench power with wheels elevated.
-2. Run and log full checks in `docs/BENCH_BRINGUP_LOG.md` and `docs/STAGE_1_TUNING.md`.
-3. Execute `docs/STAGE_1_ACCEPTANCE_TEST.md` and capture evidence/outcomes.
+1. Place initial Stage 0/1 parts orders from `hardware/bom-stage-0-1.csv` and update `docs/PROCUREMENT_STATUS.md`.
+2. Receive and inspect critical parts (ESP32 board, motor board, power-path items) and log outcomes.
+3. Begin controlled assembly/wiring, then flash `firmware/stage1-esp32-baseline/` and run first logged bench bring-up.
 
 ## Key files to read first next session
 
 - `docs/PROJECT_STATE.md`
+- `docs/NEXT_STEPS.md`
+- `docs/PROCUREMENT_STATUS.md`
+- `hardware/bom-stage-0-1.csv`
+- `docs/STAGE_1_BUILD_PLAN.md`
 - `docs/STAGE_1_WIRING_DIAGRAM.md`
 - `docs/STAGE_1_PIN_MAP.md`
-- `docs/FIRMWARE_SCAFFOLD.md`
-- `docs/HARDWARE_ARCHITECTURE.md`
-- `docs/INTERFACE_MAP.md`
-- `docs/BLE_CONTROL_PROFILE.md`
+- `firmware/stage1-esp32-baseline/`
 - `docs/BENCH_BRINGUP_LOG.md`
-- `docs/STAGE_1_TUNING.md`
 - `docs/STAGE_1_ACCEPTANCE_TEST.md`

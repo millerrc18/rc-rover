@@ -20,3 +20,7 @@
 - **Improvement:** Delivered first runnable Stage 1 ESP32 firmware baseline with core safety and teleop control loop behavior.
 - **Why it mattered:** Converts documentation-only plan into executable bench-ready implementation and unblocks real hardware testing.
 - **Evidence:** Build attempt via `pio run` in `firmware/stage1-esp32-baseline/` plus new bring-up and BLE profile docs.
+
+- **Improvement:** Added `docs/PROCUREMENT_STATUS.md` and reordered immediate execution flow to procurement -> receiving/inspection -> assembly -> flash/bring-up.
+- **Why it mattered:** Makes physical execution sequence explicit and prevents premature validation steps.
+- **Evidence:** Updated action ordering in `docs/NEXT_STEPS.md` and new tracker in `docs/PROCUREMENT_STATUS.md`.

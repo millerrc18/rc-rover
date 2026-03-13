@@ -6,16 +6,19 @@ This file contains the prioritized action queue for `rc-rover`.
 
 ## Now
 
-- Flash `firmware/stage1-esp32-baseline/` to ESP32 and run first real bench bring-up session.
-- Fill one full run entry in `docs/BENCH_BRINGUP_LOG.md` with USB and battery power evidence.
-- Execute deadman/e-stop validation and record measured behavior in `docs/STAGE_1_TUNING.md`.
-- Execute `docs/STAGE_1_ACCEPTANCE_TEST.md` and capture pass/fail evidence in docs.
+- Order Stage 0/1 parts from `hardware/bom-stage-0-1.csv` and track status in `docs/PROCUREMENT_STATUS.md`.
+- Receive and inspect ordered parts; log any substitutions, defects, or missing items.
+- Begin Stage 1 mechanical assembly once critical parts pass inspection.
+- Perform initial wiring and pre-power continuity/polarity checks.
+- Flash `firmware/stage1-esp32-baseline/` to ESP32 hardware.
+- Run and log the first real bench bring-up session in `docs/BENCH_BRINGUP_LOG.md`.
 
 ## Next
 
+- Execute deadman/e-stop validation and record measured behavior in `docs/STAGE_1_TUNING.md`.
+- Execute `docs/STAGE_1_ACCEPTANCE_TEST.md` and capture pass/fail evidence in docs.
 - Tune drivability parameters (PWM floor, turn scaling, deadman timeout) from safe defaults.
 - Validate and calibrate battery divider scaling against multimeter readings.
-- Start purchasing from `hardware/bom-stage-0-1.csv` and log substitutions explicitly.
 - Add a one-page operator checklist for pre-drive and shutdown safety.
 
 ## Later

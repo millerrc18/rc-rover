@@ -19,3 +19,8 @@
 - **Impact:** Bench validation and acceptance testing could not be performed from repo contents alone.
 - **Resolution:** Added executable firmware project and aligned BLE/tuning/bring-up docs to implementation details.
 - **Evidence:** `firmware/stage1-esp32-baseline/`, `docs/BLE_CONTROL_PROFILE.md`, `docs/BENCH_BRINGUP_LOG.md`, `docs/STAGE_1_TUNING.md`.
+
+- **Issue:** Repository narrative implied active bench validation despite zero physical execution (no ordering, assembly, wiring, flashing, or bring-up).
+- **Impact:** Could cause contributors to skip required procurement/inspection steps and misreport project maturity.
+- **Resolution:** Corrected canonical status/handoff/next-step docs, reframed bench log as future-use, and added explicit procurement tracker.
+- **Evidence:** Cross-doc consistency check via `cat docs/PROJECT_STATE.md docs/NEXT_STEPS.md docs/HANDOFF.md docs/BENCH_BRINGUP_LOG.md docs/PROCUREMENT_STATUS.md`.
