@@ -45,3 +45,12 @@ This log records every meaningful modification or work session on the project.  
 - Converted `BENCH_BRINGUP_LOG` framing to explicit future-use template language.
 - Added `docs/PROCUREMENT_STATUS.md` to track ordered/received/inspected status for Stage 0/1 parts.
 - Updated `docs/INDEX.md` and quality logs to reflect the documentation correction and new tracker.
+
+
+## 2026-03-14
+
+- Cleaned `hardware/bom-stage-0-1.csv` to make Stage 0/1 procurement-ready and eliminate duplicate Romi subcomponent purchases when using the full Romi kit.
+- Corrected the blue Romi chassis kit reference to `Pololu #3506`.
+- Relabeled Romi motors/wheels/caster as optional spare-only and added explicit "included in kit" battery-holder line item.
+- Reworked `docs/PROCUREMENT_STATUS.md` into clear sections: buy-now initial order, included-with-kit no-buy items, and later-stage items.
+- Updated canonical state/handoff/next-step docs and quality logs to reflect corrected procurement baseline.

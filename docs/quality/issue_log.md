@@ -24,3 +24,11 @@
 - **Impact:** Could cause contributors to skip required procurement/inspection steps and misreport project maturity.
 - **Resolution:** Corrected canonical status/handoff/next-step docs, reframed bench log as future-use, and added explicit procurement tracker.
 - **Evidence:** Cross-doc consistency check via `cat docs/PROJECT_STATE.md docs/NEXT_STEPS.md docs/HANDOFF.md docs/BENCH_BRINGUP_LOG.md docs/PROCUREMENT_STATUS.md`.
+
+
+## 2026-03-14
+
+- **Issue:** Stage 0/1 BOM and procurement tracker implied separate purchases for Romi subcomponents that are already included in the full blue Romi chassis kit.
+- **Impact:** Could cause unnecessary duplicate purchases before first procurement.
+- **Resolution:** Corrected chassis kit SKU to `Pololu #3506`, marked motors/wheels/caster as optional spare-only, and added explicit included-with-kit battery-holder tracking.
+- **Evidence:** Consistency review of `hardware/bom-stage-0-1.csv` and `docs/PROCUREMENT_STATUS.md` after update.

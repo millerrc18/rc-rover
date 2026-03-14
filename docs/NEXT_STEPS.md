@@ -1,12 +1,12 @@
 # Next Steps
 
-_Last updated: 2026-03-13_
+_Last updated: 2026-03-14_
 
 This file contains the prioritized action queue for `rc-rover`.
 
 ## Now
 
-- Order Stage 0/1 parts from `hardware/bom-stage-0-1.csv` and track status in `docs/PROCUREMENT_STATUS.md`.
+- Order Stage 0/1 buy-now parts from `hardware/bom-stage-0-1.csv` and track status in `docs/PROCUREMENT_STATUS.md` (do not duplicate Romi motors/wheels/caster/battery holder already included in full kit).
 - Receive and inspect ordered parts; log any substitutions, defects, or missing items.
 - Begin Stage 1 mechanical assembly once critical parts pass inspection.
 - Perform initial wiring and pre-power continuity/polarity checks.

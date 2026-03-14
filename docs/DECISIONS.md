@@ -82,3 +82,12 @@ This file records important decisions made in the project.  Each entry should in
 **Decision:** Implement Stage 1 firmware as a minimal single-loop PlatformIO/Arduino baseline with a plain-text BLE write protocol (`T,R,H,E,C`) for fastest bench bring-up.  
 **Rationale:** Stage 1 success depends on fast, debuggable hardware validation rather than protocol sophistication; a compact ASCII control packet is easy to send from generic phone BLE tools and inspect over serial.  
 **Consequences:** Control protocol is intentionally simple and may be superseded later by a binary or schema-validated profile after Stage 1 acceptance is complete.
+
+
+---
+
+**Date:** 2026-03-14  
+**Status:** Accepted  
+**Decision:** Treat the full Romi chassis kit (`Pololu #3506`, blue) as the Stage 1 baseline purchase and avoid duplicating included drivetrain components in the initial order.  
+**Rationale:** The full kit already includes motors, wheels, caster, and integrated 6xAA holder; separate purchases at initial procurement add avoidable cost and confusion.  
+**Consequences:** BOM and procurement tracker must distinguish buy-now items from optional spares and included-with-kit components.
