@@ -1,6 +1,6 @@
 # Project State
 
-_Last updated: 2026-03-13_
+_Last updated: 2026-03-14_
 
 This file is the canonical description of current project status.
 
@@ -21,6 +21,7 @@ Begin real-world Stage 1 execution in the correct order: procure parts, inspect 
   - `docs/STAGE_1_PIN_MAP.md`
   - `docs/FIRMWARE_SCAFFOLD.md`
   - `firmware/stage1-esp32-baseline/`
+- Stage 0/1 BOM has been cleaned for procurement readiness (correct blue Romi kit SKU, no duplicate included subcomponent buys in the initial order set).
 - Bring-up support documents are prepared for future physical testing:
   - `docs/BLE_CONTROL_PROFILE.md`
   - `docs/BENCH_BRINGUP_LOG.md`
@@ -41,7 +42,7 @@ Begin real-world Stage 1 execution in the correct order: procure parts, inspect 
 
 ## Open tasks
 
-See `docs/NEXT_STEPS.md` for queue order. Immediate work is procurement, incoming inspection, and first physical assembly before any bench flashing/validation.
+See `docs/NEXT_STEPS.md` for queue order. Immediate work is procurement from the corrected initial-order set, incoming inspection, and first physical assembly before any bench flashing/validation.
 
 ## Hardware state
 

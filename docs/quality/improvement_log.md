@@ -24,3 +24,10 @@
 - **Improvement:** Added `docs/PROCUREMENT_STATUS.md` and reordered immediate execution flow to procurement -> receiving/inspection -> assembly -> flash/bring-up.
 - **Why it mattered:** Makes physical execution sequence explicit and prevents premature validation steps.
 - **Evidence:** Updated action ordering in `docs/NEXT_STEPS.md` and new tracker in `docs/PROCUREMENT_STATUS.md`.
+
+
+## 2026-03-14
+
+- **Improvement:** Reframed procurement documentation into initial buy-now vs included-with-kit vs later-stage sections.
+- **Why it mattered:** Makes first purchase set unambiguous and reduces ordering mistakes in pre-assembly execution.
+- **Evidence:** Updated `hardware/bom-stage-0-1.csv` subtotal semantics and sectioned `docs/PROCUREMENT_STATUS.md` tracker.
