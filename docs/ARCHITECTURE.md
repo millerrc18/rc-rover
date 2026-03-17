@@ -1,6 +1,6 @@
 # Architecture
 
-_Last updated: 2026-03-13_
+_Last updated: 2026-03-17_
 
 This document describes the current and planned architecture for `rc-rover`.
 
@@ -42,3 +42,18 @@ Detailed references:
 - Minimize integration complexity before adding features.
 - Keep interfaces explicit and documented for reproducibility.
 - Reserve expansion points (encoders, I2C sensor path, telemetry channels) without implementing them prematurely.
+
+
+## Cross-Generation Architecture
+
+Stage 1 hardware is intentionally fixed to protect execution reliability and avoid scope creep during first physical bring-up.
+
+The architecture is designed to be portable across chassis generations (Mk1 -> Mk4). As platforms scale, these elements should remain reusable:
+
+- Firmware patterns (control loop, command handling, safety state handling)
+- Safety behaviors (deadman timeout, e-stop semantics, startup-safe defaults)
+- Interface mapping discipline (pin/path mapping and explicit signal ownership)
+- Telemetry structure (battery/runtime/status reporting conventions)
+- Documentation-driven memory system (`PROJECT_STATE`, `NEXT_STEPS`, decisions, logs)
+
+This enables hardware evolution without losing operational continuity or documentation quality.

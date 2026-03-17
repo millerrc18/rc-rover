@@ -31,3 +31,9 @@
 - **Improvement:** Reframed procurement documentation into initial buy-now vs included-with-kit vs later-stage sections.
 - **Why it mattered:** Makes first purchase set unambiguous and reduces ordering mistakes in pre-assembly execution.
 - **Evidence:** Updated `hardware/bom-stage-0-1.csv` subtotal semantics and sectioned `docs/PROCUREMENT_STATUS.md` tracker.
+
+## 2026-03-17
+
+- **Improvement:** Introduced a concise multi-generation strategy package (definitions, envelopes, timelines, skills, triggers, summary table) without changing Stage 1 baseline execution plan.
+- **Why it mattered:** Gives new agents fast strategic context while keeping immediate physical execution priorities stable and explicit.
+- **Evidence:** Cross-doc updates in `docs/ROADMAP.md`, `docs/ARCHITECTURE.md`, `docs/PROJECT_STATE.md`, `docs/NEXT_STEPS.md`, and `docs/HANDOFF.md`.
