@@ -18,4 +18,12 @@ This file captures lessons learned, mistakes made and heuristics discovered duri
 
 ## 2026-03-17
 
-- Keeping “capability stages” separate from “platform generations” reduces planning confusion and helps protect Stage 1 execution focus from premature scope expansion.
+- Keeping "capability stages" separate from "platform generations" reduces planning confusion and helps protect Stage 1 execution focus from premature scope expansion.
+
+## 2026-03-17
+
+- A build guide written for the wrong board (DRV8833 vs the actual Romi Motor Driver board) will send a builder to wrong terminal names and wiring steps that physically do not exist on the correct hardware. Always name the exact target board in the first sentence of a wiring guide and verify that every terminal label in the document exists on that specific board.
+- A pin conflict between a build guide (GPIO33) and a frozen pin map (GPIO14) can survive multiple review passes undetected because they sit in separate documents. Cross-document pin consistency checks should be an explicit step in any wiring documentation review.
+- Production firmware that requires BLE app connectivity before any motor moves creates a hidden dependency that blocks first hardware validation. A no-dependency motor test sketch that runs automatically on boot eliminates an entire class of "nothing works and I don't know why" scenarios.
+- Firmware constants that reference physical component values (divider ratios, calibration factors) must be traced back to explicit component values in the hardware documentation. A ratio of 3.0 in firmware means nothing to a builder choosing resistors unless the doc says R1=20kΩ / R2=10kΩ.
+- Historical documents that accumulate alongside canonical docs confuse agents unless they carry an explicit superseded notice at the top and are listed separately in the index. An agent scanning the repo cannot tell an old roadmap from the current one without a clear signal.

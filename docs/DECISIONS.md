@@ -131,3 +131,27 @@ This file records important decisions made in the project.  Each entry should in
 **Decision:** Preserve electric traction as the core mobility architecture across rover generations; if hybrid is explored later, prefer serial hybrid / range-extender architecture over direct mechanical gas drive.
 **Rationale:** This preserves low-speed controllability, preserves indoor battery-only operation, and minimizes drivetrain complexity relative to dual-propulsion or direct gas-drive approaches.
 **Consequences:** Hybrid propulsion remains future-planning-only, out of scope for Rover A / Mk1 and Rover B / Mk2, with no change to the current Stage 1 hardware baseline.
+
+---
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Decision:** Accept GPIO14 as the Stage 1 right motor direction pin with a documented LOW-initialization constraint and a no-external-pull-up rule.
+**Rationale:** GPIO14 is a boot-strapping pin, but the direction signal is a static digital output initialized LOW at startup, which is safe. The Romi Motor Driver board M2DIR input does not pull the pin HIGH. No pull-up resistor is to be added. If boot instability is observed in hardware bring-up, the fallback is GPIO33.
+**Consequences:** `STAGE_1_PIN_MAP.md` documents the constraint. The firmware must initialize GPIO14 LOW before any other operation. Pull-up resistors on this line are prohibited.
+
+---
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Decision:** Add a dedicated `firmware/stage1-motor-test/` sketch for first hardware bring-up motor validation, separate from the BLE production baseline.
+**Rationale:** The production firmware requires a BLE app to send commands before any motor responds, which creates a dependency that can block or confuse first bring-up. A standalone test sketch eliminates that dependency and confirms motor wiring independently.
+**Consequences:** The motor test sketch must maintain the same frozen pin map as the production firmware. The build guide Phase 7 instructs builders to flash it first, then reflash the production baseline.
+
+---
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Decision:** Set Stage 1 battery voltage divider resistor values to R1=20kΩ and R2=10kΩ (ratio 3.0×), matching the existing firmware `BATTERY_DIVIDER_RATIO = 3.0f` constant.
+**Rationale:** The firmware constant was already set to 3.0× but the physical resistor values were never specified in any document. R1=20kΩ / R2=10kΩ gives exactly 3.0× step-down, keeps the ADC pin within 3.3V at 8.4V maximum pack voltage (freshly charged NiMH), and uses common standard values.
+**Consequences:** `STAGE_1_WIRING_DIAGRAM.md` now specifies these values explicitly. `STAGE_1_TUNING.md` includes a calibration procedure for the `BATTERY_CALIBRATION` firmware constant.

@@ -80,3 +80,21 @@ This log records every meaningful modification or work session on the project.  
 - Added wiring-reference summary, common-mistakes section, completion checklist, and local image placeholders with exact descriptions of expected visuals.
 - Updated canonical state docs and quality logs to reflect availability of the new first-build assembly playbook.
 
+## 2026-03-17 — Documentation correctness audit and fixes
+
+Reviewed the full repository for correctness issues. Found and corrected nine issues across critical, moderate, and minor severity levels.
+
+**Critical fixes:**
+- Rewrote `docs/builds/stage1-rover-a-build.md` to target the correct board (Pololu Romi Motor Driver and Power Distribution Board #3543) throughout. The previous version was written for a generic DRV8833 breakout with different terminal names (`AIN1/AIN2/BIN1/BIN2`, `OUT1-OUT4`) that do not exist on the Romi board.
+- Corrected the pin map conflict in the build guide: Phase 4 previously specified GPIO33 for M2DIR. The correct frozen pin is GPIO14. All Stage 1 docs, firmware, and the build guide now consistently use GPIO14.
+
+**Moderate fixes:**
+- Added GPIO14 boot-strapping risk note and safe-use constraints to `docs/STAGE_1_PIN_MAP.md`.
+- Added explicit battery voltage divider resistor values (R1=20kΩ, R2=10kΩ) and derivation to `docs/STAGE_1_WIRING_DIAGRAM.md`, including a verification table at key battery voltages.
+- Added `firmware/stage1-motor-test/` — a minimal motor test sketch that runs a fixed 8-step sequence with no BLE required. Provides the "simple motor test sketch" referenced in the build guide Phase 7 but previously missing.
+- Updated the build guide Phase 7 to explain both the motor test sketch and the BLE app path (nRF Connect / LightBlue), including the deadman timeout constraint.
+
+**Minor fixes:**
+- Added battery ADC calibration procedure and ramp limiter documentation note to `docs/STAGE_1_TUNING.md`.
+- Added superseded/historical notices to `docs/rc-rover-roadmap.md`, `docs/rc-rover-platform-decision-matrix.md`, `docs/rc-rover-concept-render-sheet.md`, and `docs/rc-rover-system-architecture-block-diagram.md`.
+- Updated `docs/INDEX.md` with a new Historical Reference section, motor test firmware entry, and corrected build guide board target annotation.

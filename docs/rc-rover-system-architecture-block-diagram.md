@@ -1,6 +1,11 @@
+> **PARTIALLY SUPERSEDED:** This document contains early system architecture narrative and block diagrams that have been partially superseded by `docs/ARCHITECTURE.md` and `docs/HARDWARE_ARCHITECTURE.md`. The canonical hardware architecture is `docs/HARDWARE_ARCHITECTURE.md`. This file is retained because its functional block diagrams and interface split rationale remain useful reference material, but do not treat it as the authoritative architecture for Stage 1 build decisions.
+
+---
+
 # rc-rover System Architecture Block Diagram
 
 _Last updated: 2026-03-11_
+_Status: **Partially superseded** by docs/ARCHITECTURE.md and docs/HARDWARE_ARCHITECTURE.md — retained for block diagram reference_
 
 This document defines the recommended system architecture for `rc-rover` across the early and mid-stage phases of the roadmap. The goal is to keep the platform simple early, while preserving a clean upgrade path into richer sensing and higher-level compute.
 
@@ -69,28 +74,7 @@ At minimum, the rover should support:
 
 ---
 
-## Stage 1 physical packaging view
-
-```mermaid
-flowchart TB
-    A["Front bumper / sensor zone"] --> B["Controller and electronics deck"]
-    B --> C["Battery mass near center"]
-    C --> D["Drive axle / wheel zone"]
-    D --> E["Rear service / wiring access"]
-```
-
-### Packaging intent
-- keep the front available for future obstacle sensing
-- keep the battery low and central
-- keep the controller accessible
-- keep wiring paths visible and serviceable
-- avoid burying the first build under cosmetic shells
-
----
-
 ## Stage 2 to Stage 6 expansion architecture
-
-As the rover grows, the architecture should add capability in layers rather than replacing the Stage 1 foundation.
 
 ```mermaid
 flowchart LR
@@ -174,54 +158,3 @@ flowchart LR
     D --> E["Stage 5<br/>Closed-loop control"]
     E --> F["Stage 6+<br/>Companion compute and richer autonomy"]
 ```
-
----
-
-## Architecture constraints
-
-The system should avoid these mistakes early:
-- no camera-first architecture
-- no ROS-first architecture
-- no companion computer before low-level drive stability
-- no over-custom power system before basic movement works
-- no complex shell that blocks service access
-
----
-
-## Recommended early hardware roles
-
-### Minimum early stack
-- **Battery:** power source
-- **Fuse + switch:** protection and manual isolation
-- **ESP32:** low-level controller
-- **Motor driver:** power-stage interface to motors
-- **Drive motors:** actuation
-- **Voltage sense input:** battery awareness
-- **Status LED / buzzer:** feedback and fault indication
-
-### First add-on stack
-- **ToF sensor:** obstacle awareness
-- **Wheel encoders:** motion estimation
-- **IMU:** heading, motion, tilt awareness
-
----
-
-## Stage 1 acceptance architecture
-
-The architecture is good enough for Stage 1 when:
-- the rover can drive manually
-- the rover can stop safely on command
-- the rover handles power distribution cleanly
-- the rover exposes enough electrical and physical access for the first sensors
-- the wiring is documented well enough to reproduce
-
----
-
-## Final recommendation
-
-Use a **two-layer long-term architecture**:
-1. **ESP32 low-level control layer** for anything safety-critical and real-time
-2. **future companion compute layer** only when the rover is stable enough to justify it
-
-That gives `rc-rover` the cleanest path from:
-**simple manual rover -> sensed rover -> controlled rover -> richer robotics platform**

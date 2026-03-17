@@ -1,6 +1,11 @@
+> **SUPERSEDED:** This document is an earlier platform decision analysis that has been superseded by `docs/PLATFORM_SELECTION.md`. The canonical platform decision record is `docs/PLATFORM_SELECTION.md` and `docs/DECISIONS.md`. This file is retained for historical reference and its weighted scoring matrix. Do not use it as the authoritative platform decision.
+
+---
+
 # rc-rover Platform Decision Matrix
 
 _Last updated: 2026-03-11_
+_Status: **Superseded by docs/PLATFORM_SELECTION.md** — retained for historical reference only_
 
 This document compares the most credible base-platform directions for `rc-rover` and recommends the best starting point for a long-lived learning platform.
 
@@ -48,8 +53,6 @@ Why this wins:
 - best platform reuse across many future experiments
 - least likely to trap the project inside car-specific geometry
 
-This does **not** mean the rover must look boring. It means the underlying mechanical architecture is better aligned with the long-term learning goals.
-
 ---
 
 ## Weighted decision criteria
@@ -92,120 +95,6 @@ pie showData
 | Differential drive | 4.55 |
 | RC truck / Ackermann | 3.65 |
 | Custom modular frame | 4.00 |
-
----
-
-## Option 1: Robotics-first differential drive
-
-### Best fit for
-- long-term platform reuse
-- sensors and autonomy growth
-- control-systems learning
-- payload expansion later
-
-### Strengths
-- naturally supports wheel encoders and odometry
-- turn-in-place capability is very useful for robotics
-- simpler control model than Ackermann steering
-- easier packaging for sensor mast, battery deck, and electronics
-- well-aligned with future obstacle detection and navigation work
-
-### Weaknesses
-- may feel less like a traditional RC car
-- can look utilitarian unless styling is intentional
-- wheel scrub and traction behavior need consideration if skid-steer
-
-### Recommended use
-This should be the default path unless there is a strong emotional desire to prioritize “RC car feel” over robotics platform value.
-
----
-
-## Option 2: RC truck / Ackermann platform
-
-### Best fit for
-- hobby RC feel
-- faster initial fun
-- automotive-style steering experiments
-
-### Strengths
-- familiar and exciting
-- fast to get moving if a donor chassis is used
-- visually intuitive as a “car”
-
-### Weaknesses
-- less convenient for robotics experiments
-- packaging tends to be constrained by car geometry
-- turn radius and steering geometry complicate later low-speed robotics behaviors
-- less natural path into generic robotics payload work
-
-### Recommended use
-Good choice only if the emotional priority is a true RC-driving experience first.
-
----
-
-## Option 3: Custom modular frame
-
-### Best fit for
-- maximum design freedom
-- long-term tailored packaging
-- a builder-first experience
-
-### Strengths
-- highest potential for optimized packaging
-- strongest future-proofing if designed well
-- best path for custom visual identity later
-
-### Weaknesses
-- highest early complexity
-- easiest path to overbuilding
-- slower route to first movement
-- more fabrication burden before learning can start
-
-### Recommended use
-Best saved for a future revision, once the project has proven what it actually needs.
-
----
-
-## Visual comparison map
-
-```mermaid
-quadrantChart
-    title Platform comparison
-    x-axis Less reusable --> More reusable
-    y-axis Harder to start --> Easier to start
-    quadrant-1 Strong long-term choice
-    quadrant-2 Long-term power, slower start
-    quadrant-3 Weakest choice
-    quadrant-4 Quick start, narrower future
-    "Differential drive": [0.82, 0.72]
-    "RC truck / Ackermann": [0.48, 0.84]
-    "Custom modular frame": [0.90, 0.30]
-```
-
----
-
-## Recommended baseline
-
-### Starting architecture
-- **Drive layout:** differential drive
-- **Controller:** ESP32-class microcontroller
-- **Priority:** fast path to a reliable manual rover
-- **Packaging goal:** open, modular, serviceable
-- **Future compatibility:** telemetry, ToF sensor, encoders, IMU, later companion computer
-
-### What this means in practice
-The first rover should feel more like a **robotics mule** than a fully finished product. It should be easy to wire, easy to mount sensors on, and easy to refine.
-
----
-
-## Decision gate
-
-Freeze this platform direction before doing any of the following:
-- buying motors
-- selecting a motor driver
-- designing mounts
-- styling the shell
-- laying out the electronics deck
 
 ---
 
