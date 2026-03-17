@@ -98,3 +98,11 @@ Reviewed the full repository for correctness issues. Found and corrected nine is
 - Added battery ADC calibration procedure and ramp limiter documentation note to `docs/STAGE_1_TUNING.md`.
 - Added superseded/historical notices to `docs/rc-rover-roadmap.md`, `docs/rc-rover-platform-decision-matrix.md`, `docs/rc-rover-concept-render-sheet.md`, and `docs/rc-rover-system-architecture-block-diagram.md`.
 - Updated `docs/INDEX.md` with a new Historical Reference section, motor test firmware entry, and corrected build guide board target annotation.
+
+## 2026-03-17 — Control surface vision and architecture decisions
+
+- Recorded multi-platform control surface vision: web dashboard, mobile app, and handheld physical controller with integrated screen as the primary long-term target.
+- Recorded decision to add Wi-Fi transport in Stage 2 alongside BLE using the same T,R,H,E,C protocol.
+- Recorded physical controller architecture direction: Pi Zero class + touchscreen + joysticks over Wi-Fi.
+- Added control surface items to BACKLOG.
+- Updated DECISIONS.md (3 new entries), HANDOFF.md, and NEXT_STEPS.md to reflect the new direction.

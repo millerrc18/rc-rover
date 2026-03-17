@@ -155,3 +155,27 @@ This file records important decisions made in the project.  Each entry should in
 **Decision:** Set Stage 1 battery voltage divider resistor values to R1=20kΩ and R2=10kΩ (ratio 3.0×), matching the existing firmware `BATTERY_DIVIDER_RATIO = 3.0f` constant.
 **Rationale:** The firmware constant was already set to 3.0× but the physical resistor values were never specified in any document. R1=20kΩ / R2=10kΩ gives exactly 3.0× step-down, keeps the ADC pin within 3.3V at 8.4V maximum pack voltage (freshly charged NiMH), and uses common standard values.
 **Consequences:** `STAGE_1_WIRING_DIAGRAM.md` now specifies these values explicitly. `STAGE_1_TUNING.md` includes a calibration procedure for the `BATTERY_CALIBRATION` firmware constant.
+
+---
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Decision:** Target a multi-platform control architecture with a handheld physical controller (with integrated screen) as the primary long-term control surface.
+**Rationale:** The project vision is to drive the rover from multiple surfaces — web dashboard, mobile app, and a purpose-built handheld controller with screen and physical joysticks. The physical controller is the most compelling target and should guide architecture decisions now rather than be retrofitted later.
+**Consequences:** Control surface work is out of scope for Stage 1 but should be planned starting in Stage 2. All three surfaces (web, mobile, physical controller) are valid targets and should share a common command protocol.
+
+---
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Decision:** Add Wi-Fi as a second transport alongside BLE in Stage 2, exposing the same T,R,H,E,C command protocol over both transports.
+**Rationale:** BLE is sufficient for Stage 1 bring-up but limits control surface options. Wi-Fi is already available on the ESP32 with no additional hardware. Keeping the command protocol identical across transports means the firmware control loop does not change — only the ingestion path does. This directly enables the web dashboard, mobile app, and physical controller targets.
+**Consequences:** Stage 1 firmware remains BLE-only. Stage 2 adds Wi-Fi command intake alongside BLE. The T,R,H,E,C packet format is frozen as the cross-transport protocol standard. BLE is not removed — it remains a fallback transport.
+
+---
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Decision:** Design the physical handheld controller as a standalone device (Raspberry Pi Zero class + small touchscreen + physical joysticks) communicating with the rover over Wi-Fi.
+**Rationale:** A self-contained handheld with a screen and physical controls is the most capable and satisfying long-term control surface. Using Wi-Fi as the transport keeps it consistent with the broader multi-platform architecture. A Pi Zero class board provides enough compute for a display, joystick input, and a telemetry UI without being over-engineered for the task.
+**Consequences:** Physical controller is a future project (post Stage 2 Wi-Fi transport). It is recorded now so architecture decisions along the way do not inadvertently close off this path. No hardware is purchased or scope opened for it until Stage 1 is complete.
