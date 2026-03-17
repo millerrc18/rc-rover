@@ -43,3 +43,10 @@
 - **Improvement:** Added concise cross-document guardrails for future hybrid discussion while preserving current Stage 1 scope.
 - **Why it mattered:** Keeps long-term power-extension options documented without implying active hybrid implementation work.
 - **Evidence:** Consistent updates in `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/HANDOFF.md`, `docs/PROJECT_STATE.md`, and `docs/NEXT_STEPS.md`.
+
+## 2026-03-17
+
+- **Improvement:** Added a complete, beginner-oriented Rover A Stage 1 physical build guide with mandatory phased execution, safety checks, and troubleshooting.
+- **Why it mattered:** Enables consistent, safer live assembly for first-time builders without relying on tribal knowledge or fragmented references.
+- **Evidence:** New `docs/builds/stage1-rover-a-build.md` and synchronized updates in `docs/PROJECT_STATE.md`, `docs/NEXT_STEPS.md`, and `docs/HANDOFF.md`.
+

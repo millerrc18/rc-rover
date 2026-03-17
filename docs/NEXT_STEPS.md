@@ -9,6 +9,7 @@ This file contains the prioritized action queue for `rc-rover`.
 - Order Stage 0/1 buy-now parts from `hardware/bom-stage-0-1.csv` and track status in `docs/PROCUREMENT_STATUS.md` (do not duplicate Romi motors/wheels/caster/battery holder already included in full kit).
 - Receive and inspect ordered parts; log any substitutions, defects, or missing items.
 - Begin Stage 1 mechanical assembly once critical parts pass inspection.
+- Use `docs/builds/stage1-rover-a-build.md` as the live checklist during first physical assembly to reduce wiring and safety mistakes.
 - Perform initial wiring and pre-power continuity/polarity checks.
 - Flash `firmware/stage1-esp32-baseline/` to ESP32 hardware.
 - Run and log the first real bench bring-up session in `docs/BENCH_BRINGUP_LOG.md`.
