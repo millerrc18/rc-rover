@@ -45,6 +45,7 @@ Rover generations describe physical platform evolution while stages describe cap
 - ~150 lb stretch tow
 - Serious manipulator + modular payloads
 - 90–180 min runtime
+- May evaluate an optional outdoor range-extender module in later planning; hybrid propulsion is not part of the current execution plan.
 
 ### Planning Timeline Estimates
 

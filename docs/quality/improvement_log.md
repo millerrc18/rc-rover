@@ -37,3 +37,9 @@
 - **Improvement:** Introduced a concise multi-generation strategy package (definitions, envelopes, timelines, skills, triggers, summary table) without changing Stage 1 baseline execution plan.
 - **Why it mattered:** Gives new agents fast strategic context while keeping immediate physical execution priorities stable and explicit.
 - **Evidence:** Cross-doc updates in `docs/ROADMAP.md`, `docs/ARCHITECTURE.md`, `docs/PROJECT_STATE.md`, `docs/NEXT_STEPS.md`, and `docs/HANDOFF.md`.
+
+## 2026-03-17
+
+- **Improvement:** Added concise cross-document guardrails for future hybrid discussion while preserving current Stage 1 scope.
+- **Why it mattered:** Keeps long-term power-extension options documented without implying active hybrid implementation work.
+- **Evidence:** Consistent updates in `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/HANDOFF.md`, `docs/PROJECT_STATE.md`, and `docs/NEXT_STEPS.md`.
