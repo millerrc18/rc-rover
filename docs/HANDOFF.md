@@ -1,31 +1,29 @@
 # Handoff Summary
 
-_Last updated: 2026-03-14_
+_Last updated: 2026-03-17_
 
 Quick snapshot for the next session.
 
 ## Current phase
 
-Stage 1 execution readiness; pre-procurement and pre-assembly (procurement set corrected)
+Active: Rover A / Mk1 Stage 1 execution readiness (pre-procurement and pre-assembly)
 
 ## Current objective
 
-Start physical execution from zero hardware progress using the corrected initial buy list: order parts, receive/inspect, assemble, then flash and run first bench bring-up.
+Keep immediate execution focus unchanged: procurement -> inspection -> assembly -> bring-up.
 
 ## What just changed
 
-- Cleaned Stage 0/1 BOM and procurement tracker to remove duplicate Romi subcomponent purchases when buying the full Romi chassis kit.
-- Corrected blue Romi chassis kit reference to `Pololu #3506`.
-- Marked separate Romi motors/wheels/caster as optional spare-only and explicit non-initial buys.
-- Made integrated Romi 6xAA holder inclusion explicit in BOM and procurement tracker.
-- Kept encoder and ToF sensor entries clearly later-stage, not immediate procurement.
+- Added a clear multi-generation platform strategy to the roadmap (Rover A/Mk1 through Rover D/Mk4).
+- Documented payload/tow/runtime target envelopes, duration-based planning timelines, migration triggers, and per-platform skill goals.
+- Added cross-generation architecture guidance clarifying what is reusable vs what remains fixed in Stage 1.
+- Recorded accepted decisions that Stage 1 Romi is the learning baseline and Mk2/Mk3/Mk4 are future targets only.
 
 ## Constraints to preserve
 
-- Keep Stage 1 simple and buildable.
-- Differential-drive robotics-first direction is fixed.
-- ESP32-DevKitC-32E + Romi motor board baseline is fixed.
-- No autonomy/camera/lidar scope in Stage 1.
+- Keep Stage 1 hardware baseline fixed (Romi + ESP32-DevKitC-32E + Romi motor board + BLE teleop path).
+- Do not imply any physical build progress until procurement/inspection/assembly actually occur.
+- Mk2/Mk3/Mk4 are defined planning targets and remain not started/out of scope for current execution.
 
 ## Open questions
 
@@ -43,6 +41,7 @@ Start physical execution from zero hardware progress using the corrected initial
 
 - `docs/PROJECT_STATE.md`
 - `docs/NEXT_STEPS.md`
+- `docs/ROADMAP.md`
 - `docs/PROCUREMENT_STATUS.md`
 - `hardware/bom-stage-0-1.csv`
 - `docs/STAGE_1_BUILD_PLAN.md`

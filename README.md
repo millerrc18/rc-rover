@@ -8,6 +8,8 @@
 
 The long‑term vision for this project is to build a platform that can grow from a basic RC vehicle into a capable robotics testbed.  It will support adding sensors, data logging, closed‑loop control, obstacle detection, semi‑autonomous behavior and ultimately more advanced autonomy and payloads.  Each step will be documented so that future users can reproduce and extend the work.
 
+The roadmap now also defines a multi-generation platform path: Rover A / Mk1 (current learning platform), Rover B / Mk2 (payload-class), Rover C / Mk3 (utility-class), and Rover D / Mk4 (scout/manipulation vision), while keeping Stage 1 execution scope fixed.
+
 ## Current status
 
 This repository is currently being bootstrapped.  The initial commit sets up a documentation and memory system that will serve as a durable operating system for the project.  There is no hardware or software yet; the focus is on scaffolding the repo so that future agents and contributors can understand the project context and history without prior chat.

@@ -32,3 +32,10 @@
 - **Impact:** Could cause unnecessary duplicate purchases before first procurement.
 - **Resolution:** Corrected chassis kit SKU to `Pololu #3506`, marked motors/wheels/caster as optional spare-only, and added explicit included-with-kit battery-holder tracking.
 - **Evidence:** Consistency review of `hardware/bom-stage-0-1.csv` and `docs/PROCUREMENT_STATUS.md` after update.
+
+## 2026-03-17
+
+- **Issue:** Roadmap context did not clearly distinguish Stage progression from physical platform generations, making future scaling intent hard to interpret for new agents.
+- **Impact:** Could cause roadmap misreads, accidental Stage 1 scope creep, or implied physical progress on future platforms.
+- **Resolution:** Added explicit platform-evolution sections, migration triggers, and status markers (planned/vision/not started) while preserving Stage 1 active scope.
+- **Evidence:** Updated `docs/ROADMAP.md`, `docs/ARCHITECTURE.md`, `docs/DECISIONS.md`, and `docs/HANDOFF.md`.

@@ -1,6 +1,6 @@
 # Project State
 
-_Last updated: 2026-03-14_
+_Last updated: 2026-03-17_
 
 This file is the canonical description of current project status.
 
@@ -29,6 +29,8 @@ Begin real-world Stage 1 execution in the correct order: procure parts, inspect 
 - Logic-power ambiguity is resolved in documentation:
   - Bench bring-up ESP32 power: USB-A to Micro-USB cable.
   - Untethered ESP32 power: motor board regulated 5V to ESP32 5V pin.
+- Multi-generation platform strategy is now documented: Rover A / Mk1 active, Rover B / Mk2 and Rover C / Mk3 planned, Rover D / Mk4 long-term vision.
+- Roadmap now distinguishes capability stages from physical platform generations to avoid planning ambiguity.
 
 ## Completed tasks
 

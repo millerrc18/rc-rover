@@ -15,3 +15,7 @@ This file captures lessons learned, mistakes made and heuristics discovered duri
 
 - A plain-text BLE control packet with explicit heartbeat (`T,R,H,E,C`) is fast to validate on bench hardware and reduces tooling friction during first bring-up.
 - Maintaining a dedicated bench bring-up log template prevents ad-hoc test notes and makes acceptance evidence easier to compare across runs.
+
+## 2026-03-17
+
+- Keeping “capability stages” separate from “platform generations” reduces planning confusion and helps protect Stage 1 execution focus from premature scope expansion.

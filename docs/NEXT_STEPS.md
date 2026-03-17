@@ -1,6 +1,6 @@
 # Next Steps
 
-_Last updated: 2026-03-14_
+_Last updated: 2026-03-17_
 
 This file contains the prioritized action queue for `rc-rover`.
 
@@ -23,6 +23,7 @@ This file contains the prioritized action queue for `rc-rover`.
 
 ## Later
 
+- Keep Mk2/Mk3/Mk4 as documented planning scope only until Stage 1 physical acceptance is complete.
 - Add front distance sensing (Stage 3 path).
 - Add wheel encoders and IMU for motion awareness (Stage 4 path).
 - Add telemetry logging and higher-level control loops.

@@ -54,3 +54,13 @@ This log records every meaningful modification or work session on the project.  
 - Relabeled Romi motors/wheels/caster as optional spare-only and added explicit "included in kit" battery-holder line item.
 - Reworked `docs/PROCUREMENT_STATUS.md` into clear sections: buy-now initial order, included-with-kit no-buy items, and later-stage items.
 - Updated canonical state/handoff/next-step docs and quality logs to reflect corrected procurement baseline.
+
+## 2026-03-17
+
+- Reviewed core context files (`README.md`, `AGENTS.md`, `docs/START_HERE.md`, `docs/HANDOFF.md`, `docs/PROJECT_STATE.md`, `docs/NEXT_STEPS.md`) before making changes.
+- Expanded `docs/ROADMAP.md` with a full multi-generation platform strategy while preserving Stage 0-Stage 6 structure and keeping Stage 1 baseline unchanged.
+- Added platform definitions (Rover A/Mk1 through Rover D/Mk4), target envelopes, duration-based planning estimates, skill outcomes, migration triggers, and a concise roadmap summary table.
+- Added cross-generation architecture guidance in `docs/ARCHITECTURE.md` clarifying reusable patterns and fixed Stage 1 constraints.
+- Recorded new accepted platform-strategy decisions in `docs/DECISIONS.md`.
+- Updated handoff/state/queue docs to reflect that Mk2/Mk3/Mk4 are defined but not started and remain out of current execution scope.
+- Updated quality logs for traceability of this documentation change set.
