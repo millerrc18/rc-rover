@@ -29,6 +29,7 @@ Begin real-world Stage 1 execution in the correct order: procure parts, inspect 
 - Logic-power ambiguity is resolved in documentation:
   - Bench bring-up ESP32 power: USB-A to Micro-USB cable.
   - Untethered ESP32 power: motor board regulated 5V to ESP32 5V pin.
+- Added a complete beginner-focused physical assembly guide for Rover A Stage 1 at `docs/builds/stage1-rover-a-build.md` to support first live hardware build sessions.
 - Multi-generation platform strategy is now documented: Rover A / Mk1 active, Rover B / Mk2 and Rover C / Mk3 planned, Rover D / Mk4 long-term vision.
 - Roadmap now distinguishes capability stages from physical platform generations to avoid planning ambiguity.
 
@@ -41,6 +42,7 @@ Begin real-world Stage 1 execution in the correct order: procure parts, inspect 
 - Frozen exact ESP32 Stage 1 pin assignments including ADC/PWM conflict avoidance.
 - Defined implementation-ready firmware scaffold (BLE teleop, deadman, e-stop, drive mix, battery ADC, failure states).
 - Implemented first executable Stage 1 firmware baseline with safe startup, BLE control intake, differential mixing, deadman timeout, e-stop latch, and battery ADC serial reporting.
+- Authored a complete phased Rover A Stage 1 physical build instruction guide suitable for first-time builders and live assembly use.
 
 ## Open tasks
 

@@ -19,6 +19,7 @@ Keep immediate execution focus unchanged: procurement -> inspection -> assembly 
 - Added cross-generation architecture guidance clarifying what is reusable vs what remains fixed in Stage 1.
 - Recorded accepted decisions that Stage 1 Romi is the learning baseline and Mk2/Mk3/Mk4 are future targets only.
 - Discussed hybrid propulsion and intentionally deferred it to later-generation planning only (no current-scope execution work).
+- Added `docs/builds/stage1-rover-a-build.md`, a complete beginner-friendly phased assembly guide for Rover A Stage 1 physical build sessions.
 
 ## Constraints to preserve
 
@@ -47,6 +48,7 @@ Keep immediate execution focus unchanged: procurement -> inspection -> assembly 
 - `docs/PROCUREMENT_STATUS.md`
 - `hardware/bom-stage-0-1.csv`
 - `docs/STAGE_1_BUILD_PLAN.md`
+- `docs/builds/stage1-rover-a-build.md`
 - `docs/STAGE_1_WIRING_DIAGRAM.md`
 - `docs/STAGE_1_PIN_MAP.md`
 - `firmware/stage1-esp32-baseline/`

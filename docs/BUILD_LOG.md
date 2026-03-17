@@ -71,3 +71,12 @@ This log records every meaningful modification or work session on the project.  
 - Updated architecture and roadmap docs to state electric-drive-first direction and document future-only serial-hybrid/range-extender constraints.
 - Recorded an accepted decision preserving electric traction as core mobility architecture across generations.
 - Updated handoff/state/next-step and quality logs to keep new-agent context clear and consistent.
+
+## 2026-03-17
+
+- Reviewed required context docs before editing (`README.md`, `docs/START_HERE.md`, `docs/HANDOFF.md`, `docs/PROJECT_STATE.md`, `docs/NEXT_STEPS.md`, `docs/ARCHITECTURE.md`, `docs/BUILD_LOG.md`).
+- Created `docs/builds/stage1-rover-a-build.md` as a complete, highly detailed, beginner-friendly Rover A Stage 1 physical assembly guide for live build use.
+- Included mandatory phased assembly workflow (mechanical, layout, core wiring, ESP32 control wiring, safe power setup, first power-on, and motor test) with explicit safety checks and stop conditions.
+- Added wiring-reference summary, common-mistakes section, completion checklist, and local image placeholders with exact descriptions of expected visuals.
+- Updated canonical state docs and quality logs to reflect availability of the new first-build assembly playbook.
+

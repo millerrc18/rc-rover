@@ -46,3 +46,11 @@
 - **Impact:** Could trigger scope creep or architecture drift during Mk1/Mk2 execution planning.
 - **Resolution:** Added explicit electric-drive-first and serial-hybrid/range-extender-only future guidance across architecture, roadmap, decision, and handoff docs.
 - **Evidence:** `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/HANDOFF.md`, plus synchronized state/queue updates.
+
+## 2026-03-17
+
+- **Issue:** Stage 1 documentation lacked a single complete, beginner-friendly, live-use physical assembly procedure for Rover A hardware build sessions.
+- **Impact:** First-time builders could make wiring or safety mistakes by stitching together multiple docs with different levels of detail.
+- **Resolution:** Added a full phased build instruction guide with explicit goals, stop conditions, critical safety checks, and troubleshooting for first power-on and motor tests.
+- **Evidence:** `docs/builds/stage1-rover-a-build.md` plus canonical context updates in `PROJECT_STATE`, `NEXT_STEPS`, and `HANDOFF`.
+

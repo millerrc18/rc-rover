@@ -33,6 +33,7 @@ This file maps the contents of `docs/`.
 - **STAGE_1_TUNING.md**: Stage 1 drivability and safety tuning worksheet.
 - **../hardware/bom-stage-0-1.csv**: First-pass sourced BOM.
 - **PROCUREMENT_STATUS.md**: Stage 0/1 order/receiving/inspection tracker.
+- **builds/stage1-rover-a-build.md**: Beginner-friendly, phase-by-phase physical assembly guide for Rover A Stage 1.
 
 ## Templates
 
