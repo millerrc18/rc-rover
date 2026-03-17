@@ -64,3 +64,10 @@ This log records every meaningful modification or work session on the project.  
 - Recorded new accepted platform-strategy decisions in `docs/DECISIONS.md`.
 - Updated handoff/state/queue docs to reflect that Mk2/Mk3/Mk4 are defined but not started and remain out of current execution scope.
 - Updated quality logs for traceability of this documentation change set.
+
+## 2026-03-17
+
+- Reviewed roadmap/architecture/decisions/handoff docs and added a concise future-facing hybrid propulsion note set without changing current execution scope.
+- Updated architecture and roadmap docs to state electric-drive-first direction and document future-only serial-hybrid/range-extender constraints.
+- Recorded an accepted decision preserving electric traction as core mobility architecture across generations.
+- Updated handoff/state/next-step and quality logs to keep new-agent context clear and consistent.

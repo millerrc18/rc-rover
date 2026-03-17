@@ -56,4 +56,16 @@ The architecture is designed to be portable across chassis generations (Mk1 -> M
 - Telemetry structure (battery/runtime/status reporting conventions)
 - Documentation-driven memory system (`PROJECT_STATE`, `NEXT_STEPS`, decisions, logs)
 
+
 This enables hardware evolution without losing operational continuity or documentation quality.
+
+### Future architecture notes
+
+#### Future Outdoor Power Extension
+
+- All current and near-term rover generations remain electric-drive-first.
+- Hybrid propulsion is out of scope for Rover A / Mk1 and Rover B / Mk2.
+- If a hybrid approach is explored in later generations, treat it as a **serial-hybrid / range-extender** architecture:
+  - Electric motors remain the only wheel-drive actuators.
+  - Any gasoline engine is an outdoor-only generator/power module, not a direct mechanical drive path.
+  - Indoor operation remains battery-electric only.

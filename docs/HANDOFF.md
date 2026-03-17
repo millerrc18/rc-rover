@@ -18,12 +18,14 @@ Keep immediate execution focus unchanged: procurement -> inspection -> assembly 
 - Documented payload/tow/runtime target envelopes, duration-based planning timelines, migration triggers, and per-platform skill goals.
 - Added cross-generation architecture guidance clarifying what is reusable vs what remains fixed in Stage 1.
 - Recorded accepted decisions that Stage 1 Romi is the learning baseline and Mk2/Mk3/Mk4 are future targets only.
+- Discussed hybrid propulsion and intentionally deferred it to later-generation planning only (no current-scope execution work).
 
 ## Constraints to preserve
 
 - Keep Stage 1 hardware baseline fixed (Romi + ESP32-DevKitC-32E + Romi motor board + BLE teleop path).
 - Do not imply any physical build progress until procurement/inspection/assembly actually occur.
 - Mk2/Mk3/Mk4 are defined planning targets and remain not started/out of scope for current execution.
+- Any future hybrid concept is constrained to a serial-hybrid/range-extender outdoor module and is out of scope for Mk1/Mk2 execution.
 
 ## Open questions
 

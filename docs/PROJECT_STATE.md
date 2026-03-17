@@ -66,6 +66,7 @@ Production firmware baseline exists in `firmware/stage1-esp32-baseline/` and is 
 - Initial manual control: BLE teleop.
 - Untethered ESP32 logic power: MPDB regulated 5V -> ESP32 5V pin.
 - Bench cable standard: USB-A to Micro-USB data cable.
+- Electric traction remains the core architecture; any hybrid concept is future-only serial range-extender planning and out of scope for Mk1/Mk2.
 
 ## Assumptions
 

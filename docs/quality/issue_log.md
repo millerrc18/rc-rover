@@ -39,3 +39,10 @@
 - **Impact:** Could cause roadmap misreads, accidental Stage 1 scope creep, or implied physical progress on future platforms.
 - **Resolution:** Added explicit platform-evolution sections, migration triggers, and status markers (planned/vision/not started) while preserving Stage 1 active scope.
 - **Evidence:** Updated `docs/ROADMAP.md`, `docs/ARCHITECTURE.md`, `docs/DECISIONS.md`, and `docs/HANDOFF.md`.
+
+## 2026-03-17
+
+- **Issue:** Future planning language did not yet document how hybrid propulsion should be framed, which could be misread as permission for direct gas-drive exploration in near-term builds.
+- **Impact:** Could trigger scope creep or architecture drift during Mk1/Mk2 execution planning.
+- **Resolution:** Added explicit electric-drive-first and serial-hybrid/range-extender-only future guidance across architecture, roadmap, decision, and handoff docs.
+- **Evidence:** `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/HANDOFF.md`, plus synchronized state/queue updates.

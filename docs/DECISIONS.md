@@ -123,3 +123,11 @@ This file records important decisions made in the project.  Each entry should in
 **Decision:** Separate platform generations (`Mk#`) from implementation iterations (`v#.#`).
 **Rationale:** Physical platform shifts and firmware/document iteration are different axes of change and must not be conflated.
 **Consequences:** Docs should reference Mk-level platform strategy independently from version-level iteration tracking.
+
+---
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Decision:** Preserve electric traction as the core mobility architecture across rover generations; if hybrid is explored later, prefer serial hybrid / range-extender architecture over direct mechanical gas drive.
+**Rationale:** This preserves low-speed controllability, preserves indoor battery-only operation, and minimizes drivetrain complexity relative to dual-propulsion or direct gas-drive approaches.
+**Consequences:** Hybrid propulsion remains future-planning-only, out of scope for Rover A / Mk1 and Rover B / Mk2, with no change to the current Stage 1 hardware baseline.
