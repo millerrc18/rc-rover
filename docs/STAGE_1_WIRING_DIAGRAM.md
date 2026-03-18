@@ -19,7 +19,7 @@ flowchart LR
 
     ESP_GND[ESP32 GND] --- VIN_GND[Romi Motor Driver Board GND]
 
-    VIN --> DIV_TOP[R1 20kΩ]
+    VIN --> DIV_TOP[R1 22kΩ]
     DIV_TOP --> ADC_NODE[ADC sense node]
     ADC_NODE --> DIV_BOT[R2 10kΩ to GND]
     ADC_NODE --> ESP_ADC[ESP32 GPIO34 ADC1]
@@ -71,7 +71,7 @@ flowchart LR
 7. Romi board `5V` header pin → ESP32 `5V` pin.
 
 **Battery voltage sense divider:**
-8. Battery sense tap (from Romi board VIN-accessible point or chassis VIN node) → R1 (20kΩ) → ADC node.
+8. Battery sense tap (from Romi board VIN-accessible point or chassis VIN node) → R1 (22kΩ) → ADC node.
 9. ADC node → ESP32 GPIO34.
 10. ADC node → R2 (10kΩ) → GND.
 11. Optional: 100nF ceramic cap from ADC node to GND, placed close to the ESP32 pin.
@@ -81,30 +81,30 @@ flowchart LR
 
 ## Battery voltage divider — resistor values and rationale
 
-The firmware uses `BATTERY_DIVIDER_RATIO = 3.0`, meaning the ADC pin voltage equals one-third of the battery pack voltage.
+The firmware uses `BATTERY_DIVIDER_RATIO = 3.2f`, meaning the ADC pin voltage equals the battery pack voltage divided by 3.2.
 
-**Required divider ratio derivation:**
+**Divider ratio derivation:**
 - 6× AA NiMH cells: nominal 7.2V (6 × 1.2V), maximum ~8.4V freshly charged.
 - ESP32 ADC input maximum: 3.3V.
 - Minimum required step-down ratio to keep ADC within range: 8.4V / 3.3V = 2.55× minimum.
-- Chosen ratio: 3.0× (provides comfortable margin and matches firmware constant).
+- Actual ratio with R1=22kΩ / R2=10kΩ: (22+10)/10 = **3.2×** (safely within range; 20kΩ was originally specified but 22kΩ was substituted — see `docs/PROCUREMENT_STATUS.md`).
 
-**Resistor values for 3.0× ratio:**
-The voltage divider output = Vin × R2 / (R1 + R2) = Vin × 1/3.
-This requires R1 = 2 × R2.
+**Resistor values (as built):**
+The voltage divider output = Vin × R2 / (R1 + R2) = Vin × 10/32 = Vin / 3.2.
+This requires R1 = 2.2 × R2.
 
 | Component | Value | Function |
 |---|---|---|
-| R1 | **20 kΩ** | Upper divider leg (battery node to ADC node) |
+| R1 | **22 kΩ** | Upper divider leg (battery node to ADC node) — 22kΩ substituted for originally specified 20kΩ; safe, ratio updated to 3.2× |
 | R2 | **10 kΩ** | Lower divider leg (ADC node to GND) |
 | C1 | 100 nF ceramic (optional) | Noise filter cap from ADC node to GND |
 
-**Verification at key battery voltages:**
+**Verification at key battery voltages (R1=22kΩ / R2=10kΩ, ratio 3.2×):**
 | Battery state | Pack voltage | ADC pin voltage | Within 3.3V? |
 |---|---|---|---|
-| Fresh full charge | 8.4V | 2.80V | ✓ |
-| Nominal | 7.2V | 2.40V | ✓ |
-| Low / stop driving | 6.0V | 2.00V | ✓ |
+| Fresh full charge | 8.4V | 2.625V | ✓ |
+| Nominal | 7.2V | 2.250V | ✓ |
+| Low / stop driving | 6.0V | 1.875V | ✓ |
 
 **Calibration:** The firmware constant `BATTERY_CALIBRATION = 1.0f` is a correction multiplier. After hardware assembly, compare the serial-reported battery voltage to a multimeter reading across the pack. If they differ by a consistent factor, compute `correction = actual_voltage / reported_voltage` and update `BATTERY_CALIBRATION` in `firmware/stage1-esp32-baseline/src/main.cpp`. Record the calibration factor and measured values in `docs/STAGE_1_TUNING.md`. See the tuning doc for the step-by-step calibration procedure.
 

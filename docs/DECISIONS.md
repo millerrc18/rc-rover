@@ -179,3 +179,11 @@ This file records important decisions made in the project.  Each entry should in
 **Decision:** Design the physical handheld controller as a standalone device (Raspberry Pi Zero class + small touchscreen + physical joysticks) communicating with the rover over Wi-Fi.
 **Rationale:** A self-contained handheld with a screen and physical controls is the most capable and satisfying long-term control surface. Using Wi-Fi as the transport keeps it consistent with the broader multi-platform architecture. A Pi Zero class board provides enough compute for a display, joystick input, and a telemetry UI without being over-engineered for the task.
 **Consequences:** Physical controller is a future project (post Stage 2 Wi-Fi transport). It is recorded now so architecture decisions along the way do not inadvertently close off this path. No hardware is purchased or scope opened for it until Stage 1 is complete.
+
+---
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Decision:** Substitute R1=22kΩ for the originally specified 20kΩ in the battery voltage divider.
+**Rationale:** 22kΩ was available in the resistor assortment; 20kΩ was not. R1=22kΩ / R2=10kΩ gives a 3.2× ratio. Maximum ADC pin voltage at 8.4V pack is 2.625V — safely within the ESP32 3.3V limit. No change to the physical safety margin.
+**Consequences:** `BATTERY_DIVIDER_RATIO` in firmware updated from `3.0f` to `3.2f`. `STAGE_1_WIRING_DIAGRAM.md` updated to reflect R1=22kΩ and 3.2× ratio. One-time calibration against a multimeter reading still recommended after first power-on.

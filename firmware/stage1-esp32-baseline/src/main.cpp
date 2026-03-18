@@ -26,7 +26,7 @@ constexpr uint32_t ADC_SAMPLE_MS = 100;
 
 constexpr float ADC_REFERENCE_V = 3.3f;
 constexpr float ADC_MAX_COUNTS = 4095.0f;
-constexpr float BATTERY_DIVIDER_RATIO = 3.0f;  // Example divider scale.
+constexpr float BATTERY_DIVIDER_RATIO = 3.2f;  // R1=22kΩ / R2=10kΩ as built (20kΩ was specified; 22kΩ substituted)
 constexpr float BATTERY_CALIBRATION = 1.0f;
 
 constexpr char BLE_DEVICE_NAME[] = "rc-rover-stage1";

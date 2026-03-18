@@ -106,3 +106,13 @@ Reviewed the full repository for correctness issues. Found and corrected nine is
 - Recorded physical controller architecture direction: Pi Zero class + touchscreen + joysticks over Wi-Fi.
 - Added control surface items to BACKLOG.
 - Updated DECISIONS.md (3 new entries), HANDOFF.md, and NEXT_STEPS.md to reflect the new direction.
+
+## 2026-03-17 — First parts received; resistor substitution applied
+
+- SPST switches, Dupont connector kit + crimper, M3 standoffs, and resistor assortment arrived.
+- Confirmed 10kΩ present. 22kΩ available; 20kΩ not in assortment — accepted as substitution.
+- Updated `BATTERY_DIVIDER_RATIO` in `firmware/stage1-esp32-baseline/src/main.cpp` from `3.0f` to `3.2f` to match actual R1=22kΩ / R2=10kΩ as-built divider.
+- Updated `docs/STAGE_1_WIRING_DIAGRAM.md` to reflect R1=22kΩ, 3.2× ratio, and corrected ADC voltage verification table.
+- Updated `docs/PROCUREMENT_STATUS.md` with received items, substitution note, and M3-only standoff note (ESP32 mounting hole workaround documented).
+- Recorded substitution decision in `docs/DECISIONS.md`.
+- Romi chassis and motor driver board arriving Saturday. ESP32, batteries, and remaining wiring items arriving tomorrow.
