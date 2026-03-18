@@ -116,3 +116,23 @@ Reviewed the full repository for correctness issues. Found and corrected nine is
 - Updated `docs/PROCUREMENT_STATUS.md` with received items, substitution note, and M3-only standoff note (ESP32 mounting hole workaround documented).
 - Recorded substitution decision in `docs/DECISIONS.md`.
 - Romi chassis and motor driver board arriving Saturday. ESP32, batteries, and remaining wiring items arriving tomorrow.
+
+## 2026-03-17 — Build guide comprehensive review and rewrite
+
+Reviewed build guide against Pololu product documentation and identified 11 gaps. Full rewrite performed.
+
+Critical gaps fixed:
+- Soldering is mandatory, not optional. Three distinct soldering tasks exist in a specific order: motor headers and control headers (bench, before mounting), battery contacts (after mounting), and 6-cell series jumper.
+- Phase ordering was wrong. Board preparation must happen before chassis assembly. Corrected to 13 phases in correct dependency order.
+- Motor connections require soldering female headers to the board before mounting — not auto-connecting on snap-in.
+- 6-cell series jumper not previously mentioned. Without it the battery pack is split and the rover has no power.
+- Romi board has a built-in latching power button — not previously documented. Power does not flow until button is pressed.
+
+Other gaps fixed:
+- Tools section now lists soldering iron as mandatory with temperature guidance; adds solder, tip cleaner, PCB holder.
+- Added Phase 0: PlatformIO toolchain install and ESP32 pre-verification before any assembly.
+- Added Phase 7: dedicated ESP32 logic power wiring step (5V from Romi board to ESP32 5V pin).
+- Added Phase 8: battery voltage divider construction with explicit component values (R1=22kΩ / R2=10kΩ).
+- ESP32 foam tape mounting workaround documented (M2 standoffs not available).
+- R1 value corrected to 22kΩ throughout (was 20kΩ in wiring reference section).
+- Consumables list added to parts section (male headers, series jumper wire, resistors, perfboard).

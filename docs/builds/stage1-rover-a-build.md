@@ -2,7 +2,7 @@
 
 _Last updated: 2026-03-17_
 
-> **Board notice:** This guide targets the **Pololu Romi Motor Driver and Power Distribution Board (#3543)** exclusively. An earlier draft of this guide incorrectly referenced a generic DRV8833 breakout board with different terminal names and a different wiring approach. If you have any version of this guide that mentions `AIN1`, `AIN2`, `BIN1`, `BIN2`, `OUT1`–`OUT4`, or GPIO33, discard it and use this file only.
+> **Board notice:** This guide targets the **Pololu Romi Motor Driver and Power Distribution Board (#3543)** exclusively. If you have any version of this guide that mentions `AIN1`, `AIN2`, `BIN1`, `BIN2`, `OUT1`–`OUT4`, or GPIO33 for M2DIR, discard it and use this file only.
 
 ---
 
@@ -16,426 +16,472 @@ Build Rover A Stage 1 as a safe, working, manually controlled differential-drive
 - ESP32-DevKitC-32E
 - 6× AA NiMH cells
 
-## What you are building (simple explanation)
+## What you are building
 
-You are building a small two-wheel rover.
-One motor drives the left wheel.
-One motor drives the right wheel.
-The battery provides power.
-The Romi Motor Driver board sits on the chassis, drives both motors, and also supplies regulated 5V logic power to the ESP32.
-The ESP32 sends PWM and direction signals to the motor driver board.
+One motor drives the left wheel, one motor drives the right wheel. The Romi Motor Driver board sits on the chassis, drives both motors, and supplies regulated 5V logic power to the ESP32. The ESP32 sends PWM and direction signals to the motor driver board via jumper wires.
 
 ## Key facts about the Romi Motor Driver board
 
-The Romi Motor Driver and Power Distribution Board (#3543) is designed to snap directly into the Romi chassis. This means:
+Before you start, understand what this board does and does not do automatically:
 
-- The **motors connect through the chassis connectors**, not through separate screw terminals you wire manually.
-- The **battery pack connects through the chassis battery contacts**, not through separate power wires you wire manually.
-- You **do** need to wire the four ESP32 control signals (two PWM pins, two direction pins) and the shared ground using jumper wires to the board's labeled header pins.
-- The board provides a **regulated 5V output** that powers the ESP32 during untethered operation.
+- **Motors connect through the chassis** — the board has female headers that mate with the motor tabs when pressed into the chassis. No separate motor wire routing needed, but the headers must be **soldered to the board first** (before mounting).
+- **Battery contacts must be soldered** — after the board is mounted, you solder the four battery terminal tabs to the board to establish the electrical and mechanical connection.
+- **6-cell series jumper required** — the Romi battery compartment is split into a 4-cell section and a 2-cell section. A short jumper wire must be soldered to connect them in series for full 7.2V nominal.
+- **The board has a built-in latching power button** — one press turns power on, another turns it off. This is your primary power switch. Your SPST toggle switch can be wired externally in parallel as an additional cutoff, but the board's built-in button handles normal operation.
+- **Control signals need 5 jumper wires** — from ESP32 GPIO pins to the board's control header pins.
+- **Regulated 5V output** on the board powers the ESP32 in untethered operation.
 
-## Final expected outcome
+## Correct build order
 
-At the end of this guide you should have:
-- A fully assembled rolling chassis with the Romi Motor Driver board snapped in.
-- ESP32 control signals wired to the motor driver board headers.
-- Safe power setup confirmed for first tests.
-- Basic motor movement confirmed (forward, reverse, turning).
+The build must follow this sequence. Doing steps out of order creates rework:
 
-![Completed Rover Top View](../assets/images/stage1_rover_complete_top.png)
-_What this image should show: a top-down view of the finished Stage 1 rover with labeled ESP32, Romi Motor Driver board, battery compartment, and both drive wheels._
+1. Toolchain setup and ESP32 verification
+2. Solder headers and motor connectors to the Romi board **on the bench** before mounting
+3. Mechanical chassis assembly
+4. Mount board into chassis; solder battery contacts
+5. Solder 6-cell series jumper
+6. Mount and secure ESP32
+7. Wire ESP32 control signals to Romi board
+8. Wire ESP32 logic power from Romi board
+9. Build battery voltage divider
+10. Pre-power checklist
+11. First power-on (USB only)
+12. First battery power-on
+13. Motor direction verification and production firmware flash
+14. Drive validation
 
 ---
 
-# 2. System Architecture (Simple Explanation)
+# 2. System Architecture
 
-Think of the rover as three paths that must all be correct.
+Three paths must all be correct:
 
-**Power path:** battery contacts in chassis → Romi Motor Driver board → motors (through chassis connectors) and regulated 5V output → ESP32.
+**Power path:** Battery cells → chassis contacts (soldered to Romi board) → Romi motor drivers → motors. Also: Romi board regulated 5V → ESP32 5V pin.
 
-**Control path:** ESP32 GPIO pins → Romi Motor Driver board control headers → motor outputs.
+**Control path:** ESP32 GPIO pins → jumper wires → Romi board control headers → motor driver ICs → motors.
 
-**Ground path (critical):** ESP32 GND and Romi Motor Driver board GND must be connected by a wire. This gives both boards the same electrical reference. Without a shared ground, control signals will fail or behave randomly even if all other wiring looks correct.
-
-![Power Control Ground Diagram](../assets/images/stage1_power_control_ground_paths.png)
-_What this image should show: a simple block diagram with three colored paths: battery contacts through the chassis to the Romi board to the motors; ESP32 GPIO pins to Romi board control headers; and one bold shared ground line between ESP32 and the Romi board._
+**Ground path (critical):** ESP32 GND and Romi board GND must share a jumper wire. Without this, control signals will not work.
 
 ---
 
 # 3. Tools Required
 
-Required:
-- Small Phillips screwdriver (for chassis assembly screws).
-- Small flat screwdriver (for any board mounting hardware).
-- Wire stripper (for clean wire ends on jumper wires).
+**Mandatory:**
+- Soldering iron with temperature control (650–720°F / 340–380°C for battery contacts; 600–650°F / 315–340°C for headers)
+- Rosin-core solder, 60/40 or 63/37, 0.6–0.8mm diameter
+- Tip cleaner (brass wool preferred)
+- Small Phillips screwdriver
+- Wire stripper
+- Multimeter
 
-Optional but strongly recommended:
-- Multimeter (for polarity and continuity checks before first power-on).
-- Soldering iron (only if your jumper wire connections need hardened joints; Dupont/pin connections are fine for Stage 1).
+**Helpful:**
+- Helping hands or PCB holder
+- Flush cutters
+- Heat-resistant mat
 
 ---
 
 # 4. Parts Identification
 
-Before assembly, place all parts on a table and identify each one.
-
 **Romi chassis kit (#3506, blue)**
-- Main blue chassis plate with integrated 6× AA battery compartment.
-- Two DC gear motors with leads already attached to motor tabs.
-- Two drive wheels.
-- Ball caster assembly.
-- Hardware bag (screws, nuts, spacers).
+- Main blue chassis plate with integrated 6× AA battery compartment (split 4+2 sections)
+- Two DC gear motors with wire leads
+- Two drive wheels
+- Ball caster assembly
+- Hardware bag
+- Four individual battery contact terminals (spring type)
+- Two double-sided battery contacts (long cross-shaped, bridge the sections)
 
 **Pololu Romi Motor Driver and Power Distribution Board (#3543)**
-- A compact PCB designed to snap directly into the Romi chassis.
-- Has a white rectangular board-to-board connector that mates with the chassis.
-- Key labeled header pins visible on the board surface:
-  - `M1PWM`, `M1DIR` — left motor control inputs
-  - `M2PWM`, `M2DIR` — right motor control inputs
-  - `GND` — ground reference
-  - `5V` — regulated 5V output (powers ESP32 in untethered operation)
-- Also has VIN contacts that receive battery power directly from the chassis contacts.
+- Compact PCB with white chassis connector on underside
+- Built-in latching power button (small tactile button)
+- Two low-profile female headers included in packaging (for motor connections)
+- Control header holes: M1PWM, M1DIR, M2PWM, M2DIR, GND, 5V
 
-**ESP32-DevKitC-32E**
-- Small microcontroller board with two rows of GPIO pins along the sides.
-- Has a Micro-USB connector for bench power and firmware flashing.
-- Pin labels are printed on the board near each pin.
-
-**6× AA NiMH cells**
-- Load these into the Romi chassis battery compartment after mechanical assembly.
-
-**Jumper wires**
-- You need five jumper wires: four for control signals, one for shared ground.
-- Female-to-female or male-to-female Dupont wires depending on your header types.
-
-![Parts Flat Lay](../assets/images/stage1_parts_identification_flatlay.png)
-_What this image should show: all major parts laid out on a bench with text labels pointing to the Romi chassis, Romi Motor Driver board, ESP32, NiMH cells, and jumper wires._
+**Consumables needed:**
+- Male 0.1" pin headers for control signal headers (check if any shipped with the board)
+- Short wire ~5cm for 6-cell series jumper
+- 5× Dupont jumper wires
+- R1: 22kΩ resistor
+- R2: 10kΩ resistor
+- 100nF ceramic capacitor (optional noise filter)
+- Small perfboard or mini breadboard for voltage divider
 
 ---
 
 # 5. PHASED BUILD INSTRUCTIONS
 
-## PHASE 1 — Mechanical Assembly (NO electronics)
+---
+
+## PHASE 0 — Toolchain Setup and ESP32 Verification
 
 ### Goal
-Build a straight, freely rolling rover chassis before adding any electronics.
+Confirm the ESP32 flashes and your development tools work before any hardware assembly.
 
-### Parts used
-- Romi chassis and all hardware in the kit bag.
-- Two drive wheels.
-- Ball caster assembly.
+### Install PlatformIO
+1. Install [Visual Studio Code](https://code.visualstudio.com/).
+2. Open VS Code → Extensions → search "PlatformIO IDE" → install.
+3. Restart VS Code.
 
-### Step-by-step instructions
-
-1. Place the Romi chassis on a flat table with the battery compartment facing up.
-2. Install the ball caster in the rear caster mounting hole using the included hardware. Tighten snugly but do not strip the plastic.
-3. Snap the left wheel onto the left motor shaft. The wheel should click into place.
-4. Snap the right wheel onto the right motor shaft. The wheel should click into place.
-5. Set the chassis on the table and gently roll it forward by hand.
-6. Roll it backward by hand.
-
-### How to verify alignment
-- Look from the front: wheels should be parallel with equal spacing from the chassis edges.
-- Push the rover forward slowly on a flat surface: it should not strongly pull left or right.
-- Both wheels should spin freely by hand with no grinding or binding.
-
-### What NOT to do
-- Do not install any wires or boards in this phase.
-- Do not force wheels if shaft fit feels wrong — check that the D-shaped shaft flat is aligned to the wheel hub flat before pushing.
-- Do not over-tighten caster hardware into plastic.
+### Verify the ESP32
+1. Connect ESP32 to laptop via USB-A to Micro-USB cable.
+2. Confirm a serial port appears (Device Manager on Windows; `ls /dev/tty*` on Mac/Linux).
+3. Navigate to `firmware/stage1-motor-test/` in a terminal.
+4. Run `pio run` — compiles the sketch (first run downloads ESP32 toolchain, ~5 min).
+5. Run `pio run -t upload` to flash.
+6. Run `pio device monitor -b 115200` and confirm you see:
+```
+[MOTOR TEST] Starting.
+[MOTOR TEST] WHEELS MUST BE ELEVATED.
+[MOTOR TEST] Step 1: Left motor FORWARD ...
+```
+Motors won't move yet — no motor power connected. This just confirms the toolchain and ESP32 are working.
 
 ### Stop condition
-Stop Phase 1 only when the rover rolls freely on a flat surface with no scraping or binding.
+Stop Phase 0 only when the ESP32 flashes and serial output is confirmed.
 
 ---
 
-## PHASE 2 — Electronics Layout Planning (NO wiring yet)
+## PHASE 1 — Solder Romi Motor Driver Board (BENCH — before chassis assembly)
 
 ### Goal
-Decide where the Romi Motor Driver board and ESP32 will sit before making any connection.
+Complete all soldering to the Romi board while it is off the chassis. Access is much better now than after mounting.
 
-### Parts used
-- ESP32-DevKitC-32E.
-- Romi Motor Driver and Power Distribution Board (#3543).
-- Chassis from Phase 1.
+### What to solder
 
-### The Romi Motor Driver board placement is fixed
+**A. Motor connection female headers**
+The board ships with two low-profile female headers. These allow the motor tabs to plug in automatically when the board seats into the chassis.
 
-Unlike a generic breakout board, the Romi Motor Driver and Power Distribution Board mounts in one specific location: it snaps into the white connector on the underside of the Romi chassis deck, directly over the motor and battery contacts. There is no placement choice to make for this board.
+1. Insert the female headers into the motor connection holes on the front edge of the board (the two sets of holes positioned over where the motors will sit).
+2. Solder from the bottom side. Tack one pin first, check alignment, then solder the rest.
+3. Temperature: 650°F / 340°C.
+4. Inspect: headers should be flush and perpendicular.
 
-Do not snap the board in permanently yet — just dry-fit it to understand the orientation and which way the header pins face.
+**B. Control signal male headers**
+Solder a row of male 0.1" header pins into the control signal holes so Dupont jumper wires can connect.
+You need at minimum: M1PWM, M1DIR, M2PWM, M2DIR, GND, 5V.
 
-### ESP32 placement planning
+1. Insert male pins from the top side.
+2. Use a spare breadboard to hold pins perpendicular while soldering.
+3. Solder from the bottom side.
+4. Temperature: 620°F / 325°C.
 
-1. Place the ESP32 on the chassis top deck where the USB Micro connector is accessible from outside.
-2. Locate the `M1PWM`, `M1DIR`, `M2PWM`, `M2DIR`, and `GND` / `5V` header pins on the Romi Motor Driver board (visible when the board is snapped into the chassis).
-3. Dry-route your five planned jumper wires with your finger:
-   - Four control wires: ESP32 GPIO pins to Romi board control headers.
-   - One ground wire: ESP32 GND to Romi board GND.
-4. Confirm no planned wire path crosses the drive wheels.
-5. Confirm USB access on the ESP32 is not obstructed.
+### Soldering reminders
+- Tin the tip before starting. Wipe on brass wool, add a tiny bit of fresh solder to the tip.
+- Heat pad and pin together 1–2 seconds, then feed solder to the joint (not the iron).
+- A good joint is shiny and volcano-shaped. A cold joint is dull and blobby.
+- 2–3 seconds per joint max.
 
-### What NOT to do
-- Do not connect any wires in this phase.
-- Do not permanently mount the ESP32 before confirming wire routes.
+### What NOT to solder yet
+Do not solder the battery contacts — those are done after mounting.
 
 ### Stop condition
-Stop Phase 2 only when board positions and wire routes are clearly decided.
-
-![Top-Down Electronics Layout](../assets/images/stage1_layout_topdown.png)
-_What this image should show: top-down chassis view with the Romi Motor Driver board snapped in and an ESP32 placed on the deck, with simple arrows showing planned jumper wire directions between them._
+Stop Phase 1 only when both motor female headers and all control signal male headers are soldered and visually inspected.
 
 ---
 
-## PHASE 3 — Install Romi Motor Driver Board
+## PHASE 2 — Mechanical Chassis Assembly
 
 ### Goal
-Snap the Romi Motor Driver board into the chassis so power and motor paths are established through the chassis connectors.
+Build a straight, freely rolling chassis before adding electronics.
 
-### Parts used
-- Romi Motor Driver and Power Distribution Board (#3543).
-- Romi chassis from prior phases (motors and ball caster installed).
-
-### Step-by-step instructions
-
-1. Confirm all power is disconnected — no batteries installed, no USB connected.
-2. Orient the Romi Motor Driver board so its white chassis connector aligns with the white connector on the underside of the Romi chassis deck.
-3. Gently press the board down until the connectors mate fully and the board sits flush.
-4. Confirm the board is seated evenly and not tilted.
-5. Verify you can identify the following labeled headers on the board surface:
-   - `M1PWM` and `M1DIR` (left motor control)
-   - `M2PWM` and `M2DIR` (right motor control)
-   - `GND` and `5V` (shared ground and regulated output)
-
-### What this connection provides
-
-By snapping the board in, you have established:
-- **Motor outputs:** the board's internal drivers are now connected to the left and right motors through the chassis connector — no separate motor wiring needed.
-- **Battery input:** the board's VIN contacts are now resting against the chassis battery contact springs — no separate battery wiring needed.
-- **Regulated 5V output:** accessible at the `5V` header pin, ready to power the ESP32 for untethered operation.
-
-### What NOT to do
-- Do not force the board at an angle — it should snap in straight.
-- Do not install batteries yet.
+### Steps
+1. Place chassis flat with battery compartment facing up.
+2. Install ball caster in the rear mounting hole. Snug, not over-tightened.
+3. Insert the two double-sided battery contacts into the battery compartment channels from the underside.
+4. Place the four individual battery contact terminals into the battery box from the top. They should rest loosely in their slots — they will be soldered later.
+5. Press left motor into its motor clip until it clicks and is secure.
+6. Press right motor into its motor clip until it clicks.
+7. Snap left wheel onto left motor shaft (align the D-flat first).
+8. Snap right wheel onto right motor shaft.
+9. Roll rover forward and backward by hand. Check for binding.
 
 ### Stop condition
-Stop Phase 3 only when the Romi Motor Driver board is fully seated and all key header labels are confirmed visible and accessible.
-
-![Romi Motor Driver Board Installed](../assets/images/stage1_romi_board_installed.png)
-_What this image should show: close-up of the Romi Motor Driver board snapped into the Romi chassis, with the control header pins labeled: M1PWM, M1DIR, M2PWM, M2DIR, GND, 5V._
+Rover rolls freely with no scraping or binding.
 
 ---
 
-## PHASE 4 — ESP32 to Motor Driver Wiring (CORE STEP)
+## PHASE 3 — Mount Romi Motor Driver Board and Solder Battery Contacts
 
 ### Goal
-Connect the five jumper wires between ESP32 GPIO pins and the Romi Motor Driver board headers using the frozen Stage 1 pin map.
+Mount the prepared Romi board and complete the battery contact soldering.
 
-### Parts used
-- ESP32-DevKitC-32E.
-- Five jumper wires.
+### Mount the board
+1. Confirm no batteries are installed.
+2. Orient the Romi Motor Driver board with the underside connector aligned to the chassis connector.
+3. Press the board down firmly and evenly until fully seated. The motor tabs will engage the female headers from Phase 1.
+4. Secure with the included #2-56 screws and nuts (two screws, front corners of the board).
 
-### Frozen Stage 1 wiring map (authoritative)
+### Solder the battery contacts
+5. The four battery contact terminals are now accessible through the board's battery contact slots.
+6. Apply iron to each terminal tab and pad together for 1.5–2 seconds, then feed solder.
+7. Temperature: 680–720°F / 360–380°C — these joints need more heat due to thermal mass.
+8. Work quickly — prolonged heat near the battery compartment plastic can deform the chassis.
+9. Inspect each joint. Should be solid and shiny.
 
-This map is frozen across all Stage 1 documentation, firmware, and this guide. Use it exactly.
+### Stop condition
+Board mounted securely, all four battery contacts soldered.
+
+---
+
+## PHASE 4 — Solder 6-Cell Series Jumper
+
+### Goal
+Connect the two battery sections in series for full 6-cell (7.2V nominal) power.
+
+### Why this is needed
+The Romi battery compartment has a 4-cell section and a 2-cell section. Without a jumper they are isolated. A short wire connects them in series.
+
+### Steps
+1. Cut a short wire (~5cm), strip and tin both ends.
+2. Identify the battery jumper pad locations on the Romi board (labeled Bat Jmp on the board or see Pololu schematic).
+3. Solder one end to the BAT1− pad and the other end to the BAT2+ pad.
+4. Gentle tug to confirm secure.
+
+> **Warning:** Do not bridge BAT1− to GND without first disconnecting BAT1− from BAT2+. That would short the BAT2 cells across the board. The standard 6-series configuration only connects BAT1− to BAT2+.
+
+### Stop condition
+Series jumper in place and confirmed.
+
+---
+
+## PHASE 5 — Mount and Secure ESP32
+
+### Goal
+Mount the ESP32 on the chassis with USB port accessible and jumper wires able to reach the Romi board headers.
+
+### Mounting (M2 standoffs not available — use foam tape)
+1. Place ESP32 in planned deck position with USB connector facing outward.
+2. Confirm five jumper wires can reach M1PWM, M1DIR, M2PWM, M2DIR, GND on the Romi board.
+3. Apply two pieces of double-sided foam tape to the underside of the ESP32.
+4. Press firmly onto the chassis. Hold 20–30 seconds.
+5. Gentle tug to confirm secure.
+
+> M2.5 standoffs fit the ESP32 mounting holes if a more permanent mount is needed later. Foam tape is fully adequate for Stage 1.
+
+### Stop condition
+ESP32 is secure and USB port is unobstructed.
+
+---
+
+## PHASE 6 — Wire ESP32 Control Signals
+
+### Goal
+Connect the five jumper wires from ESP32 GPIO pins to the Romi Motor Driver board.
+
+### Frozen Stage 1 wiring map
 
 | ESP32 pin | Romi Motor Driver pin | Function |
 |---|---|---|
-| GPIO25 | M1PWM | Left motor PWM speed |
+| GPIO25 | M1PWM | Left motor speed |
 | GPIO26 | M1DIR | Left motor direction |
-| GPIO27 | M2PWM | Right motor PWM speed |
+| GPIO27 | M2PWM | Right motor speed |
 | GPIO14 | M2DIR | Right motor direction |
-| GND | GND | Shared ground (required) |
+| GND | GND | Shared ground (mandatory) |
 
-> **GPIO14 note:** GPIO14 is a boot-strapping pin on the ESP32. The firmware initializes it LOW at startup, which is the safe default. The direction signal is a static digital output and this is safe in practice. However: ensure this pin is never externally pulled HIGH during boot (e.g. do not add a pull-up resistor to this line). The jumper wire to the Romi board M2DIR header is fine.
+> **GPIO14 note:** GPIO14 is a boot-strapping pin. The firmware initializes it LOW at startup — safe. Do not add a pull-up resistor to this line.
 
-### Step-by-step instructions
-
-1. Confirm all power is disconnected.
-2. Locate GPIO25 on the ESP32 (check the label printed on the board edge).
-3. Connect a jumper wire from GPIO25 to `M1PWM` on the Romi board.
-4. Connect a jumper wire from GPIO26 to `M1DIR` on the Romi board.
-5. Connect a jumper wire from GPIO27 to `M2PWM` on the Romi board.
-6. Connect a jumper wire from GPIO14 to `M2DIR` on the Romi board.
-7. Connect a jumper wire from any ESP32 `GND` pin to `GND` on the Romi board.
-8. Gently tug each wire to confirm it is fully seated.
-9. Confirm no control wire can contact the drive wheels or the battery contacts.
-
-### Direction control explanation
-
-Each motor uses one PWM wire (speed) and one DIR wire (direction).
-- PWM wire: carries the speed signal, 0–100% duty cycle.
-- DIR wire: HIGH = one direction, LOW = opposite direction.
-- The firmware handles the mixing — you just wire the pins correctly.
-- If a motor spins backward during testing, swap the DIR wire to its opposite logic level in firmware, or swap M1DIR/M2DIR wires between motors. Do not rewire the PWM lines.
-
-### What NOT to do
-- Do not use GPIO33 for M2DIR — earlier draft documentation contained this error. The frozen pin is **GPIO14**.
-- Do not skip the shared GND wire. Without it, the ESP32 and motor driver have no common reference and motors will not respond correctly.
-- Do not use ADC2 pins (GPIO0, 2, 4, 12–15, 25–27 range — check ESP32 docs) for other sensors later, as BLE conflicts with ADC2.
+### Steps
+1. Confirm all power off, no batteries.
+2. Connect GPIO25 → M1PWM.
+3. Connect GPIO26 → M1DIR.
+4. Connect GPIO27 → M2PWM.
+5. Connect GPIO14 → M2DIR.
+6. Connect any ESP32 GND pin → Romi board GND.
+7. Tug each wire to confirm seated.
+8. Confirm no wire can contact the wheels.
 
 ### Stop condition
-Stop Phase 4 only when all five wires are connected and the map has been verified against the table above.
-
-![ESP32 to Romi Board Control Wiring](../assets/images/stage1_esp32_romi_control.png)
-_What this image should show: labeled jumper wires from ESP32 GPIO25/26/27/14/GND to Romi Motor Driver M1PWM/M1DIR/M2PWM/M2DIR/GND header pins._
+All five wires connected and verified against the table.
 
 ---
 
-## PHASE 5 — Safe Power Setup
+## PHASE 7 — Wire ESP32 Logic Power
 
 ### Goal
-Configure the correct power mode before applying any power.
+Connect the Romi board's regulated 5V output to the ESP32 for untethered operation.
 
-### Two power modes — know which one you are using
+### Steps
+1. Confirm all power off.
+2. Run a jumper wire from Romi board 5V header pin → ESP32 5V pin.
+3. Confirm the GND wire from Phase 6 is still seated (it serves as the shared ground for this path too).
 
-**Bench bring-up mode (recommended first):**
-- ESP32 is powered by USB-A to Micro-USB cable from laptop.
-- Batteries are NOT installed in this first check.
-- You can confirm firmware boots and BLE is advertising before any motor power exists.
-
-**Untethered battery mode:**
-- Install 6× AA NiMH cells in the Romi chassis battery compartment (observe polarity marking inside compartment).
-- The battery power flows through the chassis contacts directly to the Romi Motor Driver board.
-- The Romi board's regulated 5V output → ESP32 5V pin provides ESP32 logic power.
-- USB can remain connected for serial monitoring but is not required for operation.
-
-### Step-by-step instructions for first bench bring-up
-
-1. Confirm no batteries are installed.
-2. Connect the USB-A to Micro-USB cable between your laptop and the ESP32 USB connector.
-3. Verify the ESP32 power LED illuminates.
-4. Open a serial monitor at 115200 baud.
-5. Confirm you see the `IDLE_DISARMED` status message on serial output.
-6. Confirm no wheel motion occurs.
-7. If using a BLE app (nRF Connect or LightBlue), confirm the `rc-rover-stage1` device is advertising.
-
-### Step-by-step for first battery power check
-
-1. Load 6× AA NiMH cells into the Romi chassis compartment, observing the polarity markings.
-2. Keep wheels elevated off the surface.
-3. The Romi Motor Driver board powers up automatically when cells are loaded.
-4. Connect the 5V regulated output from the Romi board to the ESP32 5V pin if running untethered (or leave USB connected for monitoring).
-5. Wait 10–20 seconds and observe for heat, smell, or unexpected motion.
-
-### What NOT to do
-- Do not wire raw battery positive directly to the ESP32 VIN or 3.3V pin. The regulated 5V from the Romi board to the ESP32 5V pin is the correct untethered power path.
-- Do not run first motor tests with wheels on the floor.
+> Connects to the ESP32 5V pin specifically — not 3.3V, not VIN.
 
 ### Stop condition
-Stop Phase 5 only when the ESP32 boots cleanly and no unexpected motion or heat occurs at idle.
+5V power wire connected.
 
 ---
 
-## PHASE 6 — First Power-On Check (NO movement commands)
+## PHASE 8 — Build Battery Voltage Divider
 
 ### Goal
-Observe idle power-on behavior before sending any motor commands.
+Build the resistor divider that scales battery voltage to a safe level for the ESP32 ADC input.
 
-### Step-by-step instructions
+### Components
+| Component | Value |
+|---|---|
+| R1 | 22kΩ |
+| R2 | 10kΩ |
+| C1 | 100nF ceramic (optional) |
 
-1. Keep wheels elevated.
-2. Power via USB (bench mode) or battery (untethered mode) as prepared in Phase 5.
-3. Wait 15–20 seconds.
-4. Observe serial output — you should see the telemetry line repeating:
-   ```
-   state=DEADMAN,ble=0,thr=0.00,turn=0.00,hb=0,batt=X.XXV
-   ```
-5. Touch near (not on) components to check for abnormal heat — none expected.
-6. No wheel should move without commands.
+Ratio: 3.2×. Max ADC voltage at 8.4V pack: 2.625V — within ESP32's 3.3V limit.
 
-### Warning signs — power OFF immediately if any occur
-- Any component is hot within seconds of power-on.
-- Burning smell or any smoke.
-- ESP32 does not boot (no serial output, no BLE advertisement).
-- Any wheel motion without commands.
-
-### What to check before moving on
-- Clean serial output with state=DEADMAN and batt voltage reading.
-- BLE device advertising as `rc-rover-stage1`.
-- No heat or smell.
+### Steps
+1. On a small piece of perfboard or breadboard:
+2. Connect one end of R1 to the battery voltage sense tap (VBAT or VSW test point on the Romi board).
+3. Connect the other end of R1 to a node — this is your ADC node.
+4. Connect one end of R2 from the ADC node to GND.
+5. Run a wire from the ADC node to ESP32 GPIO34.
+6. Optional: place a 100nF cap from the ADC node to GND near the ESP32 pin.
+7. With batteries in and power on, measure the ADC node with your multimeter. Should be approximately battery voltage ÷ 3.2.
 
 ### Stop condition
-Stop Phase 6 only when idle behavior is clean and stable.
+Divider built, wired to GPIO34, and multimeter reading confirmed plausible.
 
 ---
 
-## PHASE 7 — Motor Test
+## PHASE 9 — Pre-Power Checklist
+
+### Continuity checks (multimeter, power off, no batteries)
+- [ ] GPIO25 → M1PWM: continuity confirmed
+- [ ] GPIO26 → M1DIR: continuity confirmed
+- [ ] GPIO27 → M2PWM: continuity confirmed
+- [ ] GPIO14 → M2DIR: continuity confirmed
+- [ ] ESP32 GND → Romi GND: continuity confirmed
+- [ ] Romi 5V → ESP32 5V pin: continuity confirmed
+- [ ] No signal wire has continuity to GND
+- [ ] ADC divider chain: tap → R1 → ADC node → R2 → GND confirmed
+- [ ] ADC node → GPIO34: continuity confirmed
+
+### Visual checks
+- [ ] All four battery contacts soldered with no cold joints
+- [ ] 6-cell series jumper in place
+- [ ] Motor female headers soldered, no cold joints
+- [ ] No exposed wire strands near adjacent pins
+- [ ] ESP32 secure on foam tape
+- [ ] All jumper wires clear of wheels
+- [ ] USB port accessible
+
+### Stop condition
+All checklist items confirmed.
+
+---
+
+## PHASE 10 — First Power-On (USB only, no batteries)
 
 ### Goal
-Confirm both motors respond correctly to basic motion commands from the Stage 1 BLE firmware.
+Confirm firmware boots before introducing battery power.
 
-### Using the Stage 1 firmware baseline
-
-The production firmware in `firmware/stage1-esp32-baseline/` requires BLE commands to drive motors. There is no keyboard or serial command path in Stage 1 — motor commands only arrive via BLE.
-
-**Option A — Use a minimal motor test sketch (recommended for first bench validation):**
-A dedicated motor test sketch is available in `firmware/stage1-motor-test/`. It drives both motors through a fixed test sequence (forward, stop, reverse, stop, left turn, right turn) with no BLE required. Flash this sketch first, run the test sequence, then reflash the Stage 1 baseline.
-
-To flash and run:
+### Steps
+1. No batteries installed.
+2. Connect USB-A to Micro-USB from laptop to ESP32.
+3. Flash motor test sketch if not already done:
 ```bash
 cd firmware/stage1-motor-test
 pio run -t upload
 pio device monitor -b 115200
 ```
-
-Watch serial output for test step messages. The test runs automatically on boot.
-
-**Option B — Use the Stage 1 BLE baseline directly:**
-Install a BLE central app on your phone:
-- **nRF Connect** (Android or iOS) — recommended for full control.
-- **LightBlue** (iOS/Android) — alternative.
-
-Steps:
-1. Flash `firmware/stage1-esp32-baseline/` to the ESP32.
-2. Open the BLE app. Scan for `rc-rover-stage1`.
-3. Connect to the device.
-4. Locate the Command characteristic (`f0001001-0451-4000-b000-000000000000`).
-5. Write a command string. Format: `T:<throttle>,R:<turn>,H:<heartbeat>,E:0,C:0`
-   - Example forward: `T:0.20,R:0.00,H:1,E:0,C:0`
-   - Example stop: `T:0.00,R:0.00,H:2,E:0,C:0`
-   - Example left turn: `T:0.10,R:-0.20,H:3,E:0,C:0`
-6. You must send commands repeatedly (the firmware has a 300ms deadman timeout). Send a new command every 200ms or the motors will stop.
-
-### Motor test sequence (both options)
-
-1. Wheels elevated. Test Motor 1 (left) only — short forward, then stop.
-2. Test Motor 2 (right) only — short forward, then stop.
-3. Test both motors forward together at low throttle.
-4. Test both motors reverse together.
-5. Test left turn (left wheel slower/reverse relative to right).
-6. Test right turn (right wheel slower/reverse relative to left).
-7. Place rover on floor only after wheel-off-ground checks look correct.
-8. Run a very short low-speed floor test.
-
-### Troubleshooting
-
-- **A motor spins backward when it should go forward:** The motor is wired with reversed polarity through the chassis connector. This is harmless — correct it by inverting the DIR logic for that side in firmware (swap HIGH/LOW in `writeSide()` for that channel), or note it as a known polarity offset and adjust the mixing logic.
-- **One motor does not respond at all:** Check that motor's PWM and DIR jumper wires are fully seated. Check the shared GND wire. Check serial output for `CMD_PARSE_ERROR` or `ESTOP_LATCHED`.
-- **Neither motor responds:** Almost always a missing or loose shared GND wire between ESP32 and Romi board. Check this first.
-- **Motors run briefly then stop:** Deadman timeout is triggering. You need to send commands continuously at 20–50 Hz. A single write in a BLE app will not sustain motion.
-
-### What NOT to do
-- Do not run full throttle on the first floor test.
-- Do not keep testing if any component heats rapidly.
+4. Confirm serial output shows the motor test sequence.
+5. No motor movement will occur — no motor power without batteries.
+6. Confirm no heat.
 
 ### Stop condition
-Stop Phase 7 when both motors reliably respond to commands and the rover performs basic controlled movement.
+Serial output clean, no heat observed.
+
+---
+
+## PHASE 11 — First Battery Power-On
+
+### Goal
+Introduce battery power and confirm safe idle behavior.
+
+### Steps
+1. Keep wheels elevated.
+2. Install 6× AA NiMH cells, observing polarity markings.
+3. Press the Romi board's built-in power button once to turn power on.
+4. Connect USB for serial monitoring.
+5. Motor test sequence runs automatically — wheels will try to spin.
+6. Observe for heat or smell. Power off immediately (press button again) if either occurs.
+
+### Warning signs — press power button immediately
+- Any component hot within seconds
+- Burning smell or smoke
+- Uncontrolled wheel motion before the test sequence begins
+
+### Stop condition
+Battery-powered operation stable and safe through the motor test sequence.
+
+---
+
+## PHASE 12 — Motor Direction Check and Production Firmware Flash
+
+### Goal
+Confirm motor spin directions, then switch to production BLE firmware.
+
+### Steps
+1. With wheels elevated and rover battery-powered, observe the serial output step labels and watch each wheel.
+2. Note any motor that spins backward relative to expected direction.
+3. If a motor is reversed, correct it in `firmware/stage1-esp32-baseline/src/main.cpp` by inverting the `forward` flag in `writeSide()` for that channel. Do not swap physical wires.
+4. Flash production firmware:
+```bash
+cd firmware/stage1-esp32-baseline
+pio run -t upload
+pio device monitor -b 115200
+```
+5. Confirm serial shows:
+```
+state=DEADMAN,ble=0,thr=0.00,turn=0.00,hb=0,batt=X.XXV
+```
+6. Confirm battery voltage reading is plausible (6.0–8.4V range). If far off, perform ADC calibration in `docs/STAGE_1_TUNING.md`.
+7. Install nRF Connect on your phone. Scan for `rc-rover-stage1` and confirm BLE is advertising.
+
+### Stop condition
+Production firmware running, BLE advertising, battery telemetry plausible.
+
+---
+
+## PHASE 13 — Drive Validation
+
+### Goal
+Confirm controlled motion on a flat surface.
+
+### Safety checks first (wheels elevated)
+1. Send one BLE command, wait >300ms, confirm motors stop (deadman).
+2. Send `T:0.00,R:0.00,H:1,E:1,C:0` — confirm ESTOP_LATCHED in serial.
+3. Send `T:0.00,R:0.00,H:2,E:0,C:1` — confirm ESTOP_CLEARED in serial.
+
+### Floor test
+4. Place rover on flat surface.
+5. Drive forward at low throttle (T:0.15). Check straight-line tracking.
+6. Drive reverse.
+7. Test left and right turns.
+8. Run a 5-minute low-speed indoor soak.
+
+### Troubleshooting
+- **One motor not responding:** Check that motor's PWM and DIR wires. Check serial for CMD_PARSE_ERROR.
+- **Neither motor responding:** Check shared GND wire first. Always.
+- **Motors stop immediately:** Deadman timeout. Commands must be sent continuously at 20–50 Hz — a single BLE write will not sustain motion.
+- **Rover pulls left or right:** PWM floor difference — see `docs/STAGE_1_TUNING.md`.
+- **Forgot to press power button:** The Romi board has a latching button — press it once to turn power on.
+
+### Stop condition
+Rover drives forward, reverse, left, and right under control with clean stops.
 
 ---
 
 # 6. Wiring Reference
 
-### Power path (through chassis connectors — no separate wiring needed)
-Battery cells → chassis contacts → Romi Motor Driver board → motors (via chassis connector)
+### Power path (through chassis — no manual motor wiring)
+Battery cells → chassis contacts (soldered) → Romi Motor Driver board → motors
 
-### ESP32 logic power path (untethered)
-Romi Motor Driver board `5V` pin → ESP32 `5V` pin (+ shared GND)
+### ESP32 logic power (untethered)
+Romi board 5V pin → ESP32 5V pin + shared GND
 
-### ESP32 logic power path (bench)
-Laptop USB → ESP32 Micro-USB connector
+### ESP32 logic power (bench)
+Laptop USB → ESP32 Micro-USB
 
-### Control path (five jumper wires you install)
+### Control wires (5 jumper wires)
 | From (ESP32) | To (Romi Motor Driver) | Function |
 |---|---|---|
 | GPIO25 | M1PWM | Left motor speed |
@@ -444,38 +490,57 @@ Laptop USB → ESP32 Micro-USB connector
 | GPIO14 | M2DIR | Right motor direction |
 | GND | GND | Shared ground |
 
-### Battery voltage monitor path (five wires total including divider)
-Battery VIN → R1 (20kΩ) → ADC node → ESP32 GPIO34
+### Battery voltage divider
+Battery tap → R1 (22kΩ) → ADC node → ESP32 GPIO34
 ADC node → R2 (10kΩ) → GND
-Optional 100nF ceramic cap from ADC node to GND (noise filter)
+Optional: 100nF cap from ADC node to GND
 
 ---
 
 # 7. Common Mistakes
 
-- **Using GPIO33 instead of GPIO14 for M2DIR.** The frozen pin map is GPIO14. An earlier draft of this guide contained GPIO33 in error — discard any reference to GPIO33 for M2DIR.
-- **Missing shared GND wire between ESP32 and Romi Motor Driver board.** This is the single most common cause of "nothing works" on first test.
-- **Trying to power the ESP32 from raw battery voltage directly.** Use the Romi board's regulated 5V output to the ESP32 5V pin for untethered operation.
-- **Sending a single BLE write and expecting sustained motion.** The deadman timeout stops motors after 300ms. You must send commands repeatedly.
-- **Testing with wheels on the floor before wheel-off-ground checks are complete.** Always run first motion tests with wheels elevated.
-- **Pulling GPIO14 HIGH externally during boot.** GPIO14 is a boot-strapping pin. Do not add pull-up resistors to this line.
+- **Soldering battery contacts before mounting the board.** Battery contacts must be soldered after the board is in the chassis.
+- **Skipping the 6-cell series jumper.** Without it the battery pack is split and you get no power or half voltage.
+- **Forgetting to press the Romi board power button.** Power does not flow until you press the built-in latching button once.
+- **Missing shared GND wire.** Single most common cause of nothing works.
+- **Using GPIO33 instead of GPIO14 for M2DIR.** The frozen pin is GPIO14.
+- **Adding a pull-up resistor to GPIO14.** Do not do this.
+- **Powering ESP32 from raw battery voltage.** Use Romi board regulated 5V → ESP32 5V pin.
+- **Sending a single BLE command expecting sustained motion.** Deadman stops motors after 300ms. Commands must repeat at 20–50 Hz.
+- **Floor testing before wheel-off-ground validation is complete.**
 
 ---
 
 # 8. Build Completion Checklist
 
-- [ ] Rover rolls freely by hand with no binding.
-- [ ] Romi Motor Driver board is fully seated in chassis connector.
-- [ ] ESP32 powers on cleanly over USB.
-- [ ] All five control jumper wires installed per frozen pin map (GPIO25/26/27/14/GND).
-- [ ] GPIO33 is NOT used for M2DIR (verify against pin map table above).
-- [ ] No shared GND wire is missing.
-- [ ] Serial output shows `IDLE_DISARMED` or `DEADMAN` state on boot.
-- [ ] Battery voltage reading appears in serial telemetry (value may need calibration — see `docs/STAGE_1_TUNING.md`).
-- [ ] Both motors respond to commands.
-- [ ] Forward and reverse both work.
-- [ ] Left and right turning both work.
-- [ ] Deadman timeout stops motors reliably (send one command, wait >300ms, confirm stop).
-- [ ] E-stop latch and clear work (send `E:1`, confirm stop; send `T:0,R:0,C:1`, confirm clear).
-- [ ] No unusual heat or smell during short tests.
-- [ ] Wiring is tidy and clear of moving parts.
+### Soldering
+- [ ] Motor connection female headers soldered to Romi board (before mounting)
+- [ ] Control signal male headers soldered to Romi board (before mounting)
+- [ ] All four battery contacts soldered (after mounting in chassis)
+- [ ] 6-cell series jumper soldered
+- [ ] All joints inspected — no cold or bridged joints
+
+### Mechanical
+- [ ] Rover rolls freely by hand
+- [ ] Romi Motor Driver board fully seated and screwed in
+- [ ] ESP32 secure on foam tape, USB accessible
+
+### Wiring
+- [ ] All five control jumper wires per frozen pin map (GPIO25/26/27/14/GND)
+- [ ] GPIO14 used for M2DIR (not GPIO33)
+- [ ] Shared GND wire present
+- [ ] Romi board 5V → ESP32 5V pin connected
+- [ ] Battery divider built (R1=22kΩ / R2=10kΩ) and wired to GPIO34
+- [ ] All wires clear of wheels
+
+### Firmware and validation
+- [ ] PlatformIO installed and working
+- [ ] ESP32 flashes successfully
+- [ ] Motor test sketch confirms both motors respond correctly
+- [ ] Production firmware running; serial shows DEADMAN state and battery voltage
+- [ ] Battery voltage plausible; ADC calibrated if needed (see STAGE_1_TUNING.md)
+- [ ] BLE advertising as rc-rover-stage1
+- [ ] Deadman timeout confirmed working
+- [ ] E-stop latch and clear confirmed working
+- [ ] Forward, reverse, left, right all work on flat surface
+- [ ] No unusual heat or smell during tests
