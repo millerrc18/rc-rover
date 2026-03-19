@@ -8,7 +8,7 @@
  * This sketch is NOT the production Stage 1 firmware. After motor validation
  * is complete, flash firmware/stage1-esp32-baseline/ for full BLE teleop.
  *
- * Pin map (must match docs/STAGE_1_PIN_MAP.md and the production firmware):
+ * Pin map (must match docs/STAGE_1_WIRING.md and the production firmware):
  *   Left motor PWM:  GPIO25
  *   Left motor DIR:  GPIO26
  *   Right motor PWM: GPIO27
@@ -34,7 +34,7 @@
 #include <Arduino.h>
 
 // ---------------------------------------------------------------------------
-// Pin assignments — must match STAGE_1_PIN_MAP.md and production firmware
+// Pin assignments — must match STAGE_1_WIRING.md and production firmware
 // ---------------------------------------------------------------------------
 constexpr int PIN_LEFT_PWM  = 25;
 constexpr int PIN_LEFT_DIR  = 26;
@@ -77,7 +77,10 @@ void motorsStop() {
   digitalWrite(PIN_RIGHT_DIR, LOW);
 }
 
-// forward=true means DIR pin HIGH; adjust in production firmware if physically reversed
+// DIR convention: HIGH = forward (away from caster), LOW = reverse (toward caster).
+// If a wheel physically spins backward when "FORWARD" is printed, the motor is
+// reversed — fix by inverting direction logic in the production firmware's
+// writeSide(), not by swapping physical wires.
 void setLeft(bool forward, int duty) {
   digitalWrite(PIN_LEFT_DIR, forward ? HIGH : LOW);
   ledcWrite(PWM_CH_LEFT, constrain(duty, 0, PWM_MAX));

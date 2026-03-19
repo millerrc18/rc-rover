@@ -21,11 +21,8 @@ Stage 1 architecture is now defined and intentionally minimal:
 
 Detailed references:
 - `docs/HARDWARE_ARCHITECTURE.md`
-- `docs/INTERFACE_MAP.md`
-- `docs/STAGE_1_WIRING_DIAGRAM.md`
-- `docs/STAGE_1_PIN_MAP.md`
-- `docs/FIRMWARE_SCAFFOLD.md`
-- `docs/STAGE_1_BUILD_PLAN.md`
+- `docs/STAGE_1_WIRING.md`
+- `docs/builds/stage1-rover-a-build.md`
 
 ## Stage progression (unchanged direction)
 

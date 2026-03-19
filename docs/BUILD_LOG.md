@@ -136,3 +136,26 @@ Other gaps fixed:
 - ESP32 foam tape mounting workaround documented (M2 standoffs not available).
 - R1 value corrected to 22kΩ throughout (was 20kΩ in wiring reference section).
 - Consumables list added to parts section (male headers, series jumper wire, resistors, perfboard).
+
+## 2026-03-19 — Documentation consolidation and firmware fixes
+
+Full-repo review identified documentation sprawl (40+ files for a pre-hardware project) and several correctness issues. Performed structural consolidation and bug fixes.
+
+**Structural changes:**
+- Merged `START_HERE.md`, `GLOSSARY.md`, and `PROJECT_CHARTER.md` into `README.md` as single entry point.
+- Merged `INTERFACE_MAP.md` into `HARDWARE_ARCHITECTURE.md`.
+- Merged `STAGE_1_PIN_MAP.md` and `STAGE_1_WIRING_DIAGRAM.md` into new `STAGE_1_WIRING.md`.
+- Moved 7 superseded/historical files to `docs/archive/` (old roadmap, platform matrix, concept sheet, system arch block diagram, firmware scaffold, build plan, platform selection).
+- Removed `docs/quality/` logs (redundant with BUILD_LOG) and `docs/templates/` (unused overhead).
+- Removed `docs/INDEX.md` (replaced by repo layout in README).
+- Simplified `AGENTS.md` to reduce mandatory end-of-task file count and remove reference to deleted files.
+
+**Bug fixes:**
+- Fixed stale R1=20kΩ / ratio 3.0× references in `PROJECT_STATE.md`, `NEXT_STEPS.md`, and `HANDOFF.md`. Correct as-built values: R1=22kΩ, ratio 3.2×, firmware `BATTERY_DIVIDER_RATIO = 3.2f`.
+- Added 8-sample moving average to `BatteryAdc::sample()` in production firmware. Documentation claimed this existed but implementation was a direct overwrite.
+- Added thread-safety note to global state variables in production firmware (BLE callback vs loop() task boundary).
+- Added explicit DIR pin convention comment to motor test sketch.
+- Added root `.gitignore` for OS artifacts, editor files, and PlatformIO build dirs.
+- Updated all cross-file references to use new merged filenames.
+
+**Net result:** Documentation reduced from ~40 files to ~22 active files. Historical docs preserved in `docs/archive/`.

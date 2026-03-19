@@ -1,0 +1,14 @@
+# OS artifacts
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# PlatformIO (also covered by firmware subdirectory .gitignores)
+.pio/

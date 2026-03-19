@@ -1,49 +1,82 @@
 # rc-rover
 
-**Temporary project name**: `rc-rover`
+A modular mobile robotics platform that starts as a manually controlled differential-drive rover and grows into a reusable testbed for sensors, control systems, telemetry, and autonomy.
 
-`rc-rover` is a modular mobile robotics platform designed to begin as a simple manually controlled RC rover and to evolve into a reusable sensor and robotics development platform.  The goal is to create a base that allows incremental learning and experimentation in remote control, sensors, control systems, telemetry, and autonomy.
-
-## Long‑term vision
-
-The long‑term vision for this project is to build a platform that can grow from a basic RC vehicle into a capable robotics testbed.  It will support adding sensors, data logging, closed‑loop control, obstacle detection, semi‑autonomous behavior and ultimately more advanced autonomy and payloads.  Each step will be documented so that future users can reproduce and extend the work.
-
-The roadmap now also defines a multi-generation platform path: Rover A / Mk1 (current learning platform), Rover B / Mk2 (payload-class), Rover C / Mk3 (utility-class), and Rover D / Mk4 (scout/manipulation vision), while keeping Stage 1 execution scope fixed.
+**Working name** — final branding TBD.
 
 ## Current status
 
-This repository is currently being bootstrapped.  The initial commit sets up a documentation and memory system that will serve as a durable operating system for the project.  There is no hardware or software yet; the focus is on scaffolding the repo so that future agents and contributors can understand the project context and history without prior chat.
+**Stage 1: Manual remote control** — parts arriving, physical build imminent.
 
-## Repository organization
+Firmware exists for BLE teleop and motor testing. No hardware has been assembled yet. See `docs/HANDOFF.md` for the latest session snapshot.
 
-```
-- `README.md` — This document.  High‑level overview and how to navigate the repo.
-- `AGENTS.md` — Instructions for future agents on how to work in this repo.
-- `.codex/config.toml` — Local configuration for codex/agent behaviour.
-- `docs/` — Project documentation and memory system.
-  - `START_HERE.md` — Entry point for new contributors or sessions.
-  - `PROJECT_STATE.md` — Canonical current state of the project.
-  - `NEXT_STEPS.md` — Prioritised action queue.
-  - `DECISIONS.md` — Record of important decisions.
-  - `ARCHITECTURE.md` — Description of current and future architecture.
-  - `BUILD_LOG.md` — Append‑only log of work done.
-  - `LEARNINGS.md` — Lessons learned and heuristics.
-  - `BACKLOG.md` — Ideas and tasks not yet prioritised.
-  - `GLOSSARY.md` — Definitions of project terms.
-  - `HANDOFF.md` — Quick summary for resuming sessions.
-  - `PROJECT_CHARTER.md` — Mission, principles and scope for v1.
-  - `ROADMAP.md` — Phased growth plan.
-  - `CONTRIBUTING.md` — Guidelines for contributing and workflow.
-  - `templates/` — Reusable templates for logs, decisions, experiments, milestones and task briefs.
-  - `INDEX.md` — Map of documentation files.
-```
+## Platform generations
+
+| Gen | Platform | Role | Status |
+|-----|----------|------|--------|
+| Mk1 | Rover A | Romi-based learning rover | **Active** |
+| Mk2 | Rover B | Payload-class (~5 lb) | Planned |
+| Mk3 | Rover C | Utility-class (~15 lb) | Planned |
+| Mk4 | Rover D | Scout/manipulation (~30 lb) | Vision |
 
 ## Getting started
 
-1. Read `docs/START_HERE.md` for an overview of the repo structure and how to contribute.
-2. Review `docs/HANDOFF.md` for a snapshot of the current phase, objectives, constraints and upcoming actions.
-3. Consult `AGENTS.md` for the workflow expected of automated agents working in this repo.
+**For a new session (human or agent):**
 
-## First time contributors
+1. Read this file for the overview.
+2. Read `docs/HANDOFF.md` for the current phase, constraints, and next actions.
+3. Read `docs/PROJECT_STATE.md` for canonical project state.
+4. Read `docs/NEXT_STEPS.md` for the prioritized action queue.
 
-If you are a new contributor (human or agent), please start by reading `docs/START_HERE.md`, then proceed to `docs/PROJECT_STATE.md` and `docs/NEXT_STEPS.md` to understand the current status and what needs to be done next.  The `docs/INDEX.md` file provides a map of all documentation resources.
+**For agents:** also read `AGENTS.md` for the mandatory workflow.
+
+## Repository layout
+
+```
+README.md               — This file. Project overview and entry point.
+AGENTS.md               — Workflow rules for automated agents.
+docs/
+  HANDOFF.md            — Session hand-off snapshot (start here each session).
+  PROJECT_STATE.md      — Canonical current state.
+  NEXT_STEPS.md         — Prioritized action queue.
+  DECISIONS.md          — Decision log with rationale.
+  BUILD_LOG.md          — Chronological work history.
+  LEARNINGS.md          — Lessons learned and heuristics.
+  ARCHITECTURE.md       — Current and planned architecture.
+  ROADMAP.md            — Multi-generation growth plan.
+  BACKLOG.md            — Unprioritized ideas and future work.
+  CONTRIBUTING.md       — Contribution guidelines.
+  HARDWARE_ARCHITECTURE.md  — Stage 1 hardware freeze (includes interface map).
+  STAGE_1_WIRING.md     — Wiring diagram, pin map, and checklists.
+  STAGE_1_ACCEPTANCE_TEST.md — Pass/fail criteria for Stage 1.
+  STAGE_1_TUNING.md     — Tuning worksheet and ADC calibration procedure.
+  BLE_CONTROL_PROFILE.md — BLE service/packet format.
+  BENCH_BRINGUP_LOG.md  — Reusable test session template.
+  PROCUREMENT_STATUS.md — Order/receiving tracker.
+  builds/
+    stage1-rover-a-build.md — Complete physical assembly guide.
+  archive/              — Superseded docs retained for reference.
+firmware/
+  stage1-esp32-baseline/ — Production BLE teleop firmware.
+  stage1-motor-test/     — Standalone motor validation sketch.
+hardware/
+  bom-stage-0-1.csv     — Bill of materials.
+```
+
+## Principles
+
+- **Incremental growth** — each stage yields a working system before adding complexity.
+- **Modularity** — new capabilities layer on without rewriting the base.
+- **Documentation-driven** — decisions, state, and lessons live in the repo, not in chat history.
+- **Safety-first** — deadman timeout, e-stop, and physical power cutoff from day one.
+
+## Glossary
+
+- **Differential drive** — two independently driven wheels; steering by varying wheel speeds.
+- **Deadman timeout** — motors stop automatically if control commands stop arriving.
+- **E-stop** — emergency stop; latches motors off until explicitly cleared.
+- **BLE** — Bluetooth Low Energy; used for Stage 1 phone-to-rover teleop.
+- **Telemetry** — data (voltage, state, sensor readings) reported from rover to operator.
+- **Encoder** — sensor measuring wheel/motor rotation for speed and distance estimation.
+- **IMU** — Inertial Measurement Unit; measures acceleration and angular velocity.
+- **SLAM** — Simultaneous Localization and Mapping; future autonomy capability.

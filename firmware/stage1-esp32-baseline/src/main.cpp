@@ -43,6 +43,14 @@ struct TeleopCommand {
   bool estopClear = false;
 };
 
+// ---------------------------------------------------------------------------
+// Global state
+// NOTE: g_latest, g_lastCommandMs, etc. are written from the BLE callback
+// (which runs on the BLE FreeRTOS task) and read from loop() (Arduino task).
+// On ESP32, aligned 32-bit writes are atomic, and float/uint32_t are 32-bit,
+// so this is safe for single-writer scenarios. If multi-writer access is ever
+// added, proper synchronization (e.g. portMUX) will be needed.
+// ---------------------------------------------------------------------------
 BLECharacteristic* g_statusChar = nullptr;
 bool g_bleConnected = false;
 bool g_estopLatched = false;
@@ -108,13 +116,28 @@ class BatteryAdc {
   void begin() {
     analogReadResolution(12);
     pinMode(config::PIN_BATTERY_ADC, INPUT);
+    for (int i = 0; i < AVG_WINDOW; i++) samples_[i] = 0.0f;
   }
 
   void sample() {
     const int raw = analogRead(config::PIN_BATTERY_ADC);
     const float pinVoltage = (static_cast<float>(raw) / config::ADC_MAX_COUNTS) * config::ADC_REFERENCE_V;
-    g_lastBatteryV = pinVoltage * config::BATTERY_DIVIDER_RATIO * config::BATTERY_CALIBRATION;
+    const float batteryV = pinVoltage * config::BATTERY_DIVIDER_RATIO * config::BATTERY_CALIBRATION;
+
+    samples_[sampleIdx_] = batteryV;
+    sampleIdx_ = (sampleIdx_ + 1) % AVG_WINDOW;
+    if (sampleCount_ < AVG_WINDOW) sampleCount_++;
+
+    float sum = 0.0f;
+    for (int i = 0; i < sampleCount_; i++) sum += samples_[i];
+    g_lastBatteryV = sum / static_cast<float>(sampleCount_);
   }
+
+ private:
+  static constexpr int AVG_WINDOW = 8;
+  float samples_[AVG_WINDOW] = {};
+  int sampleIdx_ = 0;
+  int sampleCount_ = 0;
 };
 
 MotorOutput g_motor;

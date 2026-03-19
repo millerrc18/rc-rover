@@ -1,6 +1,6 @@
 # Stage 1 Hardware Architecture
 
-_Last updated: 2026-03-12_
+_Last updated: 2026-03-19_
 
 This document freezes the Stage 1 hardware architecture for `rc-rover` so parts can be sourced and assembly can begin with low integration risk.
 
@@ -107,8 +107,34 @@ This removes previous logic-power ambiguity: untethered ESP32 power is explicitl
 - Front sensor mount area reserved for ToF sensor.
 - UART/I2C pins reserved for telemetry/sensor growth.
 
+## Interface summary
+
+| Interface | Source | Destination | Type | Status | Notes |
+|---|---|---|---|---|---|
+| Power main | Battery pack | Motor driver/power board | DC power | Frozen | Through fuse + switch |
+| Logic power (bench) | Laptop USB | ESP32 | 5V via Micro-USB | Frozen | USB-A to Micro-USB cable |
+| Logic power (untethered) | Motor board 5V | ESP32 5V pin | 5V rail | Frozen | Shared GND required |
+| Motor control left | ESP32 GPIO25/26 | Motor driver | PWM + DIR | Frozen | GPIO25=PWM, GPIO26=DIR |
+| Motor control right | ESP32 GPIO27/14 | Motor driver | PWM + DIR | Frozen | GPIO27=PWM, GPIO14=DIR |
+| Battery sense | Voltage divider | ESP32 GPIO34 | Analog | Frozen | R1=22kΩ / R2=10kΩ, ratio 3.2× |
+| Manual teleop | Phone/controller | ESP32 | BLE | Frozen | Deadman timeout required |
+| Debug/log | ESP32 | Laptop | USB serial | Frozen | For bring-up and validation |
+| E-stop (soft) | Teleop app | ESP32 loop | Command | Frozen | Immediate motor zero |
+| E-stop (hard) | Operator | Main switch | Physical | Frozen | Cuts system power |
+| Encoder inputs | Future encoder | ESP32 | Digital | Deferred | Stage 3/4 |
+| Front ToF sensor | Future sensor | ESP32 GPIO21/22 | I2C | Deferred | Stage 3 |
+
+## Integration notes
+
+- Keep high-current motor paths short and separated from ADC sensing wires.
+- Use strain relief at battery and switch leads.
+- Label polarity on all removable connectors.
+- Route BLE antenna region clear of dense power wiring.
+
 ## Assumptions
 
 - **Assumption:** MPDB regulated 5V output current capacity is sufficient for DevKitC-32E + Stage 1 logic load.
 - **Assumption:** Stage 1 test environment is mostly flat indoor floors.
 - **Assumption:** No high-current payloads are attached in Stage 1.
+- **Assumption:** Stage 1 uses brushed DC motors bundled with the Romi chassis kit.
+- **Assumption:** BLE control app can provide recurring heartbeat packets at a stable interval.

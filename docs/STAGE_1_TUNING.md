@@ -50,7 +50,7 @@ The firmware reports battery voltage by scaling ADC counts using a fixed divider
 ### Notes on ADC accuracy
 
 - The ESP32 ADC is known to have non-linearity near the top and bottom of its range. For best accuracy, take calibration measurements near the middle of the expected operating range (nominally charged NiMH pack, not fresh off the charger).
-- If you observe inconsistent readings, ensure the optional 100nF filter cap is installed on the ADC node (see `STAGE_1_WIRING_DIAGRAM.md`).
+- If you observe inconsistent readings, ensure the optional 100nF filter cap is installed on the ADC node (see `STAGE_1_WIRING.md`).
 - The 8-sample moving average in the firmware (window size in `BatteryAdc::sample()`) already smooths short-term noise. The calibration corrects for systematic offset, not noise.
 
 ---

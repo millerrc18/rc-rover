@@ -1,55 +1,43 @@
 # Instructions for Agents
 
-This file defines the conventions that must be followed by any automated agent or human acting in the role of an agent in this repository.  Its purpose is to ensure that the project state can always be reconstructed from the repository alone.
+## Required pre-work
 
-## Overview
+Before starting any substantial task, read these files in order:
 
-This project uses a documentation‑driven memory system under `docs/` to capture the current state, decisions, next steps and historical logs.  Agents must read and update these files as part of their workflow.  The canonical state lives in the repository, not in chat history.
+1. `README.md` — project overview.
+2. `docs/HANDOFF.md` — current phase, constraints, and next actions.
+3. `docs/PROJECT_STATE.md` — canonical current state.
+4. `docs/NEXT_STEPS.md` — prioritized action queue.
 
-## Required pre‑work
+## Workflow
 
-Before starting any substantial task, an agent must:
+1. **Plan first.** Summarize intended changes before modifying files.
+2. **Execute.** Perform the planned changes.
+3. **Validate.** Verify changes compile, run, or meet acceptance criteria.
+4. **Update docs.** Reflect what changed (see below).
 
-1. Read `README.md` for the project overview.
-2. Read `docs/START_HERE.md` to understand the documentation structure.
-3. Read `docs/HANDOFF.md` to understand the current phase, objective, constraints and next actions.
-4. Read `docs/PROJECT_STATE.md` to learn the canonical current state.
-5. Read `docs/NEXT_STEPS.md` to see the prioritised action queue.
+## End-of-task documentation updates
 
-These files must be read in order to gain context before making changes.
+After modifying the project, update these files as applicable:
 
-## Planning and validation workflow
+- **Always:** append a dated entry to `docs/BUILD_LOG.md`.
+- **Always:** update `docs/HANDOFF.md` with a fresh snapshot.
+- **If state changed:** update `docs/PROJECT_STATE.md`.
+- **If priorities changed:** update `docs/NEXT_STEPS.md`.
+- **If a decision was made:** add an entry to `docs/DECISIONS.md`.
+- **If architecture changed:** update `docs/ARCHITECTURE.md`.
+- **If a lesson was learned:** add to `docs/LEARNINGS.md`.
 
-1. **Plan first**.  Before modifying any file or code, an agent must summarise the intended changes and seek feedback when appropriate.
-2. **Execute**.  Perform the planned changes.
-3. **Validate**.  Verify that the changes compile, run or meet the defined acceptance criteria.
-4. **Update memory**.  After completing work, update the documentation system to reflect what changed.
+Not every task touches every file. Use judgment — but never leave the repo in a state where a new agent cannot determine current status and next actions.
 
-## Mandatory end‑of‑task ritual
+## Assumptions vs. confirmed facts
 
-After any task that modifies the state of the project, the agent **must**:
-
-- Append a dated entry to `docs/BUILD_LOG.md` describing the work done.
-- If any decisions were made, record them in `docs/DECISIONS.md` with date, rationale and consequences.
-- If any lessons were learned or heuristics discovered, add them to `docs/LEARNINGS.md`.
-- Update `docs/PROJECT_STATE.md` to reflect the new state.
-- Update `docs/NEXT_STEPS.md` if priorities have changed or tasks have been completed.
-- Update `docs/ARCHITECTURE.md` if the architecture has changed.
-- Update `docs/HANDOFF.md` to provide a fresh snapshot for the next session.
-
-Never leave the repository in a state where a new agent cannot determine the current status and next actions.
-
-## Recording assumptions vs confirmed facts
-
-When documenting something that is uncertain, clearly mark it as an **assumption**.  Confirmed facts should be recorded without qualifiers.  If an assumption is later proven incorrect, update the relevant documentation and log the correction in `docs/LEARNINGS.md`.
+Mark uncertain information as **Assumption** in documentation. When an assumption is confirmed or disproven, update the relevant doc and note the correction in `docs/LEARNINGS.md`.
 
 ## Canonical sources
 
-- **Current state**: `docs/PROJECT_STATE.md`
-- **Action queue**: `docs/NEXT_STEPS.md`
-- **Decisions**: `docs/DECISIONS.md`
-- **Architecture**: `docs/ARCHITECTURE.md`
-- **Build history**: `docs/BUILD_LOG.md`
-- **Hand‑off summary**: `docs/HANDOFF.md`
-
-Agents must always treat these files as the source of truth.
+- **Current state:** `docs/PROJECT_STATE.md`
+- **Action queue:** `docs/NEXT_STEPS.md`
+- **Decisions:** `docs/DECISIONS.md`
+- **Build history:** `docs/BUILD_LOG.md`
+- **Hand-off:** `docs/HANDOFF.md`

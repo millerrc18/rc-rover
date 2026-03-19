@@ -41,7 +41,7 @@ The available R1 value is 22kΩ rather than the originally specified 20kΩ. This
 - R1=22kΩ / R2=10kΩ gives a divider ratio of **3.2×** (previously 3.0×)
 - Maximum ADC pin voltage at 8.4V pack: **2.625V** (safely within ESP32 3.3V limit)
 - The firmware constant `BATTERY_DIVIDER_RATIO` has been updated from `3.0f` to `3.2f` in `firmware/stage1-esp32-baseline/src/main.cpp`
-- `docs/STAGE_1_WIRING_DIAGRAM.md` has been updated to reflect R1=22kΩ
+- `docs/STAGE_1_WIRING.md` has been updated to reflect R1=22kΩ
 - A one-time calibration against a multimeter reading is still recommended after first power-on (see `docs/STAGE_1_TUNING.md`)
 
 ## Standoff note — M3 only, no M2
