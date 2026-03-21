@@ -159,3 +159,17 @@ Full-repo review identified documentation sprawl (40+ files for a pre-hardware p
 - Updated all cross-file references to use new merged filenames.
 
 **Net result:** Documentation reduced from ~40 files to ~22 active files. Historical docs preserved in `docs/archive/`.
+
+## 2026-03-19 — Build guide enhanced with diagrams and detailed Phase 0
+
+- Created `docs/builds/images/` directory with three SVG diagrams:
+  - `phase0-setup.svg` — Phase 0 physical setup and terminal commands
+  - `wiring-connections.svg` — all 6 wires + voltage divider circuit
+  - `build-phase-order.svg` — phase sequence overview with ordering rules
+- Rewrote Phase 0 from 15 lines to a comprehensive step-by-step guide with:
+  - OS-specific serial port verification (Windows/Mac/Linux)
+  - Full expected terminal output for each command
+  - BOOT button hold procedure for upload issues
+  - Explicit completion checklist (5 items)
+  - Troubleshooting table covering 7 common failure modes
+- Added diagram references to build guide Phase 6 (wiring) and build overview.

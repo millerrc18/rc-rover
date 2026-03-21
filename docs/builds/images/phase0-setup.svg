@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" font-family="monospace, Courier">
+  <style>
+    .title { font-size: 18px; font-weight: bold; fill: #1e1e1e; }
+    .label { font-size: 13px; fill: #1e1e1e; }
+    .note { font-size: 11px; fill: #666; }
+    .warn { font-size: 12px; fill: #d32f2f; font-weight: bold; }
+    .ok { font-size: 12px; fill: #2e7d32; font-weight: bold; }
+    .cmd { font-size: 11px; fill: #4caf50; font-family: monospace; }
+  </style>
+
+  <!-- Title -->
+  <text x="400" y="25" text-anchor="middle" class="title">Phase 0 — ESP32 + USB + Laptop (nothing else)</text>
+
+  <!-- Laptop -->
+  <rect x="40" y="80" width="200" height="130" rx="8" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+  <rect x="60" y="95" width="160" height="85" rx="3" fill="#e3f2fd" stroke="#1565c0" stroke-width="1"/>
+  <text x="140" y="125" text-anchor="middle" class="label">VS Code</text>
+  <text x="140" y="143" text-anchor="middle" class="label">+ PlatformIO</text>
+  <text x="140" y="165" text-anchor="middle" class="note">USB-A port</text>
+  <rect x="70" y="210" width="140" height="6" rx="3" fill="#90caf9" stroke="#1565c0" stroke-width="1"/>
+  <text x="140" y="232" text-anchor="middle" class="label">Laptop</text>
+
+  <!-- USB Cable -->
+  <line x1="240" y1="155" x2="370" y2="155" stroke="#ff9800" stroke-width="4" stroke-dasharray="8,4"/>
+  <text x="305" y="145" text-anchor="middle" class="label">USB cable</text>
+  <text x="305" y="180" text-anchor="middle" class="note">USB-A → Micro-USB</text>
+  <text x="305" y="195" text-anchor="middle" class="warn">Must be DATA cable!</text>
+
+  <!-- ESP32 Board -->
+  <rect x="370" y="80" width="120" height="200" rx="6" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="430" y="110" text-anchor="middle" class="label" font-weight="bold">ESP32</text>
+  <text x="430" y="128" text-anchor="middle" class="label">DevKitC</text>
+  <text x="430" y="146" text-anchor="middle" class="label">-32E</text>
+  <!-- USB port indicator -->
+  <rect x="405" y="245" width="50" height="16" rx="3" fill="#fff3e0" stroke="#ff9800" stroke-width="1.5"/>
+  <text x="430" y="257" text-anchor="middle" class="note">USB</text>
+  <!-- Pin rows -->
+  <rect x="370" y="165" width="8" height="80" rx="1" fill="#666"/>
+  <rect x="482" y="165" width="8" height="80" rx="1" fill="#666"/>
+  <text x="430" y="205" text-anchor="middle" class="note">pins</text>
+
+  <!-- Big red note -->
+  <rect x="40" y="270" width="450" height="55" rx="6" fill="#ffebee" stroke="#d32f2f" stroke-width="1.5"/>
+  <text x="265" y="293" text-anchor="middle" class="warn">Nothing else connected! No batteries, no Romi board,</text>
+  <text x="265" y="311" text-anchor="middle" class="warn">no wires. Just ESP32 + USB cable + laptop.</text>
+
+  <!-- Terminal commands -->
+  <rect x="520" y="60" width="260" height="160" rx="6" fill="#1e1e2e" stroke="#555" stroke-width="1"/>
+  <text x="530" y="80" class="cmd">$ cd firmware/stage1-motor-test</text>
+  <text x="530" y="100" class="cmd">$ pio run -t upload</text>
+  <text x="530" y="120" class="cmd">$ pio device monitor -b 115200</text>
+  <line x1="525" y1="132" x2="775" y2="132" stroke="#555" stroke-width="0.5"/>
+  <text x="530" y="152" class="cmd">[MOTOR TEST] Starting.</text>
+  <text x="530" y="170" class="cmd">[MOTOR TEST] WHEELS MUST BE</text>
+  <text x="530" y="188" class="cmd">  ELEVATED.</text>
+  <text x="530" y="206" class="cmd">[MOTOR TEST] Step 1: Left...</text>
+  <text x="650" y="232" text-anchor="middle" class="ok">↑ See this = PASS ✓</text>
+
+  <!-- Troubleshooting -->
+  <rect x="520" y="255" width="260" height="120" rx="6" fill="#fff8e1" stroke="#f9a825" stroke-width="1"/>
+  <text x="530" y="275" class="label" font-weight="bold">Troubleshooting:</text>
+  <text x="530" y="295" class="note">No serial port? → different cable</text>
+  <text x="530" y="313" class="note">Upload fails? → hold BOOT button</text>
+  <text x="530" y="331" class="note">No output? → baud=115200, hit EN</text>
+  <text x="530" y="349" class="note">'pio' not found? → restart VS Code</text>
+
+  <!-- Arrow labels -->
+  <polygon points="365,155 355,149 355,161" fill="#ff9800"/>
+  <polygon points="245,155 255,149 255,161" fill="#ff9800"/>
+</svg>

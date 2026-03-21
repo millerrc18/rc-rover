@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" font-family="monospace, Courier">
+  <style>
+    .phase { font-size: 11px; fill: #1e1e1e; font-weight: bold; }
+    .desc { font-size: 9px; fill: #555; }
+    .title { font-size: 16px; font-weight: bold; fill: #1e1e1e; }
+    .group { font-size: 10px; fill: white; font-weight: bold; }
+  </style>
+
+  <text x="450" y="20" text-anchor="middle" class="title">Build Phase Order (follow strictly — out-of-order creates rework)</text>
+
+  <!-- Group: Software -->
+  <rect x="15" y="35" width="100" height="100" rx="6" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+  <text x="65" y="52" text-anchor="middle" class="phase">Phase 0</text>
+  <text x="65" y="66" text-anchor="middle" class="desc">Toolchain</text>
+  <text x="65" y="78" text-anchor="middle" class="desc">+ ESP32</text>
+  <text x="65" y="90" text-anchor="middle" class="desc">flash test</text>
+  <rect x="20" y="115" width="90" height="14" rx="2" fill="#1565c0"/>
+  <text x="65" y="126" text-anchor="middle" class="group">SOFTWARE</text>
+
+  <text x="125" y="80" text-anchor="middle" style="font-size:18px;fill:#999">→</text>
+
+  <!-- Group: Soldering -->
+  <rect x="140" y="35" width="100" height="100" rx="6" fill="#fff9c4" stroke="#f9a825" stroke-width="2"/>
+  <text x="190" y="52" text-anchor="middle" class="phase">Phase 1</text>
+  <text x="190" y="66" text-anchor="middle" class="desc">Solder</text>
+  <text x="190" y="78" text-anchor="middle" class="desc">headers to</text>
+  <text x="190" y="90" text-anchor="middle" class="desc">Romi board</text>
+  <rect x="145" y="115" width="90" height="14" rx="2" fill="#f9a825"/>
+  <text x="190" y="126" text-anchor="middle" class="group">BENCH</text>
+
+  <text x="250" y="80" text-anchor="middle" style="font-size:18px;fill:#999">→</text>
+
+  <!-- Group: Mechanical -->
+  <rect x="265" y="35" width="100" height="100" rx="6" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="315" y="52" text-anchor="middle" class="phase">Phase 2</text>
+  <text x="315" y="66" text-anchor="middle" class="desc">Chassis</text>
+  <text x="315" y="78" text-anchor="middle" class="desc">motors</text>
+  <text x="315" y="90" text-anchor="middle" class="desc">wheels</text>
+  <rect x="270" y="115" width="90" height="14" rx="2" fill="#2e7d32"/>
+  <text x="315" y="126" text-anchor="middle" class="group">MECHANICAL</text>
+
+  <text x="375" y="80" text-anchor="middle" style="font-size:18px;fill:#999">→</text>
+
+  <!-- Group: Mount + Solder -->
+  <rect x="390" y="35" width="100" height="100" rx="6" fill="#fff9c4" stroke="#f9a825" stroke-width="2"/>
+  <text x="440" y="49" text-anchor="middle" class="phase">Phase 3-5</text>
+  <text x="440" y="63" text-anchor="middle" class="desc">Mount board</text>
+  <text x="440" y="75" text-anchor="middle" class="desc">Solder batt</text>
+  <text x="440" y="87" text-anchor="middle" class="desc">contacts +</text>
+  <text x="440" y="99" text-anchor="middle" class="desc">series jumper</text>
+  <rect x="395" y="115" width="90" height="14" rx="2" fill="#f9a825"/>
+  <text x="440" y="126" text-anchor="middle" class="group">SOLDER</text>
+
+  <text x="500" y="80" text-anchor="middle" style="font-size:18px;fill:#999">→</text>
+
+  <!-- Group: Wiring -->
+  <rect x="515" y="35" width="100" height="100" rx="6" fill="#d1c4e9" stroke="#5e35b1" stroke-width="2"/>
+  <text x="565" y="49" text-anchor="middle" class="phase">Phase 6-8</text>
+  <text x="565" y="63" text-anchor="middle" class="desc">Mount ESP32</text>
+  <text x="565" y="75" text-anchor="middle" class="desc">6 wires</text>
+  <text x="565" y="87" text-anchor="middle" class="desc">+ voltage</text>
+  <text x="565" y="99" text-anchor="middle" class="desc">divider</text>
+  <rect x="520" y="115" width="90" height="14" rx="2" fill="#5e35b1"/>
+  <text x="565" y="126" text-anchor="middle" class="group">WIRING</text>
+
+  <text x="625" y="80" text-anchor="middle" style="font-size:18px;fill:#999">→</text>
+
+  <!-- Group: Checklist -->
+  <rect x="640" y="35" width="100" height="100" rx="6" fill="#ffcdd2" stroke="#d32f2f" stroke-width="2"/>
+  <text x="690" y="52" text-anchor="middle" class="phase">Phase 9</text>
+  <text x="690" y="66" text-anchor="middle" class="desc">Pre-power</text>
+  <text x="690" y="78" text-anchor="middle" class="desc">checklist</text>
+  <text x="690" y="90" text-anchor="middle" class="desc">continuity</text>
+  <rect x="645" y="115" width="90" height="14" rx="2" fill="#d32f2f"/>
+  <text x="690" y="126" text-anchor="middle" class="group">SAFETY</text>
+
+  <text x="750" y="80" text-anchor="middle" style="font-size:18px;fill:#999">→</text>
+
+  <!-- Group: Test -->
+  <rect x="765" y="35" width="115" height="100" rx="6" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="823" y="49" text-anchor="middle" class="phase">Phase 10-13</text>
+  <text x="823" y="63" text-anchor="middle" class="desc">USB power-on</text>
+  <text x="823" y="75" text-anchor="middle" class="desc">Battery on</text>
+  <text x="823" y="87" text-anchor="middle" class="desc">Motor test</text>
+  <text x="823" y="99" text-anchor="middle" class="desc">BLE + drive!</text>
+  <rect x="770" y="115" width="105" height="14" rx="2" fill="#2e7d32"/>
+  <text x="823" y="126" text-anchor="middle" class="group">VALIDATE</text>
+
+  <!-- Key warnings -->
+  <rect x="15" y="155" width="865" height="115" rx="6" fill="#fff3e0" stroke="#ff9800" stroke-width="1"/>
+  <text x="30" y="175" class="phase" style="font-size:13px;fill:#e65100">Critical ordering rules:</text>
+  <text x="30" y="195" class="desc" style="font-size:11px;fill:#1e1e1e">1. Phase 0 MUST pass before touching hardware — confirms toolchain works.</text>
+  <text x="30" y="212" class="desc" style="font-size:11px;fill:#1e1e1e">2. Phase 1 headers MUST be soldered before Phase 2 chassis assembly — access is blocked after mounting.</text>
+  <text x="30" y="229" class="desc" style="font-size:11px;fill:#1e1e1e">3. Phase 3 battery contacts MUST be soldered after mounting — they connect through the chassis.</text>
+  <text x="30" y="246" class="desc" style="font-size:11px;fill:#1e1e1e">4. Phase 9 checklist MUST pass before Phase 10 power-on — catches wiring errors before they cause damage.</text>
+  <text x="30" y="263" class="desc" style="font-size:11px;fill:#d32f2f;font-weight:bold">5. Phase 10 is USB-only first — never introduce battery power until USB-only boot is clean.</text>
+</svg>

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650" font-family="monospace, Courier">
+  <style>
+    .title { font-size: 18px; font-weight: bold; fill: #1e1e1e; }
+    .label { font-size: 13px; fill: #1e1e1e; }
+    .pin { font-size: 13px; fill: #1e1e1e; font-weight: bold; }
+    .note { font-size: 11px; fill: #666; }
+    .warn { font-size: 11px; fill: #d32f2f; font-weight: bold; }
+    .wire { font-size: 11px; fill: #5e35b1; font-weight: bold; }
+    .gnd-wire { font-size: 12px; fill: #1e1e1e; font-weight: bold; }
+  </style>
+
+  <text x="450" y="22" text-anchor="middle" class="title">Phase 6-8: All Wiring Connections (6 wires + divider)</text>
+
+  <!-- ESP32 Board -->
+  <rect x="30" y="50" width="180" height="420" rx="8" fill="#bbdefb" stroke="#1565c0" stroke-width="2"/>
+  <text x="120" y="75" text-anchor="middle" class="label" font-weight="bold">ESP32-DevKitC-32E</text>
+
+  <rect x="50" y="100" width="130" height="32" rx="4" fill="#d1c4e9" stroke="#5e35b1" stroke-width="1.5"/>
+  <text x="115" y="121" text-anchor="middle" class="pin">GPIO25</text>
+
+  <rect x="50" y="148" width="130" height="32" rx="4" fill="#d1c4e9" stroke="#5e35b1" stroke-width="1.5"/>
+  <text x="115" y="169" text-anchor="middle" class="pin">GPIO26</text>
+
+  <rect x="50" y="196" width="130" height="32" rx="4" fill="#d1c4e9" stroke="#5e35b1" stroke-width="1.5"/>
+  <text x="115" y="217" text-anchor="middle" class="pin">GPIO27</text>
+
+  <rect x="50" y="244" width="130" height="32" rx="4" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1.5"/>
+  <text x="115" y="265" text-anchor="middle" class="pin">GPIO14</text>
+  <text x="120" y="290" text-anchor="middle" class="warn">boot pin! no pull-up!</text>
+
+  <rect x="50" y="308" width="130" height="32" rx="4" fill="#424242" stroke="#1e1e1e" stroke-width="1.5"/>
+  <text x="115" y="329" text-anchor="middle" class="pin" fill="white">GND</text>
+
+  <rect x="50" y="356" width="130" height="32" rx="4" fill="#fff3e0" stroke="#ff9800" stroke-width="1.5"/>
+  <text x="115" y="377" text-anchor="middle" class="pin">5V pin</text>
+
+  <rect x="50" y="414" width="130" height="32" rx="4" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="115" y="435" text-anchor="middle" class="pin">GPIO34</text>
+  <text x="120" y="458" text-anchor="middle" class="note">(ADC input only)</text>
+
+  <!-- Romi Board -->
+  <rect x="590" y="50" width="280" height="340" rx="8" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+  <text x="730" y="75" text-anchor="middle" class="label" font-weight="bold">Romi Motor Driver #3543</text>
+
+  <rect x="620" y="100" width="130" height="32" rx="4" fill="#d1c4e9" stroke="#5e35b1" stroke-width="1.5"/>
+  <text x="685" y="121" text-anchor="middle" class="pin">M1PWM</text>
+
+  <rect x="620" y="148" width="130" height="32" rx="4" fill="#d1c4e9" stroke="#5e35b1" stroke-width="1.5"/>
+  <text x="685" y="169" text-anchor="middle" class="pin">M1DIR</text>
+
+  <rect x="620" y="196" width="130" height="32" rx="4" fill="#d1c4e9" stroke="#5e35b1" stroke-width="1.5"/>
+  <text x="685" y="217" text-anchor="middle" class="pin">M2PWM</text>
+
+  <rect x="620" y="244" width="130" height="32" rx="4" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1.5"/>
+  <text x="685" y="265" text-anchor="middle" class="pin">M2DIR</text>
+
+  <rect x="620" y="308" width="130" height="32" rx="4" fill="#424242" stroke="#1e1e1e" stroke-width="1.5"/>
+  <text x="685" y="329" text-anchor="middle" class="pin" fill="white">GND</text>
+
+  <rect x="620" y="356" width="130" height="32" rx="4" fill="#fff3e0" stroke="#ff9800" stroke-width="1.5"/>
+  <text x="685" y="377" text-anchor="middle" class="pin">5V output</text>
+
+  <!-- Wire 1 -->
+  <line x1="180" y1="116" x2="620" y2="116" stroke="#7e57c2" stroke-width="3"/>
+  <text x="400" y="110" text-anchor="middle" class="wire">Wire 1: Left motor speed</text>
+
+  <!-- Wire 2 -->
+  <line x1="180" y1="164" x2="620" y2="164" stroke="#7e57c2" stroke-width="3"/>
+  <text x="400" y="158" text-anchor="middle" class="wire">Wire 2: Left motor direction</text>
+
+  <!-- Wire 3 -->
+  <line x1="180" y1="212" x2="620" y2="212" stroke="#7e57c2" stroke-width="3"/>
+  <text x="400" y="206" text-anchor="middle" class="wire">Wire 3: Right motor speed</text>
+
+  <!-- Wire 4 -->
+  <line x1="180" y1="260" x2="620" y2="260" stroke="#d32f2f" stroke-width="3"/>
+  <text x="400" y="254" text-anchor="middle" class="warn">Wire 4: Right motor direction</text>
+
+  <!-- Wire 5: GND (thick, emphasized) -->
+  <line x1="180" y1="324" x2="620" y2="324" stroke="#1e1e1e" stroke-width="5"/>
+  <text x="400" y="318" text-anchor="middle" class="gnd-wire">Wire 5: SHARED GROUND (mandatory!)</text>
+
+  <!-- Wire 6: 5V power -->
+  <line x1="620" y1="372" x2="180" y2="372" stroke="#ff9800" stroke-width="3" stroke-dasharray="8,4"/>
+  <text x="400" y="366" text-anchor="middle" style="font-size:11px;fill:#e65100;font-weight:bold">Wire 6: Logic power (untethered mode)</text>
+
+  <!-- Voltage Divider -->
+  <rect x="240" y="480" width="530" height="155" rx="8" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="505" y="502" text-anchor="middle" class="label" font-weight="bold">Voltage Divider Circuit (Phase 8)</text>
+
+  <rect x="260" y="520" width="75" height="30" rx="3" fill="#fff3e0" stroke="#ff9800" stroke-width="1"/>
+  <text x="298" y="540" text-anchor="middle" class="note">VBAT tap</text>
+
+  <line x1="335" y1="535" x2="370" y2="535" stroke="#f9a825" stroke-width="2"/>
+  <text x="353" y="528" text-anchor="middle" class="note">→</text>
+
+  <rect x="370" y="520" width="80" height="30" rx="3" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="410" y="540" text-anchor="middle" class="pin" style="font-size:12px">R1=22k</text>
+
+  <line x1="450" y1="535" x2="490" y2="535" stroke="#f9a825" stroke-width="2"/>
+
+  <circle cx="505" cy="535" r="18" fill="#ffcdd2" stroke="#d32f2f" stroke-width="1.5"/>
+  <text x="505" y="540" text-anchor="middle" class="note" style="font-size:10px;font-weight:bold">NODE</text>
+
+  <line x1="523" y1="535" x2="590" y2="535" stroke="#d32f2f" stroke-width="2"/>
+  <text x="557" y="528" text-anchor="middle" class="note">→ GPIO34</text>
+
+  <line x1="505" y1="553" x2="505" y2="580" stroke="#f9a825" stroke-width="2"/>
+
+  <rect x="465" y="580" width="80" height="30" rx="3" fill="#fff9c4" stroke="#f9a825" stroke-width="1.5"/>
+  <text x="505" y="600" text-anchor="middle" class="pin" style="font-size:12px">R2=10k</text>
+
+  <line x1="505" y1="610" x2="505" y2="625" stroke="#1e1e1e" stroke-width="2"/>
+  <text x="505" y="637" text-anchor="middle" class="label" style="font-size:11px">GND</text>
+
+  <text x="620" y="540" class="note">8.4V max ÷ 3.2 = 2.63V</text>
+  <text x="620" y="558" class="note">(safe for 3.3V ESP32 ADC)</text>
+  <text x="620" y="585" class="note">Optional: 100nF cap</text>
+  <text x="620" y="600" class="note">from NODE to GND</text>
+</svg>

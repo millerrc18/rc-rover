@@ -1,6 +1,6 @@
 # Stage 1 Rover A — Physical Build Guide
 
-_Last updated: 2026-03-17_
+_Last updated: 2026-03-19_
 
 > **Board notice:** This guide targets the **Pololu Romi Motor Driver and Power Distribution Board (#3543)** exclusively. If you have any version of this guide that mentions `AIN1`, `AIN2`, `BIN1`, `BIN2`, `OUT1`–`OUT4`, or GPIO33 for M2DIR, discard it and use this file only.
 
@@ -49,6 +49,10 @@ The build must follow this sequence. Doing steps out of order creates rework:
 12. First battery power-on
 13. Motor direction verification and production firmware flash
 14. Drive validation
+
+### Build phase overview
+
+![Build Phase Order](images/build-phase-order.svg)
 
 ---
 
@@ -116,29 +120,150 @@ Three paths must all be correct:
 ## PHASE 0 — Toolchain Setup and ESP32 Verification
 
 ### Goal
-Confirm the ESP32 flashes and your development tools work before any hardware assembly.
+Confirm the ESP32 flashes and your development tools work before any hardware assembly. This eliminates an entire class of "is it my code or my wiring?" confusion later.
 
-### Install PlatformIO
-1. Install [Visual Studio Code](https://code.visualstudio.com/).
-2. Open VS Code → Extensions → search "PlatformIO IDE" → install.
-3. Restart VS Code.
+![Phase 0 Setup](images/phase0-setup.svg)
 
-### Verify the ESP32
-1. Connect ESP32 to laptop via USB-A to Micro-USB cable.
-2. Confirm a serial port appears (Device Manager on Windows; `ls /dev/tty*` on Mac/Linux).
-3. Navigate to `firmware/stage1-motor-test/` in a terminal.
-4. Run `pio run` — compiles the sketch (first run downloads ESP32 toolchain, ~5 min).
-5. Run `pio run -t upload` to flash.
-6. Run `pio device monitor -b 115200` and confirm you see:
+### What you need for this phase
+- ESP32-DevKitC-32E board (nothing else connected to it)
+- USB-A to Micro-USB cable (**must be a data cable**, not charge-only — if you can't tell, try it and check for a serial port)
+- Laptop with internet access
+
+### Step 1: Install PlatformIO
+
+1. Download and install [Visual Studio Code](https://code.visualstudio.com/) if you don't already have it.
+2. Open VS Code.
+3. Click the **Extensions** icon in the left sidebar (looks like 4 squares).
+4. In the search box, type `PlatformIO IDE`.
+5. Click **Install** on the PlatformIO IDE extension.
+6. Wait for installation to complete — a PlatformIO icon (alien head) appears in the left sidebar.
+7. **Restart VS Code** (close and reopen). This is required for PlatformIO to finish setup.
+
+### Step 2: Connect the ESP32
+
+1. **Do not connect anything else to the ESP32.** No batteries, no Romi board, no jumper wires. Just the bare board.
+2. Plug the **Micro-USB** end of the cable into the ESP32 board's USB port (bottom edge of the board).
+3. Plug the **USB-A** end into your laptop.
+4. The ESP32 power LED should light up (red or blue depending on board variant).
+
+### Step 3: Confirm the serial port appears
+
+**Windows:**
+- Open Device Manager → expand "Ports (COM & LPT)".
+- You should see "Silicon Labs CP210x" or "CH340" with a COM number (e.g., COM3).
+- If nothing appears: try a different USB cable, or install the [CP2102 driver](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers).
+
+**Mac:**
+- Open Terminal and run: `ls /dev/tty.usbserial*` or `ls /dev/tty.SLAB*`
+- You should see a device like `/dev/tty.usbserial-0001` or `/dev/tty.SLAB_USBtoUART`.
+- If nothing appears: install the [CP2102 driver from Silicon Labs](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers), then restart your Mac.
+
+**Linux:**
+- Open Terminal and run: `ls /dev/ttyUSB*`
+- You should see `/dev/ttyUSB0` or similar.
+- If permission denied: `sudo usermod -a -G dialout $USER` then log out and back in.
+
+### Step 4: Compile the motor test sketch
+
+Open a terminal (VS Code: Terminal → New Terminal, or use PlatformIO's built-in terminal) and run:
+
+```bash
+cd firmware/stage1-motor-test
+pio run
 ```
+
+**First run will take about 5 minutes** — PlatformIO downloads the ESP32 toolchain, Arduino framework, and BLE libraries. Subsequent builds are fast (~10 seconds).
+
+You should see output ending with:
+```
+Building .pio/build/esp32dev/firmware.bin
+===== [SUCCESS] Took X.XX seconds =====
+```
+
+If it fails: check that PlatformIO is fully installed (restart VS Code if needed).
+
+### Step 5: Flash the ESP32
+
+```bash
+pio run -t upload
+```
+
+You should see:
+```
+Connecting........_____
+Chip is ESP32-D0WD-V3
+Uploading stub...
+Writing at 0x00010000... (XX%)
+Hard resetting via RTS pin...
+===== [SUCCESS] Took X.XX seconds =====
+```
+
+**If it says "Connecting........_____" and hangs:**
+- Hold the **BOOT** button on the ESP32 board (small button, usually labeled BOOT or GPIO0).
+- While holding it, click upload again (or press the **EN** button once while still holding BOOT).
+- Release BOOT after you see "Connecting..." succeed.
+- Some boards need this every upload; some don't.
+
+### Step 6: Open the serial monitor
+
+```bash
+pio device monitor -b 115200
+```
+
+You should see:
+```
+========================================
 [MOTOR TEST] Starting.
 [MOTOR TEST] WHEELS MUST BE ELEVATED.
-[MOTOR TEST] Step 1: Left motor FORWARD ...
+[MOTOR TEST] Watch each wheel for correct spin direction.
+[MOTOR TEST] Note any reversed directions below:
+  Expected: DIR HIGH = forward (away from caster end)
+  If reversed: correct writeSide() in stage1-esp32-baseline main.cpp
+========================================
+[MOTOR TEST] Step 1: Left motor FORWARD (right wheel should be still)
+[MOTOR TEST] STOP
+[MOTOR TEST] Step 2: Left motor REVERSE (right wheel should be still)
+[MOTOR TEST] STOP
+... (continues through 8 steps)
+[MOTOR TEST] Sequence complete.
 ```
-Motors won't move yet — no motor power connected. This just confirms the toolchain and ESP32 are working.
 
-### Stop condition
-Stop Phase 0 only when the ESP32 flashes and serial output is confirmed.
+**Motors will not move** — there is no motor power connected. This only confirms the firmware is running.
+
+**If you see garbled text:** baud rate mismatch. Make sure the monitor uses 115200. Exit with `Ctrl+C` and retry.
+
+**If you see nothing:** press the **EN** (reset) button on the ESP32 board. The test sequence runs once at boot.
+
+### Step 7: Verify you can also compile the production firmware
+
+```bash
+cd ../stage1-esp32-baseline
+pio run
+```
+
+Don't flash it yet — just confirm it compiles. You'll flash this after motor direction validation in Phase 12.
+
+### Phase 0 completion criteria
+
+- [ ] PlatformIO installed and VS Code recognizes it
+- [ ] ESP32 serial port visible on your computer
+- [ ] Motor test sketch compiles and uploads successfully
+- [ ] Serial monitor shows the full 8-step test sequence
+- [ ] Production firmware compiles successfully (not flashed yet)
+
+**All five boxes checked? Phase 0 is complete. Move to Phase 1.**
+
+### Phase 0 troubleshooting reference
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| No serial port appears | Charge-only USB cable | Try a different cable — data cables are slightly thicker |
+| No serial port appears | Missing USB driver | Install CP2102 driver from Silicon Labs |
+| Upload hangs at "Connecting..." | ESP32 not entering bootloader | Hold BOOT button during upload |
+| Compile error "board not found" | PlatformIO not fully installed | Restart VS Code, wait for PlatformIO setup |
+| Garbled serial output | Wrong baud rate | Ensure 115200 in monitor command |
+| No serial output at all | ESP32 not running | Press EN (reset) button |
+| `pio` command not found | PlatformIO not in PATH | Use PlatformIO terminal inside VS Code instead |
 
 ---
 
@@ -268,6 +393,8 @@ ESP32 is secure and USB port is unobstructed.
 
 ### Goal
 Connect the five jumper wires from ESP32 GPIO pins to the Romi Motor Driver board.
+
+![Wiring Connections](images/wiring-connections.svg)
 
 ### Frozen Stage 1 wiring map
 
