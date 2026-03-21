@@ -1,6 +1,6 @@
 # Procurement Status (Stage 0/1)
 
-_Last updated: 2026-03-17_
+_Last updated: 2026-03-20_
 
 Track procurement reality for each critical item before assembly begins.
 
@@ -8,31 +8,31 @@ Track procurement reality for each critical item before assembly begins.
 
 | Part | Ordered? | Received? | Inspected? | Notes |
 |---|---|---|---|---|
-| Pololu Romi Chassis Kit - Blue (Pololu #3506) | Yes | No | No | Arriving Saturday |
-| ESP32-DevKitC-32E | Yes | No | No | Arriving tomorrow |
-| Pololu Romi Motor Driver and Power Distribution Board (Pololu #3543) | Yes | No | No | Arriving Saturday |
-| AA NiMH cell set (6 cells) | Yes | No | No | Arriving tomorrow |
-| NiMH smart charger | Yes | No | No | Arriving tomorrow |
-| Inline automotive blade fuse holder | Yes | No | No | Arriving tomorrow |
-| 5A ATO/ATC blade fuses | Yes | No | No | Arriving tomorrow |
-| SPST rocker toggle switch (DC-rated) | Yes | Yes | Yes | Arrived today — inspected OK |
-| USB-A to Micro-USB data cable | Yes | No | No | Arriving tomorrow |
-| 22 AWG silicone wire kit | Yes | No | No | Arriving tomorrow |
-| JST-SM or JST-PH 2-pin connectors / harness | Yes | No | No | Arriving tomorrow |
-| Dupont 2.54mm connector kit + crimper | Yes | Yes | Yes | Arrived today — inspected OK. Practice crimps recommended before build. |
-| Ring/fork terminals + ferrules kit | Yes | No | No | Arriving tomorrow |
-| Heat-shrink tubing assortment | Yes | No | No | Arriving tomorrow |
-| Mounting standoffs/spacers + screws | Yes | Yes | Yes | Arrived today — M3 only. See note below. |
-| Hook-and-loop straps / cable ties | Yes | No | No | Arriving tomorrow |
-| Perfboard / mini protoboard | Yes | No | No | Arriving tomorrow |
-| Digital multimeter | Yes | No | No | Arriving tomorrow (or mark N/A if already owned) |
+| Pololu Romi Chassis Kit - Blue (Pololu #3506) | Yes | Yes | Pending | Arrived 2026-03-20 |
+| ESP32-DevKitC-32E | Yes | Yes | Yes | Arrived 2026-03-20. Phase 0 passed — flashes, serial confirmed, COM4. CP2102 driver required on Windows. |
+| Pololu Romi Motor Driver and Power Distribution Board (Pololu #3543) | Yes | Yes | Pending | Arrived 2026-03-20 |
+| AA NiMH cell set (6 cells) | Yes | Yes | Pending | Arrived 2026-03-20 |
+| NiMH smart charger | Yes | Yes | Pending | Arrived 2026-03-20 |
+| Inline automotive blade fuse holder | Yes | Yes | Pending | Arrived 2026-03-20 |
+| 5A ATO/ATC blade fuses | Yes | Yes | Pending | Arrived 2026-03-20 |
+| SPST rocker toggle switch (DC-rated) | Yes | Yes | Yes | Arrived 2026-03-17 — inspected OK |
+| USB-A to Micro-USB data cable | Yes | Yes | Yes | Arrived 2026-03-20. Confirmed data-capable (COM port appears). |
+| 22 AWG silicone wire kit | Yes | Yes | Pending | Arrived 2026-03-20 |
+| JST-SM or JST-PH 2-pin connectors / harness | Yes | Yes | Pending | Arrived 2026-03-20 |
+| Dupont 2.54mm connector kit + crimper | Yes | Yes | Yes | Arrived 2026-03-17 — inspected OK |
+| Ring/fork terminals + ferrules kit | Yes | Yes | Pending | Arrived 2026-03-20 |
+| Heat-shrink tubing assortment | Yes | Yes | Pending | Arrived 2026-03-20 |
+| Mounting standoffs/spacers + screws | Yes | Yes | Yes | Arrived 2026-03-17 — M3 only. See note below. |
+| Hook-and-loop straps / cable ties | Yes | Yes | Pending | Arrived 2026-03-20 |
+| Perfboard / mini protoboard | Yes | Yes | Pending | Arrived 2026-03-20 |
+| Digital multimeter | Yes | Yes | Pending | Arrived 2026-03-20 |
 
 ## Resistors (battery voltage divider)
 
 | Part | Received? | Inspected? | Notes |
 |---|---|---|---|
-| R1 — **22kΩ** (substituted for 20kΩ) | Yes | Yes | Arrived today. 22kΩ substituted for originally specified 20kΩ — safe, see substitution note below. |
-| R2 — 10kΩ | Yes | Yes | Arrived today — confirmed present in assortment. |
+| R1 — **22kΩ** (substituted for 20kΩ) | Yes | Yes | Arrived 2026-03-17. 22kΩ substituted for originally specified 20kΩ — safe, see substitution note below. |
+| R2 — 10kΩ | Yes | Yes | Arrived 2026-03-17 — confirmed present in assortment. |
 
 ### Resistor substitution note — 22kΩ for 20kΩ
 

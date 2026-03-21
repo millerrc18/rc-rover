@@ -173,3 +173,14 @@ Full-repo review identified documentation sprawl (40+ files for a pre-hardware p
   - Explicit completion checklist (5 items)
   - Troubleshooting table covering 7 common failure modes
 - Added diagram references to build guide Phase 6 (wiring) and build overview.
+
+## 2026-03-20 — All parts received; Phase 0 complete
+
+- All remaining Stage 1 parts arrived and marked received in `docs/PROCUREMENT_STATUS.md`.
+- ESP32-DevKitC-32E verified on physical hardware:
+  - Windows required CP2102 driver installation (Silicon Labs). Board enumerates as COM4.
+  - PlatformIO CLI not in PowerShell PATH — resolved by using PlatformIO's built-in terminal in VS Code.
+  - Motor test sketch (`firmware/stage1-motor-test/`) flashed and serial output confirmed (all 8 steps).
+  - Production firmware (`firmware/stage1-esp32-baseline/`) compiles successfully.
+- Phase 0 completion criteria: all 5 items passed.
+- Phase 1 (soldering) is next. Builder is first-time solderer.

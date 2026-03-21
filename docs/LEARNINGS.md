@@ -33,3 +33,8 @@ This file captures lessons learned, mistakes made and heuristics discovered duri
 - Documentation-driven projects accumulate files faster than code projects. A periodic consolidation pass (merging small single-purpose files into their parent docs, archiving superseded files) is essential to keep the repo navigable for humans.
 - When a substitution changes a value (20kΩ → 22kΩ), every living doc that states the old value must be updated in the same commit. Historical records (BUILD_LOG, DECISIONS) should preserve the original values as history, but operational docs (PROJECT_STATE, HANDOFF, NEXT_STEPS, wiring diagrams) must always reflect the as-built state.
 - If documentation claims a firmware feature exists (e.g. "8-sample moving average"), the implementation must actually contain it. Doc-first is good, but doc-only is a bug.
+
+## 2026-03-20
+
+- PlatformIO CLI (`pio`) is not on the system PATH in Windows PowerShell by default. The PlatformIO terminal inside VS Code resolves this. Build guides should mention this as the recommended terminal, not assume `pio` is globally available.
+- CP2102 driver installation is a required first step on Windows for ESP32-DevKitC-32E boards. The "Ports (COM & LPT)" section in Device Manager does not appear at all until the driver is installed. Build guides should lead with driver installation before "confirm serial port appears".

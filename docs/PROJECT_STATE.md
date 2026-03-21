@@ -1,32 +1,36 @@
 # Project State
 
-_Last updated: 2026-03-19_
+_Last updated: 2026-03-20_
 
 This file is the canonical description of current project status.
 
 ## Current phase
 
-**Stage 1 execution — parts arriving, build imminent.**
+**Stage 1 physical build in progress — Phase 0 complete, entering Phase 1 (soldering).**
 
 ## What exists
 
 - Stage 1 hardware freeze: `docs/HARDWARE_ARCHITECTURE.md`, `docs/STAGE_1_WIRING.md`
 - Production firmware: `firmware/stage1-esp32-baseline/` (BLE teleop, deadman, e-stop, battery ADC)
 - Motor test firmware: `firmware/stage1-motor-test/` (standalone, no BLE required)
-- Physical build guide: `docs/builds/stage1-rover-a-build.md`
+- Physical build guide: `docs/builds/stage1-rover-a-build.md` (with SVG diagrams)
 - BOM: `hardware/bom-stage-0-1.csv`
 - Procurement tracker: `docs/PROCUREMENT_STATUS.md`
 
 ## Hardware state
 
-- First batch of parts received (switches, resistors, Dupont kit, standoffs).
-- ESP32, batteries, wiring items arriving tomorrow.
-- Romi chassis (#3506) and Motor Driver board (#3543) arriving Saturday.
-- No assembly, wiring, flashing, or bench testing has occurred.
+- **All Stage 1 parts received.** See `docs/PROCUREMENT_STATUS.md` for per-item status.
+- ESP32-DevKitC-32E verified on physical hardware:
+  - CP2102 driver installed (Windows), enumerated as COM4.
+  - Motor test sketch flashed and serial output confirmed.
+  - Production firmware compiles successfully.
+- **Phase 0 (toolchain + ESP32 verification): COMPLETE.**
+- Phase 1 (solder headers to Romi board): next.
+- No soldering, assembly, or wiring performed yet.
 
 ## Software state
 
-Both firmware projects compile but have not been validated on physical hardware.
+Motor test firmware validated on physical ESP32 hardware. Production firmware compiles but has not been flashed to hardware yet (will be flashed in Phase 12 after motor direction verification).
 
 ## Confirmed decisions
 
