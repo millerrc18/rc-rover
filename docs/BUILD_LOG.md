@@ -184,3 +184,12 @@ Full-repo review identified documentation sprawl (40+ files for a pre-hardware p
   - Production firmware (`firmware/stage1-esp32-baseline/`) compiles successfully.
 - Phase 0 completion criteria: all 5 items passed.
 - Phase 1 (soldering) is next. Builder is first-time solderer.
+
+## 2026-03-20 — Build guide updated with Pololu photo references
+
+- Added "Visual references" section to build guide overview with links to three key Pololu pages:
+  - Romi Chassis Assembly Guide (pololu.com/docs/0J68/4)
+  - Romi Chassis Power Options / series jumper photo (pololu.com/docs/0J68/all Section 5)
+  - Motor Driver Board product page with pin layout (pololu.com/product/3543)
+- Added photo reference callouts (📷) to Phases 1, 2, 3, 4, 6, and 12, pointing to the specific Pololu page sections with relevant photos for each step.
+- Added DRV8838 DIR convention note to Phase 12: Pololu docs say DIR LOW = forward, but firmware uses DIR HIGH = forward. Motor test will reveal actual direction; fix in firmware if needed.

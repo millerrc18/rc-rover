@@ -1,6 +1,6 @@
 # Stage 1 Rover A — Physical Build Guide
 
-_Last updated: 2026-03-19_
+_Last updated: 2026-03-20_
 
 > **Board notice:** This guide targets the **Pololu Romi Motor Driver and Power Distribution Board (#3543)** exclusively. If you have any version of this guide that mentions `AIN1`, `AIN2`, `BIN1`, `BIN2`, `OUT1`–`OUT4`, or GPIO33 for M2DIR, discard it and use this file only.
 
@@ -53,6 +53,14 @@ The build must follow this sequence. Doing steps out of order creates rework:
 ### Build phase overview
 
 ![Build Phase Order](images/build-phase-order.svg)
+
+### Visual references — keep these open during the build
+
+These Pololu pages have step-by-step photos of the actual parts you're working with. Open them in separate browser tabs and reference them alongside these instructions:
+
+- **Romi Chassis Assembly Guide (photos of every step):** [pololu.com/docs/0J68/4](https://www.pololu.com/docs/0J68/4) — battery contacts, motor clips, wheels, ball caster
+- **Romi Chassis Power Options (series jumper photo):** [pololu.com/docs/0J68/all#5](https://www.pololu.com/docs/0J68/all) — scroll to Section 5 for the battery wiring diagram and series jumper photo
+- **Motor Driver Board Product Page (board photos + pin descriptions):** [pololu.com/product/3543](https://www.pololu.com/product/3543) — scroll to "Using the board" for installation photos, pin layout diagram, and motor driver descriptions
 
 ---
 
@@ -272,6 +280,8 @@ Don't flash it yet — just confirm it compiles. You'll flash this after motor d
 ### Goal
 Complete all soldering to the Romi board while it is off the chassis. Access is much better now than after mounting.
 
+> **📷 Photo reference:** See the [Motor Driver Board product page](https://www.pololu.com/product/3543) — scroll to "Using the board > Installation" for photos of the board with headers installed, and the board mounted on a chassis. The first photo shows the board with included hardware laid out. The second photo shows it mounted on a chassis before motors are installed.
+
 ### What to solder
 
 **A. Motor connection female headers**
@@ -310,6 +320,8 @@ Stop Phase 1 only when both motor female headers and all control signal male hea
 ### Goal
 Build a straight, freely rolling chassis before adding electronics.
 
+> **📷 Photo reference:** Follow along with the [Romi Chassis Assembly Guide](https://www.pololu.com/docs/0J68/4) — it has photos of each step: battery contacts going in from the underside (step 1) and top (step 2), motor clips pressing into place (step 4), and wheels snapping onto shafts.
+
 ### Steps
 1. Place chassis flat with battery compartment facing up.
 2. Install ball caster in the rear mounting hole. Snug, not over-tightened.
@@ -330,6 +342,8 @@ Rover rolls freely with no scraping or binding.
 
 ### Goal
 Mount the prepared Romi board and complete the battery contact soldering.
+
+> **📷 Photo reference:** The [Romi Chassis Assembly Guide](https://www.pololu.com/docs/0J68/4) step 3 shows a board being pressed onto the chassis connector. The [Motor Driver Board product page](https://www.pololu.com/product/3543) "Installation" section has a photo of the motor driver board mounted on the chassis. The battery contacts are the same process shown in the chassis guide — your board is smaller than the one pictured, but the battery contact soldering is identical.
 
 ### Mount the board
 1. Confirm no batteries are installed.
@@ -353,6 +367,8 @@ Board mounted securely, all four battery contacts soldered.
 
 ### Goal
 Connect the two battery sections in series for full 6-cell (7.2V nominal) power.
+
+> **📷 Photo reference:** The [Romi Chassis Power Options](https://www.pololu.com/docs/0J68/all) Section 5 has a diagram showing the two battery sections and a photo of the series jumper wire soldered between them. Scroll down to "Another option is to use all six batteries in series" — that's exactly what you're doing here. For the Motor Driver board specifically, the [product page](https://www.pololu.com/product/3543) mentions the "Bat Jmp" pads in the "Battery jumper" section.
 
 ### Why this is needed
 The Romi battery compartment has a 4-cell section and a 2-cell section. Without a jumper they are isolated. A short wire connects them in series.
@@ -393,6 +409,8 @@ ESP32 is secure and USB port is unobstructed.
 
 ### Goal
 Connect the five jumper wires from ESP32 GPIO pins to the Romi Motor Driver board.
+
+> **📷 Photo reference:** The [Motor Driver Board product page](https://www.pololu.com/product/3543) "Motor drivers" section describes the DIR and PWM pins. Scroll to the pin layout diagram to see where M1PWM, M1DIR, M2PWM, M2DIR, GND, and 5V are located on the board. For the ESP32 pinout, search "ESP32-DevKitC-32E pinout" for a labeled pin diagram showing where GPIO25, GPIO26, GPIO27, GPIO14, GND, and 5V are located.
 
 ![Wiring Connections](images/wiring-connections.svg)
 
@@ -545,6 +563,8 @@ Battery-powered operation stable and safe through the motor test sequence.
 
 ### Goal
 Confirm motor spin directions, then switch to production BLE firmware.
+
+> **📷 Photo reference:** The [Motor Driver Board product page](https://www.pololu.com/product/3543) "Motor drivers" section explains the DRV8838 direction convention: DIR LOW = forward, DIR HIGH = reverse. The motor test sketch uses DIR HIGH = forward. This means wheels may spin opposite to what you expect on the first test — that's normal. Just note which direction each wheel actually spins and correct in firmware if needed.
 
 ### Steps
 1. With wheels elevated and rover battery-powered, observe the serial output step labels and watch each wheel.
