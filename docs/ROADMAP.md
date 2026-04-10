@@ -122,10 +122,13 @@ Move beyond Rover A / Mk1 when one or more are true:
 - Add battery-voltage reporting baseline.
 - Deliverable: rover can be remotely driven on flat surface and pass Stage 1 acceptance tests.
 
-## Stage 2: Basic telemetry
+## Stage 2: Wi-Fi transport and web dashboard
 
-- Add current sensing and richer battery health telemetry.
-- Improve runtime status indicators and logging.
+- Add Wi-Fi as second transport alongside BLE (configurable AP/STA mode).
+- Serve a web-based control dashboard from the ESP32 (virtual joystick, e-stop, telemetry).
+- WebSocket for browser/mobile control, UDP for future handheld controller.
+- Source arbitration: last-writer-wins with switchover cooldown.
+- See `docs/STAGE_2_DESIGN.md` for full design.
 
 ## Stage 3: First obstacle sensor
 

@@ -28,7 +28,7 @@ Detailed references:
 
 1. **Stage 0 – Rolling chassis**
 2. **Stage 1 – Manual remote control (active focus)**
-3. **Stage 2 – Basic telemetry**
+3. **Stage 2 – Wi-Fi transport and web dashboard**
 4. **Stage 3 – First obstacle sensor**
 5. **Stage 4 – Motion sensing**
 6. **Stage 5 – Closed-loop control**
