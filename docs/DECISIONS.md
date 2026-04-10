@@ -203,3 +203,19 @@ This file records important decisions made in the project.  Each entry should in
 **Decision:** Add Romi Encoder Pair Kit (#3542) to the Stage 1 BOM for motor connection.
 **Rationale:** The Romi Motor Driver board's female headers are designed for encoder boards with male pins — bare motor tabs don't reach or plug into them. The alternative (soldering wires to motor tabs and using terminal blocks) is more complex and less reliable. Encoders also provide speed/direction feedback that will be valuable for closed-loop control in later stages.
 **Consequences:** Encoder kit ordered. Phase 11 blocked until arrival. Encoders snap onto existing motors and plug directly into already-soldered female headers. BOM updated. Future stages gain encoder data for free.
+
+---
+
+**Date:** 2026-04-10
+**Status:** Accepted
+**Decision:** Use `ESP32Async/ESPAsyncWebServer` and `ESP32Async/AsyncTCP` as the WebSocket/HTTP server libraries for Stage 2.
+**Rationale:** The original `me-no-dev/ESPAsyncWebServer` was archived in January 2025. The `mathieucarbou` fork was also archived in January 2025 and migrated to the `ESP32Async` GitHub organization. `ESP32Async/ESPAsyncWebServer` is the actively maintained community fork with concurrency fixes, Arduino 3.x compatibility, and regular releases on PlatformIO registry.
+**Consequences:** `platformio.ini` lib_deps will reference `ESP32Async/ESPAsyncWebServer` and `ESP32Async/AsyncTCP`. API is backward-compatible with the original `me-no-dev` library.
+
+---
+
+**Date:** 2026-04-10
+**Status:** Accepted
+**Decision:** Use nipplejs as the virtual joystick library for the web dashboard.
+**Rationale:** nipplejs is a mature, zero-dependency, ~10KB minified library purpose-built for touch+mouse virtual joysticks. It's widely proven in ESP32 web control projects. The source will be embedded directly in `index.html` since the ESP32 AP has no internet access for CDN loading.
+**Consequences:** No build tooling required — just inline the minified JS. The library provides force/angle/vector output that maps directly to T (throttle) and R (turn) values.
