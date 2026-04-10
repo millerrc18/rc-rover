@@ -195,3 +195,11 @@ This file records important decisions made in the project.  Each entry should in
 **Decision:** Consolidate documentation by merging small single-purpose files into parent docs, archiving superseded files, and removing unused templates/quality logs.
 **Rationale:** 40+ documentation files for a pre-hardware project creates maintenance burden (5-8 file updates per change) and navigation difficulty for human contributors. Separate quality logs duplicated BUILD_LOG content. Templates were never used.
 **Consequences:** Active file count reduced from ~40 to ~22. Superseded docs preserved in `docs/archive/`. `STAGE_1_PIN_MAP.md` and `STAGE_1_WIRING_DIAGRAM.md` merged into `STAGE_1_WIRING.md`. `START_HERE.md`, `GLOSSARY.md`, `PROJECT_CHARTER.md` absorbed into `README.md`. `INTERFACE_MAP.md` merged into `HARDWARE_ARCHITECTURE.md`. Cross-file references updated throughout.
+
+---
+
+**Date:** 2026-04-10
+**Status:** Accepted
+**Decision:** Add Romi Encoder Pair Kit (#3542) to the Stage 1 BOM for motor connection.
+**Rationale:** The Romi Motor Driver board's female headers are designed for encoder boards with male pins — bare motor tabs don't reach or plug into them. The alternative (soldering wires to motor tabs and using terminal blocks) is more complex and less reliable. Encoders also provide speed/direction feedback that will be valuable for closed-loop control in later stages.
+**Consequences:** Encoder kit ordered. Phase 11 blocked until arrival. Encoders snap onto existing motors and plug directly into already-soldered female headers. BOM updated. Future stages gain encoder data for free.

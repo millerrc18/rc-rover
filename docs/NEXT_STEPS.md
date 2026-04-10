@@ -1,17 +1,12 @@
 # Next Steps
 
-_Last updated: 2026-03-19_
+_Last updated: 2026-04-10_
 
-## Now
+## Now (blocked on encoder delivery)
 
-- Receive parts tomorrow; update `docs/PROCUREMENT_STATUS.md` as items arrive.
-- Verify ESP32 enumerates over USB and flashes cleanly.
-- Flash `firmware/stage1-motor-test/` to confirm toolchain works end-to-end.
-- Receive Romi chassis (#3506) and Motor Driver board (#3543) Saturday.
-- Assemble per `docs/builds/stage1-rover-a-build.md`.
-- Perform wiring and pre-power checks per `docs/STAGE_1_WIRING.md` (R1=22kΩ / R2=10kΩ).
-- Flash motor test on assembled hardware for wheel-off-ground validation.
-- Reflash `firmware/stage1-esp32-baseline/` and run first logged bench bring-up.
+- Install Romi Encoder Pair Kit (#3542) when it arrives.
+- Phase 11: First battery power-on — wheels elevated, motor test firmware, press Romi power button + EN reset.
+- Phase 12: Motor direction check, then flash production firmware.
 
 ## Next
 
@@ -30,12 +25,13 @@ _Last updated: 2026-03-19_
 ## Later
 
 - Mk2/Mk3/Mk4 remain documented planning scope only.
-- Front distance sensing (Stage 3), encoders + IMU (Stage 4).
+- Front distance sensing (Stage 3), IMU (Stage 4).
 - Telemetry logging, higher-level control loops.
 - Handheld physical controller as primary long-term control surface.
 
 ## Blocked
 
+- **Phase 11–13:** Waiting on Romi Encoder Pair Kit (#3542) for motor connection.
 - Final naming/branding.
 - Autonomy stack before Stage 1 completion.
 - All control surface work until Stage 2.

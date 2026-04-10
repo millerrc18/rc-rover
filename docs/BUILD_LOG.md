@@ -193,3 +193,26 @@ Full-repo review identified documentation sprawl (40+ files for a pre-hardware p
   - Motor Driver Board product page with pin layout (pololu.com/product/3543)
 - Added photo reference callouts (📷) to Phases 1, 2, 3, 4, 6, and 12, pointing to the specific Pololu page sections with relevant photos for each step.
 - Added DRV8838 DIR convention note to Phase 12: Pololu docs say DIR LOW = forward, but firmware uses DIR HIGH = forward. Motor test will reveal actual direction; fix in firmware if needed.
+
+## 2026-04-10 — Physical build progress: Phases 1–10 complete, Phase 11 blocked
+
+**Build progress since last entry:**
+- Phase 1: Soldered female motor headers and male control signal headers to Romi board. Initial pin header orientation was wrong (long pins down instead of up) — successfully desoldered using solder wick and re-soldered correctly. Soldering quality improved significantly after upgrading to chisel tip and rosin-core solder mid-build.
+- Phase 2: Mechanical chassis assembled (motors, wheels, caster).
+- Phase 3: Romi board mounted to chassis, battery contacts soldered.
+- Phase 4: 6-cell series jumper wire soldered (BAT1- to BAT2+).
+- Phase 5: ESP32 mounted on chassis deck with foam tape.
+- Phase 6: All 4 motor control jumper wires connected (GPIO25→LPWM, GPIO26→LDIR, GPIO27→RPWM, GPIO14→RDIR) plus GND.
+- Phase 7: 5V power wire connected (VREG→ESP32 5V).
+- Phase 8: Voltage divider circuit built on perfboard (22kΩ + 10kΩ, GPIO34).
+- Phase 9: Pre-power continuity checks passed.
+- Phase 10: USB power-on test passed (motor test firmware serial output confirmed).
+
+**ESP32 failure and replacement:**
+- Original ESP32 stuck in DOWNLOAD_BOOT mode (`boot:0x1`) on every reset, even with all wires disconnected. Likely shorted BOOT button or damaged GPIO0 trace. Replaced with second ESP32-DevKitC-32E — works correctly.
+
+**Phase 11 blocker: motor connection:**
+- Attempted first battery power-on but motors have no electrical connection to the motor driver board. The female headers are designed to receive male pins from the Romi Encoder Pair Kit (#3542) — bare motors don't plug in. Ordered encoder kit; Phase 11 blocked until arrival.
+
+**Documentation update:**
+- Updated PROJECT_STATE.md, HANDOFF.md, NEXT_STEPS.md, LEARNINGS.md to reflect actual build state (was stuck at "Phase 0 complete").

@@ -1,26 +1,27 @@
 # Handoff Summary
 
-_Last updated: 2026-03-20_
+_Last updated: 2026-04-10_
 
 ## Current phase
 
-Stage 1 physical build — Phase 0 complete, Phase 1 (soldering) next.
+Stage 1 physical build — Phases 0–10 complete. Phase 11 (battery power-on) BLOCKED waiting on Romi Encoder Pair Kit (#3542).
 
 ## What just happened
 
-- All remaining parts arrived and received.
-- ESP32-DevKitC-32E verified on physical hardware:
-  - CP2102 driver installed on Windows; board enumerates as COM4.
-  - Motor test sketch flashed successfully via PlatformIO CLI terminal (PowerShell PATH issue resolved by using PlatformIO's built-in terminal).
-  - Serial output confirmed: all 8 motor test steps print correctly.
-  - Production firmware compiles successfully (not yet flashed).
-- Phase 0 completion criteria: all 5 items checked off.
+- Built through Phase 10 (USB power-on test passed).
+- Discovered motors don't connect directly to the female headers — those headers are designed for the Romi Encoder Pair Kit. Encoders ordered.
+- Original ESP32 failed (stuck in DOWNLOAD_BOOT mode, likely shorted BOOT button). Replaced with a second ESP32 which works correctly.
+- Earlier in the build: pin headers were soldered with long pins facing wrong direction. Successfully desoldered and re-soldered correctly using solder wick.
+- Voltage divider circuit built on perfboard (22kΩ + 10kΩ, GPIO34).
 
 ## Hardware status
 
-- All Stage 1 parts received. See `docs/PROCUREMENT_STATUS.md`.
-- ESP32 verified working. No other hardware assembled yet.
-- Builder is first-time solderer — Phase 1 may need extra care.
+- Chassis fully assembled (motors, wheels, caster).
+- Romi Motor Driver board mounted, battery contacts soldered, 6-cell series jumper installed.
+- ESP32 #2 mounted on chassis with foam tape, all 6 jumper wires connected.
+- Voltage divider circuit complete.
+- 6 AA NiMH batteries installed.
+- **BLOCKED:** No motor connection until encoder kit arrives.
 
 ## Constraints
 
@@ -31,15 +32,15 @@ Stage 1 physical build — Phase 0 complete, Phase 1 (soldering) next.
 
 ## Next three actions
 
-1. Phase 1: Solder motor female headers and control signal male headers to Romi Motor Driver board (bench, before mounting).
-2. Phase 2: Mechanical chassis assembly (motors, wheels, caster, battery contacts placed loosely).
-3. Phase 3-5: Mount board in chassis, solder battery contacts, solder 6-cell series jumper.
+1. Install Romi Encoder Pair Kit (#3542) when it arrives — snaps onto motors, plugs into female headers.
+2. Phase 11: First battery power-on with motor test firmware. Wheels elevated.
+3. Phase 12: Motor direction check, then flash production firmware.
 
 ## Key files
 
-- `docs/builds/stage1-rover-a-build.md` — live build checklist (Phase 1 next)
+- `docs/builds/stage1-rover-a-build.md` — live build checklist
 - `docs/STAGE_1_WIRING.md` — wiring/pin reference and checklists
-- `firmware/stage1-motor-test/` — already flashed; will re-run after assembly
+- `firmware/stage1-motor-test/` — flashed on replacement ESP32
 - `firmware/stage1-esp32-baseline/` — flash in Phase 12
 - `docs/BENCH_BRINGUP_LOG.md` — log bring-up session
 - `docs/STAGE_1_ACCEPTANCE_TEST.md` — pass/fail criteria

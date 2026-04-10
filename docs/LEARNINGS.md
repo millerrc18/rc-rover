@@ -40,3 +40,10 @@ This file captures lessons learned, mistakes made and heuristics discovered duri
 - CP2102 driver installation is a required first step on Windows for ESP32-DevKitC-32E boards. The "Ports (COM & LPT)" section in Device Manager does not appear at all until the driver is installed. Build guides should lead with driver installation before "confirm serial port appears".
 - A build guide for a visual learner needs external photo references at every physical phase. Manufacturer documentation (Pololu in this case) already has professional step-by-step photos — linking directly to the right section at each phase is more effective than trying to describe what parts look like in text.
 - The DRV8838 motor driver on the Romi board uses DIR LOW = forward by convention, but firmware may use DIR HIGH = forward. This mismatch is harmless — the motor test step exists specifically to catch it — but the build guide should warn that wheels may spin "backward" on first test and that this is expected and fixable in firmware.
+
+## 2026-04-10
+
+- The Romi Motor Driver board's included female headers are designed for the Romi Encoder Pair Kit (#3542), not for bare motor tabs. Without encoders installed, the motors have no electrical connection to the board. The Pololu docs mention this but it's easy to miss — the build guide should explicitly state that encoder boards or terminal blocks are required for motor connection.
+- ESP32 boards can fail with a stuck BOOT button or shorted GPIO0, causing permanent DOWNLOAD_BOOT mode. Symptoms: `boot:0x1 (DOWNLOAD_BOOT)` on every reset even with nothing connected. The fix is to swap the board. Keep a spare ESP32 on hand.
+- When an ESP32 enters download mode after a flash, pressing EN (reset) usually fixes it. If it persists across power cycles with all wires disconnected, the board is likely defective.
+- Desoldering through-hole pin headers is significantly harder than initial soldering. Solder wick with fresh flux and added solder for heat transfer is the most reliable technique. Prevention (checking orientation before soldering all pins) is far cheaper than correction.
